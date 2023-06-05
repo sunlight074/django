@@ -7,3 +7,12 @@ def login(request):
 
 def jobAlert(request):
     return render(request ,"jobAlert.html")
+
+def mainTable(request):
+    return render(request ,"table.html")
+
+def kanban(request):
+    return render(request ,"kanban.html")
+
+def dashboard(request):
+    return render(request ,"dashboard.html")
