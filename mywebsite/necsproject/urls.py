@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import index
+from .views import login ,jobAlert
+
 urlpatterns = [
-    path('', index),
+    path('', login),
+    path('job-alert', jobAlert),
 ]
