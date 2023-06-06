@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style></style>
-    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %} {% load static %}
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-black">
       <div class="container">
         <a class="navbar-brand" href="#">
           <img
-            src="https://cdn.discordapp.com/attachments/744497433668616303/1114477068453953566/Untitled_1.jpeg"
+            src="{% static 'image/Necsproject2.png' %}"
             alt=""
             class="navbar-brand-img"
             style="height: 40px; width: 60px"

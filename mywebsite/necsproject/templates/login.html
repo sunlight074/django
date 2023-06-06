@@ -15,7 +15,7 @@
         height: 100vh;
       }
     </style>
-    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %} {% load static %} 
   </head>
   <body>
     <div class="background d-flex justify-content-center align-items-center">
@@ -23,7 +23,7 @@
         <div class="w-100 d-flex justify-content-center">
           <img
             alt="logo"
-            src="https://cdn.discordapp.com/attachments/744497433668616303/1114461131302502490/image.png"
+            src="{% static 'image/Necsproject.png' %}"
             style="width: 200px; height: 130px"
           />
         </div>
