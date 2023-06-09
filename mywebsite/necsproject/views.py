@@ -1,8 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import *
 # Create your views here.
 
 def login(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        print(username)
+        print(password)
     return render(request ,"login.html")
 
 def jobAlert(request):
