@@ -15,9 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include # ใช้ include ในการเรียกใช้งาน urls.py ของแต่ละ app
+from django.urls import path, include
+from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('necsproject.urls')), # ใช้ include ในการเรียกใช้งาน urls.py ของแต่ละ app
+    path('',include("necsproject.urls")), # ใช้ include เพื่อเรียกใช้งาน urls ของแต่ละ app
+    path('', views.LoginView.as_view(template_name='login.html'),name='login'),
+    path('logout/', views.LogoutView.as_view(template_name='logout.html'),name='logout'),
+
 ]

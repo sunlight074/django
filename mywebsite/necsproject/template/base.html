@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> {% block title %} Necsproject {% endblock title %}</title>
+    <style></style>
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %} {% load static %}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'image/Necsproject2.png' %}" alt="" class="navbar-brand-img"
+                    style="height: 40px; width: 60px" />
+            </a>
+
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    {% block nav-job %}
+                    <li class="nav-item">
+                        <a href="{% url 'jobalert-page' %}" target="_blank" class="nav-link">Job alert</a>
+                    </li>
+                    {% endblock nav-job %}
+
+                    {% block nav-main %}
+                    <li class="nav-item">
+                        <a href="{% url 'maintable-page' %}" class="nav-link">Main table</a>
+                    </li>
+                    {% endblock nav-main %}
+
+                    {% block nav-kanban %}
+                    <li class="nav-item">
+                        <a href="{% url 'kanban-page' %}" class="nav-link">Kanban</a>
+                    </li>
+                    {% endblock nav-kanban %}
+
+                    {% block nav-dashboard %}
+                    <li class="nav-item">
+                        <a href="{% url 'dashboard-page' %}" class="nav-link">DashBoard</a>
+                    </li>
+                    {% endblock nav-dashboard %}
+
+
+
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">{{user.first_name}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="nav-link">Login</a>
+                        {% endif %}
+                    </li>
+
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    <main>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+</body>
+
+</html>
