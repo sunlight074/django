@@ -2,12 +2,9 @@
 
 {% block title %} Necsproject Kanban {% endblock title %}
 
-{% block nav-kanban %}  <a href="{% url 'kanban-page' %}" class="nav-link text-white">Kanban</a> {% endblock nav-kanban %}
+{% block nav-kanban %}<li ><a href="{% url 'kanban-page' %}" class="bg-sky-300  text-white font-semibold">Kanban</a></li> {% endblock nav-kanban %}
 
 {% block content %}
-
-        <h1 class="text-red-500 mt-10 ml-10 text-xl bg-sky-500">Necsproject Kanban</h1>
-        <button class="btn btn-primary">Button</button>
-  
-
+        <h1 class="text-red-500 text-xl">Necsproject Kanban</h1>
+      
 {% endblock content %}

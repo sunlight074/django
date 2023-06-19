@@ -2,10 +2,24 @@
 
 {% block title %} Necsproject DashBoard {% endblock title %}
 
-{% block nav-dashboard %}  <a href="{% url 'dashboard-page' %}" class="nav-link text-white">DashBoard</a> {% endblock nav-dashboard %}
+{% block nav-dashboard %} <li><a href="{% url 'dashboard-page' %}" class="bg-sky-300  text-white font-semibold">DashBoard</a></li> {% endblock nav-dashboard %}
 
 {% block content %}
 
-    <h1>Necsproject DashBoard</h1>
+    <div class="text-3xl font-bold pl-5">DashBoard</div>
+    <div class="flex space-x-5 pt-5">
+        <div class="bg-red-300 border-b-4 border-red-500 boder- h-20 w-1/2 shadow-lg">
+            <p class="pt-3 pl-3 font-bold text-lg text-white flex justify-center">ข้อผิดพลาด</p>
+            <p class="pl-3 font-bold text-lg text-white flex justify-center">5 รายการ</p>
+        </div>
+        <div class="bg-blue-300 border-b-4 border-blue-500 h-20 w-1/2 shadow-lg">
+            <p class="pt-3 pl-3 font-bold text-lg text-white flex justify-center">กำลังดำเนินการ</p>
+            <p class="pl-3 font-bold text-lg text-white flex justify-center">2 รายการ</p>
+        </div>
+        <div class="bg-green-300 border-b-4 border-green-500 h-20 w-1/2 shadow-lg">
+            <p class="pt-3 pl-3 font-bold text-lg text-white flex justify-center">สำเร็จ</p>
+            <p class="pl-3 font-bold text-lg text-white flex justify-center">1 รายการ</p>
+        </div>
+    </div>
 
 {% endblock content %}
