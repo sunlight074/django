@@ -5,48 +5,53 @@
 {% block nav-job %} <li><a href="{% url 'jobalert-page' %}" class="bg-[#acc9e9] text-white font-semibold">Job alert</a></li>   {% endblock nav-job %}
 
 {% block content %}
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-  axios
-    .get("https://pokeapi.co/api/v2/pokemon/ditto")
-    .then(function (response) {
-      var pokemonData = response.data.game_indices;
 
-      // Loop through each Pokemon data item
-      pokemonData.forEach(function (pokemon) {
-        console.log(pokemon);
-        // Access the desired information (name)
-        var id = pokemon.game_index;
-        var name = pokemon.version.name;
+<h3 class="text-xl mb-4 ml-10 font-semibold">Job alert</h3>
 
-        // Build the table row dynamically
-        var tableRow = `
-              <tr>
-                <td>${id}</td>
-                <td>${name}</td>
-              </tr>
-            `;
-
-        // Append the table row to the table body
-        var tableBody = document.querySelector("#pokemon-table tbody");
-        tableBody.innerHTML += tableRow;
-      });
-    })
-    .catch(function (error) {
-      // Handle any error that occurred during the request
-      console.log(error);
-    });
-</script>
-<div class="container ml-3 mt-5">
-    <table class="table table-striped table-hover" id="pokemon-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Height</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+<div class="overflow-x-auto px-10">
+  <table class="table table-zebra w-full">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Time</th>
+        <th>Name Alert</th>
+        <th>Severity</th>
+        <th>Delete</th>
+        <th>Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in data %}
+      <tr>
+        <th>{{item.id}}</th>
+        <td>Cy Ganderton</td>
+        <td>Quality Control Specialist</td>
+        <td>Blue</td>
+        <td>
+          <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+          <div class="modal">
+            <div class="modal-box">
+              <h3 class="font-bold text-lg">Are you sure!</h3>
+              <p class="py-4">Do you really want to delete these records?</p>
+              <div class="modal-action">
+                <label for="my_modal_6" class="btn btn-error">Delete</label>
+                <label for="my_modal_6" class="btn">Close!</label>
+              </div>
+            </div>
+          </div>
+          <label for="my_modal_6">
+            <svg id="Layer_1" class="w-6 h-6 cursor-pointer" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 105.16 122.88"><defs><style>.cls-1{fill-rule:evenodd;}</style></defs><title>delete</title><path class="cls-1" d="M11.17,37.16H94.65a8.4,8.4,0,0,1,2,.16,5.93,5.93,0,0,1,2.88,1.56,5.43,5.43,0,0,1,1.64,3.34,7.65,7.65,0,0,1-.06,1.44L94,117.31v0l0,.13,0,.28v0a7.06,7.06,0,0,1-.2.9v0l0,.06v0a5.89,5.89,0,0,1-5.47,4.07H17.32a6.17,6.17,0,0,1-1.25-.19,6.17,6.17,0,0,1-1.16-.48h0a6.18,6.18,0,0,1-3.08-4.88l-7-73.49a7.69,7.69,0,0,1-.06-1.66,5.37,5.37,0,0,1,1.63-3.29,6,6,0,0,1,3-1.58,8.94,8.94,0,0,1,1.79-.13ZM5.65,8.8H37.12V6h0a2.44,2.44,0,0,1,0-.27,6,6,0,0,1,1.76-4h0A6,6,0,0,1,43.09,0H62.46l.3,0a6,6,0,0,1,5.7,6V6h0V8.8h32l.39,0a4.7,4.7,0,0,1,4.31,4.43c0,.18,0,.32,0,.5v9.86a2.59,2.59,0,0,1-2.59,2.59H2.59A2.59,2.59,0,0,1,0,23.62V13.53H0a1.56,1.56,0,0,1,0-.31v0A4.72,4.72,0,0,1,3.88,8.88,10.4,10.4,0,0,1,5.65,8.8Zm42.1,52.7a4.77,4.77,0,0,1,9.49,0v37a4.77,4.77,0,0,1-9.49,0v-37Zm23.73-.2a4.58,4.58,0,0,1,5-4.06,4.47,4.47,0,0,1,4.51,4.46l-2,37a4.57,4.57,0,0,1-5,4.06,4.47,4.47,0,0,1-4.51-4.46l2-37ZM25,61.7a4.46,4.46,0,0,1,4.5-4.46,4.58,4.58,0,0,1,5,4.06l2,37a4.47,4.47,0,0,1-4.51,4.46,4.57,4.57,0,0,1-5-4.06l-2-37Z"/></svg>
+          </label>
+        </td>
+        <td>
+          <a href="{% url 'details-page' item.id %}">
+            <svg class="svg-icon" style="width: 24px; height: 24px;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M35 89h136v137H35zM309 89h680v137H309zM35 441h136v136H35zM309 441h680v136H309zM35 794h136v135H35zM309 794h680v135H309z"  /></svg>
+          </a>
+        </td>
+      </tr>
+      {% endfor  %}
+  </table>
+</div>
 
 {% endblock content %}
