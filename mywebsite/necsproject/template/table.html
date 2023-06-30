@@ -4,8 +4,200 @@
 
 {% block nav-main %} <li><a href="{% url 'maintable-page' %}" class="bg-[#acc9e9]  text-white font-semibold">Main table</a></li>{% endblock nav-main %}
 
+
+{% load static %}
+
 {% block content %}
+    <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+    <div class="modal">
+      <div class="modal-box max-w-4xl px-16">
+        <h3 class="font-bold text-lg">Create New Ticket</h3>
+        <form action="">
+          <div class="flex mt-7 space-x-3">
+            <div class="w-1/5  font-semibold">Ticket ID:</div>
+            <div class="w-4/5">
+              <input type="text" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs" />
+            </div>
+          </div>
+          <div class="flex mt-7 space-x-3">
+            <div class="w-1/5 font-semibold">Category Attack:</div>
+            <div class="w-4/5">
+              <input type="text" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs" />
+            </div>
+          </div> 
+          <div class="flex mt-7 space-x-3">
+            <div class="w-1/5  font-semibold">Severity:</div>
+            <div class="w-4/5">
+              <input type="text" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs" />
+            </div>
+          </div>
+          <div class="flex mt-7 space-x-3">
+            <div class="w-1/5  font-semibold">Assignee</div>
+            <div class="w-4/5">
+              <select class="select select-bordered w-full max-w-xs">
+                <option disabled selected>please select</option>
+                <option>wanee</option>
+                <option>plaifah</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex mt-7 space-x-3">
+            <div class="w-1/5  font-semibold">Reporter</div>
+            <div class="w-4/5">
+              <select class="select select-bordered w-full max-w-xs">
+                <option disabled selected>please select</option>
+                <option>wanee</option>
+                <option>plaifah</option>
+              </select>
+            </div>
+          </div>
+          <div id="example" class="mt-7"></div>
+          <div class="modal-action">
+              <label for="my_modal_6" class="btn btn-success">Create</label>
+              <label for="my_modal_6" class="btn">Close</label>
+          </div>
+        </form>   
+      </div>
+    </div>
+    <h1 class="font-semibold text-3xl mb-5">Main Table</h1>
+    <div class="flex space-x-20 mt-5 items-center mx-10">
+      <label class="btn btn-primary" for="my_modal_6">Create</label>
+      <div class="flex space-x-1">
+          <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="25px" height="25px"><path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"/></svg>
+          <div class="font-semibold">Search</div>
+      </div>
+      <div class="flex space-x-1">
+         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+         <div class="font-semibold">Owner</div>
+      </div>
+     <div class="flex space-x-1">
+         <img src="{% static 'image/filter.png' %}"  style="height: 24px; width: 24px" />
+         <div class="font-semibold">Filter</div>
+      </div>        
+    </div> 
+    <div class="overflow-x-auto mt-10 mx-10">
+      <table class="table w-full">
+        <!-- head -->
+        <thead>
+          <tr>
+            <th>
+              <label>
+                <input type="checkbox" class="checkbox" />
+              </label>
+            </th>
+            <th>ID</th>
+            <th>Category attack</th>
+            <th>Type</th>
+            <th>Severity</th>
+            <th>Status</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- row 1 -->
+          <tr>
+            <th>
+              <label>
+                <input type="checkbox" class="checkbox" />
+              </label>
+            </th>
+            <td>
+              <div class="flex items-center space-x-3">
+               1
+            </td>
+            <td>
+              Zemlak, Daniel and Leannon
+              <br/>
+              <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
+            </td>
+            <td>Purple</td>
+            <td>Purple</td>
+            <td>Purple</td>
+            <th>
+              <button class="btn btn-ghost btn-xs">details</button>
+            </th>
+          </tr>
+          <!-- row 2 -->
+          <tr>
+            <th>
+              <label>
+                <input type="checkbox" class="checkbox" />
+              </label>
+            </th>
+            <td>
+              <div class="flex items-center space-x-3">
+                2
+              </div>
+            </td>
+            <td>
+              Carroll Group
+              <br/>
+              <span class="badge badge-ghost badge-sm">Tax Accountant</span>
+            </td>
+            <td>Red</td>
+            <td>Red</td>
+            <td>Red</td>
+            <th>
+              <button class="btn btn-ghost btn-xs">details</button>
+            </th>
+          </tr>
+          <!-- row 3 -->
+          <tr>
+            <th>
+              <label>
+                <input type="checkbox" class="checkbox" />
+              </label>
+            </th>
+            <td>
+              <div class="flex items-center space-x-3">
+                3
+              </div>
+            </td>
+            <td>
+              Rowe-Schoen
+              <br/>
+              <span class="badge badge-ghost badge-sm">Office Assistant I</span>
+            </td>
+            <td>Crimson</td>
+            <td>Crimson</td>
+            <td>Crimson</td>
+            <th>
+              <button class="btn btn-ghost btn-xs">details</button>
+            </th>
+          </tr>
+          <!-- row 4 -->
+          <tr>
+            <th>
+              <label>
+                <input type="checkbox" class="checkbox" />
+              </label>
+            </th>
+            <td>
+              <div class="flex items-center space-x-3">
+                4
+              </div>
+            </td>
+            <td>
+              Wyman-Ledner
+              <br/>
+              <span class="badge badge-ghost badge-sm">Community Outreach Specialist</span>
+            </td>
+            <td>Indigo</td>
+            <td>Indigo</td>
+            <td>Indigo</td>
+            <th>
+              <button class="btn btn-ghost btn-xs">details</button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <h1>Necsproject Main Table</h1>
+    
+    <script>
+        var editor = new FroalaEditor('#example');		
+    </script>	
 
+
+    
 {% endblock content %}
