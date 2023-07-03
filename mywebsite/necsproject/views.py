@@ -22,16 +22,9 @@ def login(request):
     return render(request, 'login.html')
 
 def jobalert(request):
-    result = [
-        {'id':1},
-        {'id':2},
-        {'id':3},
-        {'id':4},
-        {'id':5},
-        {'id':6},
-        {'id':7}
-    ]
-    return render(request, 'jobalert.html' , context={'data' : result })
+    jobData = Job.objects.all().values()
+
+    return render(request, 'jobalert.html' , context={'data' : jobData })
 
 def maintable(request):
     return render(request ,"table.html")

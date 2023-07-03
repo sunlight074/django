@@ -21,13 +21,13 @@
         <th>Detail</th>
       </tr>
     </thead>
-    <tbody> 
-      {% for item in data  %}
+    <tbody>
+      {% for item in data %}
       <tr>
         <th>{{item.id}}</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
+        <td>{{item.time}}</td>
+        <td>{{item.nameAlert}}</td>
+        <td>{{item.priority}}</td>
         <td>
           <input type="checkbox" id="my_modal_6" class="modal-toggle" />
           <div class="modal">
