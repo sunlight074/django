@@ -22,8 +22,7 @@ class Job(models.Model):
     result = models.TextField(null=True)
 
     def __str__(self):
-        return self.nameAlert
-
+        return str(self.id)
 
 
 
