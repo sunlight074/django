@@ -9,27 +9,34 @@
         <div class="bg-blue-300 mx-10 mt-5 py-3 text-center text-xl font-semibold">Details</div>
         <div class="px-10 flex">
                 <div class="w-1/4 bg-blue-100 py-4 mt-1 mr-1 font-semibold pl-3">sid</div>
-                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">test</div>
+                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">{{sid}}</div>
         </div>
         <div class="px-10 flex">
                 <div class="w-1/4 bg-blue-100 py-4 mt-1 mr-1 font-semibold pl-3">search_name</div>
-                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">test</div>
+                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">{{searchName}}</div>
         </div>
         <div class="px-10 flex">
                 <div class="w-1/4 bg-blue-100 py-4 mt-1 mr-1 font-semibold pl-3">app</div>
-                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">test</div>
+                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">{{app}}</div>
         </div>
         <div class="px-10 flex">
                 <div class="w-1/4 bg-blue-100 py-4 mt-1 mr-1 font-semibold pl-3">owner</div>
-                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">test</div>
+                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">{{owner}}</div>
         </div>
         <div class="px-10 flex">
                 <div class="w-1/4 bg-blue-100 py-4 mt-1 mr-1 font-semibold pl-3">results_link</div>
-                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">test</div>
+                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">{{resultsLink}}</div>
         </div>
         <div class="px-10 flex">
                 <div class="w-1/4 bg-blue-100 py-4 mt-1 mr-1 font-semibold pl-3">result</div>
-                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">test</div>
+                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">
+                        {% for key, value in result.items %}
+                        <div class="flex space-x-2">
+                                <div class="font-semibold">{{key}}</div>
+                                <div>{{value}}</div>
+                        </div>
+                        {% endfor %}
+                </div>
         </div>
         
 {% endblock content %}
