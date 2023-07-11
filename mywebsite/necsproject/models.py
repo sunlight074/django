@@ -24,6 +24,26 @@ class Job(models.Model):
     def __str__(self):
         return str(self.id)
 
+#สร้างตาราง MANAGE_TICKET
+class MANAGE_TICKET (models.Model):
+    ticket_id = models.AutoField(primary_key=True)
+    job_id = models.ForeignKey('Job', on_delete=models.CASCADE,related_name='job_id')
+    category_attack = models.CharField(max_length=36)
+    severityData = (
+                ('Low','Low'), 
+                ('Medium','Medium'), 
+                ('High','High'), 
+                ('Critical','Critical'))
+    severity = models.CharField(max_length=200, choices=severityData)
+    assignee =  models.CharField(max_length=255)
+    reporter = models.CharField(max_length=255)
+    status = models.IntegerField(default=1)
+    description = models.CharField(max_length=255)
+    create_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.ticket_id)
+
 
 
 

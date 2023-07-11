@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<h3 class="text-xl mb-4 ml-10 font-semibold">Job alert</h3>
+<h3 class="text-3xl mb-10 ml-10 font-bold">Job alert</h3>
 
 <div class="overflow-x-auto px-10">
   <table class="table table-zebra w-full">
@@ -27,7 +27,17 @@
         <th>{{item.id}}</th>
         <td>{{item.time | date:"d b Y H:m"}}</td>
         <td>{{item.nameAlert}}</td>
-        <td>{{item.priority}}</td>
+        <td>
+          {% if item.priority == 'Low' %}
+          <div class="bg-blue-400 w-24 px-5 font-semibold text-white text-center">low</div>
+          {% elif item.priority == 'Medium' %} 
+          <div class="bg-yellow-400 w-24 px-5 font-semibold text-white text-center">medium</div>
+          {% elif item.priority == 'High' %} 
+          <div class="bg-orange-400 w-24 px-5 font-semibold text-white text-center">high</div>
+          {% elif item.priority == 'Critical' %} 
+          <div class="bg-red-400 w-24 px-5 font-semibold text-white text-center">critical</div>
+          {% endif %} 
+        </td>
         <td>
           <form method="post">
             {% csrf_token %}
@@ -53,8 +63,8 @@
           </a>
         </td>
       </tr>
-    </tbody>
-      {% endfor  %}
+    {% endfor %}
+    </tbody>  
   </table>
 </div>
 

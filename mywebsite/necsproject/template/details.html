@@ -5,7 +5,14 @@
 {% block nav-job %} <li><a href="{% url 'jobalert-page' %}" class="bg-[#acc9e9] text-white font-semibold">Job alert</a></li>   {% endblock nav-job %}
 
 {% block content %}
-        <h1 class="text-3xl ml-10 font-bold">Job Alert Details</h1>
+        <div class="flex space-x-7 mb-10">
+                <h1 class="text-3xl ml-10 font-bold">Job alert</h1>
+                <div class="pt-[6px] flex space-x-2">
+                        <a  href="{% url 'jobalert-page' %}" class="text-blue-500 hover:underline cursor-pointer text-lg">jobAlert</a>
+                        <div>/</div>
+                        <div class="text-gray-400 text-lg underline">details</div>
+                </div>
+        </div>
         <div class="bg-blue-300 mx-10 mt-5 py-3 text-center text-xl font-semibold">Details</div>
         <div class="px-10 flex">
                 <div class="w-1/4 bg-blue-100 py-4 mt-1 mr-1 font-semibold pl-3">sid</div>
@@ -25,9 +32,9 @@
         </div>
         <div class="px-10 flex">
                 <div class="w-1/4 bg-blue-100 py-4 mt-1 mr-1 font-semibold pl-3">results_link</div>
-                <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">{{resultsLink}}</div>
+                <a class="w-3/4 bg-gray-100 py-4 mt-1 pl-3 text-blue-500 underline" href="{{resultsLink}}" target="_blank">{{resultsLink}}</a>
         </div>
-        <div class="px-10 flex">
+        <div class="px-10 flex mb-10">
                 <div class="w-1/4 bg-blue-100 py-4 mt-1 mr-1 font-semibold pl-3">result</div>
                 <div class="w-3/4 bg-gray-100 py-4 mt-1 pl-3">
                         {% for key, value in result.items %}

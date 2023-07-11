@@ -32,7 +32,31 @@ def jobalert(request):
     return render(request, 'jobalert.html' , context={'data' : jobData })
 
 def maintable(request):
-    return render(request ,"table.html")
+    if request.method == 'POST1':
+        edit_status = request.POST['editStatus']
+        print(edit_status)
+
+    if request.method == 'POST':
+        job = request.POST['job']
+        category = request.POST['category']
+        severity = request.POST['severity']
+        assignee = request.POST['assignee']
+        reporter = request.POST['reporter']
+        description = request.POST.get('description',False)
+        
+        obj = MANAGE_TICKET(
+            job_id=Job.objects.get(id= job),
+            category_attack=category,
+            severity=severity,
+            assignee=assignee,
+            reporter=reporter,
+            description=description)
+        
+        obj.save()
+
+    jobData = Job.objects.all().values()
+    ticket = MANAGE_TICKET.objects.all().values()
+    return render(request ,"table.html" , context={'data' : jobData , 'ticket':ticket})
 
 def kanban(request):
     return render(request ,"kanban.html")
