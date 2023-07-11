@@ -28,7 +28,6 @@ def jobalert(request):
         Job.objects.filter(id=deleteID).delete()
         
     jobData = Job.objects.all().values()
-
     return render(request, 'jobalert.html' , context={'data' : jobData })
 
 def maintable(request):
