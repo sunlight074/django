@@ -23,7 +23,6 @@ def login(request):
 
 def jobalert(request):
     jobData = Job.objects.all().values()
-
     return render(request, 'jobalert.html' , context={'data' : jobData })
 
 def maintable(request):
