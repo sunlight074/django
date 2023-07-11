@@ -3,7 +3,12 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    
+    #type = (
+    #    ('tier1','tier1')
+    #    ,('tier2','tier2')
+    #    ,('tier3','tier3')
+    #)
+    #role = models.CharField(max_length=200, null=True, choices=type) 
     def __str__(self):
         return self.user.username
 
