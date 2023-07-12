@@ -31,11 +31,12 @@ def jobalert(request):
     return render(request, 'jobalert.html' , context={'data' : jobData })
 
 def maintable(request):
-    if request.method == 'POST1':
-        edit_status = request.POST['editStatus']
-        print(edit_status)
-
-    if request.method == 'POST':
+    if 'edit' in request.POST:
+        ticket = MANAGE_TICKET.objects.get(ticket_id=request.POST['edit'])
+        ticket_object = ticket[0] if isinstance(ticket, tuple) else ticket
+        ticket_object.status = request.POST['edit_status']
+        ticket_object.save()
+    elif 'create' in request.POST:
         job = request.POST['job']
         category = request.POST['category']
         severity = request.POST['severity']
