@@ -49,6 +49,16 @@
               </select>
             </div>
           </div>
+          <!-- <div class="flex mt-7 space-x-3">
+            <div class="w-1/5  font-semibold">Type</div>
+            <div class="w-4/5">
+              <select class="select select-sm select-bordered w-full max-w-xs" name="type">
+                <option disabled selected>please select Type</option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="Real-time">Real-time</option>
+              </select>
+            </div>
+          </div> -->
           <div class="flex mt-7 space-x-3">
             <div class="w-1/5  font-semibold">Assignee</div>
             <div class="w-4/5">
@@ -101,12 +111,12 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th class="pl-16">Category attack</th>
-            <th>Type</th>
+            <th class="pl-16">Time</th>
+            <th>Category attack</th>
             <th class="w-[50px]">Severity</th>
             <th class="flex justify-center">Status</th>
             <th>Owner</th>
-            <th>Edit status</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
@@ -114,50 +124,95 @@
           {% for item in ticket %}
           <tr>
             <td>{{item.ticket_id}}</td>
-            <td class="pl-16">{{item.category_attack}}</td>
-            <td>ไม่รู้</td>
+            <td>{{item.create_date}}</td>
+            <td class="pl-14">{{item.category_attack}}</td>
             <td>
               {% if item.severity == 'Low' %}
-              <div class="bg-blue-400 w-24 px-5 font-semibold text-white text-center">low</div>
+              <div class="flex items-center space-x-2">
+                <div class="h-5 w-5 rounded-full bg-green-700"></div>
+                <div>Low</div>
+              </div>
               {% elif item.severity == 'Medium' %} 
-              <div class="bg-yellow-400 w-24 px-5 font-semibold text-white text-center">medium</div>
+              <div class="flex items-center space-x-2">
+                <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
+                <div>Medium</div>
+              </div>
               {% elif item.severity == 'High' %} 
-              <div class="bg-orange-400 w-24 px-5 font-semibold text-white text-center">high</div>
+              <div class="flex items-center space-x-2">
+                <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+                <div>High</div>
+              </div>
               {% elif item.severity == 'Critical' %} 
-              <div class="bg-red-400 w-24 px-5 font-semibold text-white text-center">critical</div>
+              <div class="flex items-center space-x-2">
+                <div class="h-5 w-5 rounded-full bg-red-600"></div>
+                <div>Critical</div>
+              </div>
               {% endif %} 
             </td>
             <td class="flex justify-center">
+              <div class="w-32 ml-16">
               {% if item.status == 1 %}
-              <div class="bg-orange-400 w-28 px-5 font-semibold text-white text-center">working on</div>
-              {% elif item.status == 2 %} 
-              <div class="bg-red-400 w-28 px-5 font-semibold text-white text-center">stuck</div>
-              {% elif item.status == 3 %} 
-              <div class="bg-green-400 w-28 px-5 font-semibold text-white text-center">done</div>
-              {% endif %} 
+              <label for="my_modal_{{item.ticket_id}}">
+              <div class="flex items-center space-x-2">
+                <div class="h-5 w-5 rounded-full bg-orange-400"></div>
+                <div>Working on</div>
+              </div>
+              </label>
+              {% elif item.status == 2 %}
+              <label for="my_modal_{{item.ticket_id}}">
+              <div class="flex items-center space-x-2">
+                <div class="h-5 w-5 rounded-full bg-red-400"></div>
+                <div>Stuck</div>
+              </div>
+              </label>
+              {% elif item.status == 3 %}
+              <label for="my_modal_{{item.ticket_id}}">
+              <div class="flex items-center space-x-2">
+                <div class="h-5 w-5 rounded-full bg-green-400"></div>
+                <div>Done</div>
+              </div>
+              </label>
+              {% endif %}
+              </div>
+              <input type="checkbox" id="my_modal_{{item.ticket_id}}" class="modal-toggle" />
+              <div class="modal">
+                <div class="modal-box">
+                  <h3 class="font-bold text-lg">Are you sure!</h3>
+                  <p class="pt-5 pb-3">status</p>
+                  <select class="select select-sm select-bordered w-full max-w-xs" name="edit_status">
+                    <option disabled selected>please select status</option>
+                    <option value=1>Working on</option>
+                    <option value=2>Stuck</option>
+                    <option value=3>Done</option>
+                  </select>
+                  <div class="modal-action">
+                    <button for="my_modal_{{item.ticket_id}}" class="btn btn-info" type="submit" name="edit" value="{{item.ticket_id}}">Edit</button>
+                    <label for="my_modal_{{item.ticket_id}}" class="btn">Close!</label>
+                  </div>
+                </div>
+              </div>
             </td>
             <td>{{item.assignee}}</td>
             <td>
               <label for="my_modal_{{item.ticket_id}}">
-                <svg class="svg-icon" style="width: 1.5em; height: 1.5em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M834.3 705.7c0 82.2-66.8 149-149 149H325.9c-82.2 0-149-66.8-149-149V346.4c0-82.2 66.8-149 149-149h129.8v-42.7H325.9c-105.7 0-191.7 86-191.7 191.7v359.3c0 105.7 86 191.7 191.7 191.7h359.3c105.7 0 191.7-86 191.7-191.7V575.9h-42.7v129.8z"  /><path d="M889.7 163.4c-22.9-22.9-53-34.4-83.1-34.4s-60.1 11.5-83.1 34.4L312 574.9c-16.9 16.9-27.9 38.8-31.2 62.5l-19 132.8c-1.6 11.4 7.3 21.3 18.4 21.3 0.9 0 1.8-0.1 2.7-0.2l132.8-19c23.7-3.4 45.6-14.3 62.5-31.2l411.5-411.5c45.9-45.9 45.9-120.3 0-166.2zM362 585.3L710.3 237 816 342.8 467.8 691.1 362 585.3zM409.7 730l-101.1 14.4L323 643.3c1.4-9.5 4.8-18.7 9.9-26.7L436.3 720c-8 5.2-17.1 8.7-26.6 10z m449.8-430.7l-13.3 13.3-105.7-105.8 13.3-13.3c14.1-14.1 32.9-21.9 52.9-21.9s38.8 7.8 52.9 21.9c29.1 29.2 29.1 76.7-0.1 105.8z"  /></svg>
+                <?xml version="1.0" encoding="iso-8859-1"?>
+                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                <svg fill="#000000" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                  viewBox="0 0 60 60" xml:space="preserve">
+                <g>
+                  <path d="M55.894,37.041C58.582,33.27,60,28.912,60,24.414C60,11.504,48.337,1,34,1c-8.246,0-15.969,3.592-20.824,9.42
+                    C17.021,8.613,21.38,7.586,26,7.586c15.439,0,28,11.4,28,25.414c0,5.506-1.945,10.604-5.235,14.77
+                    c4.946,1.886,9.853,2.601,10.096,2.635c0.047,0.007,0.094,0.01,0.14,0.01c0.375,0,0.724-0.211,0.895-0.554
+                    c0.192-0.385,0.117-0.85-0.188-1.153C57.753,46.753,56.403,42.618,55.894,37.041z"/>
+                  <path d="M26,9.586C11.663,9.586,0,20.09,0,33c0,4.498,1.418,8.855,4.106,12.627c-0.51,5.577-1.859,9.712-3.813,11.666
+                    c-0.304,0.304-0.38,0.769-0.188,1.153C0.275,58.789,0.625,59,1,59c0.046,0,0.092-0.003,0.139-0.01
+                    c0.35-0.049,8.433-1.213,14.317-4.586c3.33,1.334,6.875,2.01,10.544,2.01c14.337,0,26-10.504,26-23.414S40.337,9.586,26,9.586z
+                    M13,37c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S15.206,37,13,37z M26,37c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4
+                    S28.206,37,26,37z M39,37c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S41.206,37,39,37z"/>
+                </g>
+                </svg>
               </label>
-              <input type="checkbox" id="my_modal_{{item.ticket_id}}" class="modal-toggle" />
-                <div class="modal">
-                  <div class="modal-box">
-                    <h3 class="font-bold text-lg">Are you sure!</h3>
-                    <p class="pt-5 pb-3">status</p>
-                    <select class="select select-sm select-bordered w-full max-w-xs" name="edit_status">
-                      <option disabled selected>please select status</option>
-                      <option value=1>Working on</option>
-                      <option value=2>Stuck</option>
-                      <option value=3>Done</option>
-                    </select>
-                    <div class="modal-action">
-                      <button for="my_modal_{{item.ticket_id}}" class="btn btn-info" type="submit" name="edit" value="{{item.ticket_id}}">Edit</button>
-                      <label for="my_modal_{{item.ticket_id}}" class="btn">Close!</label>
-                    </div>
-                  </div>
-                </div>
             </td>
           </tr>
           {% endfor %}

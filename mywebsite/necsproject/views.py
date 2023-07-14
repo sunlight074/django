@@ -41,6 +41,7 @@ def maintable(request):
         category = request.POST['category']
         severity = request.POST['severity']
         assignee = request.POST['assignee']
+        #type = request.POST['type']
         reporter = request.POST['reporter']
         description = request.POST.get('description',False)
         
@@ -49,6 +50,7 @@ def maintable(request):
             category_attack=category,
             severity=severity,
             assignee=assignee,
+            #type=type,
             reporter=reporter,
             description=description)
         

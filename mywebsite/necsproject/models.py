@@ -41,6 +41,8 @@ class MANAGE_TICKET (models.Model):
                 ('Critical','Critical'))
     severity = models.CharField(max_length=200, choices=severityData)
     assignee =  models.CharField(max_length=255)
+    #typeData = (('Scheduled','Scheduled'),('Real-time','Real-time'))
+    #type = models.CharField(max_length=200, choices=typeData)
     reporter = models.CharField(max_length=255)
     status = models.IntegerField(default=1)
     description = models.CharField(max_length=255)
