@@ -8,37 +8,18 @@
 
 {% block content %}
         <h1 class="text-3xl mb-10 ml-10 font-bold">Kanban</h1>
-        <div class="flex space-x-20 mt-5 items-center mx-10">
-            <label class="btn btn-sm" for="#">Create
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 ml-2 stroke-current"> 
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path> 
-                </svg>
-              </label>
-                <div class="flex space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="25px" height="25px"><path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"/></svg>
-                    <div class="font-semibold">Search</div>
-                </div>
-                <div class="flex space-x-1">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                   <div class="font-semibold">Owner</div>
-                </div>
-               <div class="flex space-x-1">
-                   <img src="{% static 'image/filter.png' %}"  style="height: 24px; width: 24px" />
-                   <div class="font-semibold">Filter</div>
-                </div>        
-        </div> 
         <div class="flex mt-10 space-x-10 mx-10 h-screen mb-10">
-            <div class="w-1/3 bg-gray-300 rounded-lg">
-                <div class="pl-5 pt-5 text-lg font-semibold">Working On</div>
-                <div class="bg-gray-100 h-50 h-80 mt-5 mx-7 rounded-md p-3">
+            <div class="w-1/3 bg-[#C8C8C8] rounded-3xl">
+                <div class="pl-5 pt-5 text-lg font-semibold text-white">Working On</div>
+                <div class="bg-[#989797] h-50 h-80 mt-5 mx-7 rounded-2xl p-3">
                         <div class="flex space-x-3">
-                            <div class="font-semibold">Ticket ID : </div>
-                            <div>6314120007</div>
+                            <div class="font-semibold text-white">Ticket ID : </div>
+                            <div class="text-white">6314120007</div>
                         </div>
                         <div class="flex mt-7">
                             <div class="flex space-x-1 w-2/6 items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                <div class=" font-semibold">Owner : </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                <div class=" font-semibold text-white">Owner : </div>
                             </div>
                             <div class="w-4/6 bg-white h-8"></div>
                         </div>
@@ -46,7 +27,7 @@
                             <div class="flex space-x-1 w-2/6 items-center">
                                 <?xml version="1.0" encoding="iso-8859-1"?>
                                 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                                <svg fill="#000000" height="15px" width="15px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                <svg fill="#ffffff" height="15px" width="15px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                                     viewBox="0 0 300.109 300.109" xml:space="preserve">
                                 <g>
                                     <g>
@@ -75,37 +56,37 @@
                                     </g>
                                 </g>
                                 </svg>
-                                <div class=" font-semibold">Category : </div>
+                                <div class=" font-semibold text-white">Category : </div>
                             </div>   
                             <div class="w-4/6 bg-white h-8"></div>
                         </div>
                         <div class="flex mt-7">
                             <div class="flex space-x-1 w-2/6 items-center">
-                                <img src="{% static 'image/noConnection.png' %}"  style="height: 15px; width: 15px" />
-                                <div class="font-semibold">Status : </div>
+                                <img src="{% static 'image/connection.png' %}"  style="height: 15px; width: 15px" />
+                                <div class="font-semibold text-white">Status : </div>
                             </div>
                             <div class="w-4/6 bg-white h-8"></div>
                         </div>
                         <div class="flex mt-7">
                             <div class="flex space-x-1 w-2/6 items-center">
-                                <img src="{% static 'image/speed.png' %}"  style="height: 15px; width: 15px" />
-                                <div class="font-semibold">Severity : </div>
+                                <img src="{% static 'image/speed1.png' %}"  style="height: 15px; width: 15px" />
+                                <div class="font-semibold text-white">Severity : </div>
                             </div>
                             <div class="w-4/6 bg-white h-8"></div>
                         </div>
                 </div>
             </div>
-           <div class="w-1/3 bg-gray-300 rounded-lg">
-                <div class="pl-5 pt-5 text-lg font-semibold">Stuck</div>
-                <div class="bg-gray-100 h-50 h-80 mt-5 mx-7 rounded-md p-3">
+           <div class="w-1/3 bg-[#C8C8C8] rounded-3xl">
+                <div class="pl-5 pt-5 text-lg font-semibold text-white">Stuck</div>
+                <div class="bg-[#989797] h-50 h-80 mt-5 mx-7 rounded-2xl p-3">
                     <div class="flex space-x-3">
-                        <div class="font-semibold">Ticket ID : </div>
-                        <div>6314120007</div>
+                        <div class="font-semibold text-white">Ticket ID : </div>
+                        <div class="text-white">6314120007</div>
                     </div>
                     <div class="flex mt-7">
                         <div class="flex space-x-1 w-2/6 items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <div class=" font-semibold">Owner : </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            <div class=" font-semibold text-white">Owner : </div>
                         </div>
                         <div class="w-4/6 bg-white h-8"></div>
                     </div>
@@ -113,7 +94,7 @@
                         <div class="flex space-x-1 w-2/6 items-center">
                             <?xml version="1.0" encoding="iso-8859-1"?>
                             <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                            <svg fill="#000000" height="15px" width="15px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                            <svg fill="#ffffff" height="15px" width="15px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                                 viewBox="0 0 300.109 300.109" xml:space="preserve">
                             <g>
                                 <g>
@@ -142,37 +123,37 @@
                                 </g>
                             </g>
                             </svg>
-                            <div class=" font-semibold">Category : </div>
+                            <div class=" font-semibold text-white">Category : </div>
                         </div>   
                         <div class="w-4/6 bg-white h-8"></div>
                     </div>
                     <div class="flex mt-7">
                         <div class="flex space-x-1 w-2/6 items-center">
-                            <img src="{% static 'image/noConnection.png' %}"  style="height: 15px; width: 15px" />
-                            <div class="font-semibold">Status : </div>
+                            <img src="{% static 'image/connection.png' %}"  style="height: 15px; width: 15px" />
+                            <div class="font-semibold text-white">Status : </div>
                         </div>
                         <div class="w-4/6 bg-white h-8"></div>
                     </div>
                     <div class="flex mt-7">
                         <div class="flex space-x-1 w-2/6 items-center">
-                            <img src="{% static 'image/speed.png' %}"  style="height: 15px; width: 15px" />
-                            <div class="font-semibold">Severity : </div>
+                            <img src="{% static 'image/speed1.png' %}"  style="height: 15px; width: 15px" />
+                            <div class="font-semibold text-white">Severity : </div>
                         </div>
                         <div class="w-4/6 bg-white h-8"></div>
                     </div>
             </div>  
             </div>
-           <div class="w-1/3 bg-gray-300 rounded-lg">
-                <div class="pl-5 pt-5 text-lg font-semibold">Done</div>  
-                <div class="bg-gray-100 h-50 h-80 mt-5 mx-7 rounded-md p-3">
+           <div class="w-1/3 bg-[#C8C8C8] rounded-3xl">
+                <div class="pl-5 pt-5 text-lg font-semibold text-white">Done</div>  
+                <div class="bg-[#989797] h-50 h-80 mt-5 mx-7 rounded-2xl p-3">
                     <div class="flex space-x-3">
-                        <div class="font-semibold">Ticket ID : </div>
-                        <div>6314120007</div>
+                        <div class="font-semibold text-white">Ticket ID : </div>
+                        <div class="text-white">6314120007</div>
                     </div>
                     <div class="flex mt-7">
                         <div class="flex space-x-1 w-2/6 items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <div class=" font-semibold">Owner : </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            <div class=" font-semibold text-white">Owner : </div>
                         </div>
                         <div class="w-4/6 bg-white h-8"></div>
                     </div>
@@ -180,7 +161,7 @@
                         <div class="flex space-x-1 w-2/6 items-center">
                             <?xml version="1.0" encoding="iso-8859-1"?>
                             <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                            <svg fill="#000000" height="15px" width="15px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                            <svg fill="#ffffff" height="15px" width="15px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                                 viewBox="0 0 300.109 300.109" xml:space="preserve">
                             <g>
                                 <g>
@@ -209,21 +190,21 @@
                                 </g>
                             </g>
                             </svg>
-                            <div class=" font-semibold">Category : </div>
+                            <div class=" font-semibold text-white">Category : </div>
                         </div>   
                         <div class="w-4/6 bg-white h-8"></div>
                     </div>
                     <div class="flex mt-7">
                         <div class="flex space-x-1 w-2/6 items-center">
-                            <img src="{% static 'image/noConnection.png' %}"  style="height: 15px; width: 15px" />
-                            <div class="font-semibold">Status : </div>
+                            <img src="{% static 'image/connection.png' %}"  style="height: 15px; width: 15px" />
+                            <div class="font-semibold text-white">Status : </div>
                         </div>
                         <div class="w-4/6 bg-white h-8"></div>
                     </div>
                     <div class="flex mt-7">
                         <div class="flex space-x-1 w-2/6 items-center">
-                            <img src="{% static 'image/speed.png' %}"  style="height: 15px; width: 15px" />
-                            <div class="font-semibold">Severity : </div>
+                            <img src="{% static 'image/speed1.png' %}"  style="height: 15px; width: 15px" />
+                            <div class="font-semibold text-white">Severity : </div>
                         </div>
                         <div class="w-4/6 bg-white h-8"></div>
                     </div>

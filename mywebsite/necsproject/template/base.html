@@ -66,7 +66,7 @@
             </div>
             <div class="drawer-side">
                 <label  htmlFor="left-sidebar-drawer" for="my-drawer" class="drawer-overlay"></label>
-                <ul class="menu w-80 border-x bg-[#5b8bd2] pt-2 text-base-content lg:w-60">
+                <ul class="menu w-80 border-x bg-[#35A29F] pt-2 text-base-content lg:w-60">
                     <div class="flex justify-between px-2">
                         <div class="flex w-full lg:justify-center  lg:pt-1">
                             <img src="https://cdn.discordapp.com/attachments/1095727305453752402/1120379805620240545/11.png" alt="" class="navbar-brand-img"
@@ -80,11 +80,11 @@
                         close
                         </label>
                     </div>
-                    {% block nav-job %}
+                    {% block nav-dashboard %}
                     <li>
-                        <a href="{% url 'jobalert-page' %}" class="text-white font-semibold">Job alert</a>
+                        <a href="{% url 'dashboard-page' %}" class="text-white font-semibold">DashBoard</a>
                     </li>
-                    {% endblock nav-job %}
+                    {% endblock nav-dashboard %}
 
                     {% block nav-main %}
                     <li>
@@ -98,11 +98,11 @@
                     </li>
                     {% endblock nav-kanban %}
 
-                    {% block nav-dashboard %}
+                    {% block nav-job %}
                     <li >
-                        <a href="{% url 'dashboard-page' %}" class="text-white font-semibold">DashBoard</a>
+                        <a href="{% url 'jobalert-page' %}" class="text-white font-semibold">Job alert</a>
                     </li>
-                    {% endblock nav-dashboard %}
+                    {% endblock nav-job %}
                 </ul>
             </div>
         </div>   
