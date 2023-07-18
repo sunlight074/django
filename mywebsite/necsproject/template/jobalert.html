@@ -8,13 +8,29 @@
 
 {% block content %}
 <h1 class="text-3xl mb-10 ml-10 font-bold">Job alert</h1>
-<div class="flex space-x-20 mt-5 items-center mx-10">
+<!-- <div class="flex space-x-20 mt-5 items-center mx-10">
   <label class="btn btn-sm" for="#">Create
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 ml-2 stroke-current"> 
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path> 
     </svg>
   </label>
+</div> -->
+
+<div class="flex space-x-20 mt-5 items-center mx-10">
+  <div class="grid grid-cols-3 gap-3">
+    <div>
+      <input type="text" placeholder="Search" class="input input-bordered input-sm w-full max-w-xs" />
+    </div>
+    <div>
+      <button class="btn btn-ghost btn-sm">
+        <div class="font-semibold">Person</div>
+        <img class="w-5 h-5" src="{% static 'image/user.png' %}">
+      </button>
+    </div>
+
+  </div>
 </div>
+
 <div class="overflow-x-auto mt-10 mx-10">
   <table class="table table-zebra w-full">
     <!-- head -->
@@ -22,16 +38,16 @@
       <tr>
         <th>ID</th>
         <th>Time</th>
-        <th>Name Alert</th>
+        <th>Search Name</th>
         <th>Severity</th>
-        <th>Delete</th>
+        <th>Owner</th>
         <th>Detail</th>
       </tr>
     </thead>
     <tbody> 
       {% for item in data  %}
       <tr>
-        <th>{{item.id}}</th>
+        <th>{{forloop.counter}}</th>
         <td>{{item.time | date:"d b Y H:m"}}</td>
         <td>{{item.nameAlert}}</td>
         <td>
@@ -57,7 +73,8 @@
           </div>
           {% endif %} 
         </td>
-        <td>
+        <td>{{item.owner}}</td>
+        <!-- <td>
           <form method="post">
             {% csrf_token %}
           <label for="my_modal_{{item.id}}">
@@ -75,7 +92,7 @@
               </div>
             </div>
           </form>
-        </td>
+        </td> -->
         <td>
           <a href="{% url 'details-page' item.id %}">
             <div class="flex items-center space-x-2">
