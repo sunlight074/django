@@ -102,8 +102,75 @@
     <label for="my-drawer-4" class="drawer-overlay"></label>
     <ul class="menu p-4 w-[700px] h-full bg-white text-base-content">
       <!-- Sidebar content here -->
-      <li><a>Sidebar Item 1</a></li>
-      <li><a>Sidebar Item 2</a></li>
+      <!-- <li><a>Sidebar Item 1</a></li>
+      <li><a>Sidebar Item 2</a></li> -->
+      <div class="flex space-x-4 mb-5 ml-2 mt-5">
+        <div class="text-lg">Ticket ID</div>
+        <div class="text-lg">123456789</div>
+      </div>
+    <div class="box-content h-[120px] w-[630px] p-4 border-2 rounded-md ml-1">
+      
+        <div class="flex space-x-2">
+          <div class="mt-2 ml-5">
+            <div class="text-sm font-semibold">Assignee</div>
+          </div>
+          <div class="px-8">
+            <select class="select select-sm select-bordered w-60 " name="" id="">
+              <option value="name1">unassigned</option>
+              <option value="name1">plaifah</option>
+              <option value="name2">wanee</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex space-x-2 mt-3">
+          <div class="mt-2 ml-5">
+            <div class="text-sm font-semibold">Reporter</div>
+          </div>
+          <div class="px-8">
+            <select class="select select-sm select-bordered w-60 " name="" id="">
+              <option value="name1">unassigned</option>
+              <option value="name1">plaifah</option>
+              <option value="name2">wanee</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex space-x-2 mt-3">
+          <div class="mt-2 ml-5">
+            <div class="text-sm font-semibold">App</div>
+          </div>
+          <div class="px-[59px]">
+            <select class="select select-sm select-bordered w-60 " name="" id="">
+              <option value="name1">Splunk</option>
+              <option value="name1">Special case</option>
+            </select>
+          </div>
+        </div>
+    </div>
+    <div class="box-content h-[500px] w-[630px] p-4 border-2 rounded-md ml-1 mt-3">
+      <div class="font-semibold text-lg ">
+        Details
+      </div>
+      <div class="px-5 flex">
+        <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Date</div>
+        <div class="w-3/4 py-4 mt-1 pl-3">27 Jul 2023 00:00</div>
+      </div>
+      <div class="px-5 flex">
+        <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Search name</div>
+        <div class="w-3/4 py-4 mt-1 pl-3">Test 1</div>
+      </div>
+      <div class="px-5 flex">
+        <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Results link</div>
+        <a class="w-3/4 py-4 mt-1 pl-3 text-blue-500 underline text-xs/[20px]" href="" target="_blank">http://Splunk.localdomain:8000/app/search/@go?sid=scheduler__admin__search__RMD5fbe704c4af42aeda_at_1689078660_43</a>
+      </div>
+      <div class="px-5 flex">
+        <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Severity</div>
+        <div class="w-3/4 py-4 mt-1 pl-3">High</div>
+      </div>
+      <div class="px-5 flex">
+        <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Result</div>
+        <div class="w-3/4 py-4 mt-1 pl-3">High</div>
+      </div>
+    </div>
     </ul>
   </div>
 </div>
