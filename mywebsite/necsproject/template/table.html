@@ -49,16 +49,6 @@
               </select>
             </div>
           </div>
-          <!-- <div class="flex mt-7 space-x-3">
-            <div class="w-1/5  font-semibold">Type</div>
-            <div class="w-4/5">
-              <select class="select select-sm select-bordered w-full max-w-xs" name="type">
-                <option disabled selected>please select Type</option>
-                <option value="Scheduled">Scheduled</option>
-                <option value="Real-time">Real-time</option>
-              </select>
-            </div>
-          </div> -->
           <div class="flex mt-7 space-x-3">
             <div class="w-1/5  font-semibold">Assignee</div>
             <div class="w-4/5">
@@ -136,7 +126,7 @@
             <td>
               <div class="flex items-center space-x-2 pl-4">
                 <div>{{item.category_attack}}</div>
-                  <label for="my_modal_{{item.ticket_id}}">
+                  <label for="my_modal_8_{{item.ticket_id}}">
                     <?xml version="1.0" encoding="iso-8859-1"?>
                     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
                     <svg fill="#000000" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -153,8 +143,75 @@
                         S28.206,37,26,37z M39,37c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S41.206,37,39,37z"/>
                     </g>
                     </svg>
-                  </label>                
+                  </label>     
               </div>
+              <input type="checkbox" id="my_modal_8_{{item.ticket_id}}" class="modal-toggle" />
+                    <div class="modal">
+                      <div class="modal-box max-w-4xl px-2">
+                        <div class="flex space-x-5">
+                          <div class="w-1/2">
+                            <div class="m-7 text-xl font-semibold">Test Alert 1</div>
+                            <div class="ml-4 inline bg-orange-400 p-1 px-6 text-white rounded-md">in progress</div>
+                            <div class="ml-4 mt-6 h-[100px] border p-3 rounded-md">
+                              <div class="mb-5 flex">
+                                <div class="w-1/2">assignee</div>
+                                <div class="flex w-1/2 space-x-2">
+                                  <div class="h-7 w-7 rounded-full bg-blue-300 text-center text-white">WP</div>
+                                  <div>wanee</div>
+                                </div>
+                              </div>
+                              <div class="mb-5 flex">
+                                <div class="w-1/2">report</div>
+                                <div class="flex w-1/2 space-x-2">
+                                  <div class="h-7 w-7 rounded-full bg-red-300 text-center text-white">PS</div>
+                                  <div>plaifah</div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="ml-4 mt-6 h-[300px] border p-3 rounded-md">
+                              <div class="text-md font-semibold pb-2">Details</div>
+                              <hr>
+                              <div class="flex space-x-2 mt-5">
+                                <div class="w-1/2 font-semibold">Date :</div>
+                                <div class="w-1/2">02</div>
+                              </div>
+                              <div class="flex space-x-2 mt-5">
+                                <div class="w-1/2 font-semibold">Search name :</div>
+                                <div class="w-1/2">02</div>
+                              </div>
+                              <div class="flex space-x-2 mt-5">
+                                <div class="w-1/2 font-semibold">Result link :</div>
+                                <div class="w-1/2">02</div>
+                              </div>
+                              <div class="flex space-x-2 mt-5">
+                                <div class="w-1/2 font-semibold">Severity :</div>
+                                <div class="w-1/2">02</div>
+                              </div>
+                              <div class="flex space-x-2 mt-5">
+                                <div class="w-1/2 font-semibold">Result :</div>
+                                <div class="w-1/2">02</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="w-1/2">
+                            <div class="mt-10">
+                              <textarea class="textarea textarea-bordered w-full h-28" placeholder="description"></textarea>
+                              <div class="flex space-x-2">
+                                <button class="btn btn-sm btn-success w-[210px] text-white">บันทึก</button>
+                                <button class="btn btn-sm btn-error w-[210px] text-white">ยกเลิก</button>
+                              </div>
+                            </div>
+                            <div class="mt-10">
+                              <textarea class="textarea textarea-bordered w-full" placeholder="comment"></textarea>
+                              <div class="flex space-x-2">
+                                <button class="btn btn-sm btn-success w-[210px] text-white">บันทึก</button>
+                                <button class="btn btn-sm btn-error w-[210px] text-white">ยกเลิก</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>           
             </td>
             <td>
               {% if item.severity == 'Low' %}
