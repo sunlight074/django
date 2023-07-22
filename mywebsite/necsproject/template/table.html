@@ -145,9 +145,10 @@
                     </svg>
                   </label>     
               </div>
-              <input type="checkbox" id="my_modal_8_{{item.ticket_id}}" class="modal-toggle" />
-                    <div class="modal">
-                      <div class="modal-box max-w-4xl px-2">
+              <input type="checkbox" id="my_modal_8_{{item.ticket_id}}" class="modal-toggle z-50" />
+                    <div class="modal pl-[200px]">
+                      <div class="modal-box max-w-6xl px-2 rounded">
+                        <label for="my_modal_8_{{item.ticket_id}}" class="flex justify-end pr-3 font-bold text-lg cursor-pointer">X</label>
                         <div class="flex space-x-5">
                           <div class="w-1/2">
                             <div class="m-7 text-xl font-semibold">Test Alert 1</div>
@@ -168,44 +169,46 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="ml-4 mt-6 h-[300px] border p-3 rounded-md">
-                              <div class="text-md font-semibold pb-2">Details</div>
+                            <div class="ml-4 mt-6 h-[300px] border  rounded-md">
+                              <div class="text-md font-semibold pb-2 p-2">Details</div>
                               <hr>
-                              <div class="flex space-x-2 mt-5">
-                                <div class="w-1/2 font-semibold">Date :</div>
-                                <div class="w-1/2">02</div>
-                              </div>
-                              <div class="flex space-x-2 mt-5">
-                                <div class="w-1/2 font-semibold">Search name :</div>
-                                <div class="w-1/2">02</div>
-                              </div>
-                              <div class="flex space-x-2 mt-5">
-                                <div class="w-1/2 font-semibold">Result link :</div>
-                                <div class="w-1/2">02</div>
-                              </div>
-                              <div class="flex space-x-2 mt-5">
-                                <div class="w-1/2 font-semibold">Severity :</div>
-                                <div class="w-1/2">02</div>
-                              </div>
-                              <div class="flex space-x-2 mt-5">
-                                <div class="w-1/2 font-semibold">Result :</div>
-                                <div class="w-1/2">02</div>
+                              <div class="p-2">
+                                <div class="flex space-x-2 mt-5">
+                                  <div class="w-1/2 font-semibold">Date :</div>
+                                  <div class="w-1/2">02</div>
+                                </div>
+                                <div class="flex space-x-2 mt-5">
+                                  <div class="w-1/2 font-semibold">Search name :</div>
+                                  <div class="w-1/2">02</div>
+                                </div>
+                                <div class="flex space-x-2 mt-5">
+                                  <div class="w-1/2 font-semibold">Result link :</div>
+                                  <div class="w-1/2">02</div>
+                                </div>
+                                <div class="flex space-x-2 mt-5">
+                                  <div class="w-1/2 font-semibold">Severity :</div>
+                                  <div class="w-1/2">02</div>
+                                </div>
+                                <div class="flex space-x-2 mt-5">
+                                  <div class="w-1/2 font-semibold">Result :</div>
+                                  <div class="w-1/2">02</div>
+                                </div>
                               </div>
                             </div>
                           </div>
                           <div class="w-1/2">
-                            <div class="mt-10">
-                              <textarea class="textarea textarea-bordered w-full h-28" placeholder="description"></textarea>
+                            <div class="mt-20">
+                              <textarea class="textarea textarea-bordered w-full h-40" placeholder="description"></textarea>
                               <div class="flex space-x-2">
-                                <button class="btn btn-sm btn-success w-[210px] text-white">บันทึก</button>
-                                <button class="btn btn-sm btn-error w-[210px] text-white">ยกเลิก</button>
+                                <button class="btn btn-sm btn-success w-[100px] text-white">บันทึก</button>
+                                <button class="btn btn-sm btn-error w-[100px] text-white">ยกเลิก</button>
                               </div>
                             </div>
                             <div class="mt-10">
                               <textarea class="textarea textarea-bordered w-full" placeholder="comment"></textarea>
                               <div class="flex space-x-2">
-                                <button class="btn btn-sm btn-success w-[210px] text-white">บันทึก</button>
-                                <button class="btn btn-sm btn-error w-[210px] text-white">ยกเลิก</button>
+                                <button class="btn btn-sm btn-success w-[100px] text-white">บันทึก</button>
+                                <button class="btn btn-sm btn-error w-[100px] text-white">ยกเลิก</button>
                               </div>
                             </div>
                           </div>

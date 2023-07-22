@@ -23,7 +23,7 @@ class Job(models.Model):
                 ('Critical','Critical'))
     priority = models.CharField(max_length=200, choices=severity)
     app = models.CharField(max_length=200, null=True)
-    owner = models.CharField(max_length=200, null=True)
+    owner = models.CharField(max_length=200, null=True) #  ref. auth
     result = models.TextField(null=True)
 
     def __str__(self):

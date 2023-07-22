@@ -24,7 +24,7 @@
                 class="drawer-toggle"
             />
             <div class="drawer-content bg-white">
-                <div class="navbar sticky top-0 z-50 flex h-16 justify-between bg-white shadow-md lg:justify-end">
+                <div class="navbar sticky top-0 z-10 flex h-16 justify-between bg-white shadow-md lg:justify-end">
                     <div class="flex lg:hidden">
                         <label
                             htmlFor="left-sidebar-drawer"
@@ -59,9 +59,8 @@
                         </ul>
                       </div>
                     </div>
-                </div>
-                
-                <main class="min-h-screen w-full">
+                </div>        
+                <main class="min-h-screen w-full z-50">
                     {% block content %}
 
                     {% endblock %}
@@ -72,7 +71,7 @@
             </div>
             <div class="drawer-side">
                 <label  htmlFor="left-sidebar-drawer" for="my-drawer" class="drawer-overlay"></label>
-                <ul class="menu w-80 border-x bg-[#35A29F] pt-2 text-base-content lg:w-60">
+                <ul class="menu w-80 border-x bg-[#35A29F] pt-2 text-base-content md:w-20 lg:w-48">
                     <div class="flex justify-between px-2">
                         <div class="flex w-full lg:justify-center  lg:pt-1">
                             <img src="https://cdn.discordapp.com/attachments/1095727305453752402/1120379805620240545/11.png" alt="" class="navbar-brand-img"
@@ -109,7 +108,6 @@
                         <a href="{% url 'kanban-page' %}" class="text-white font-semibold">Kanban</a>
                     </li>
                     {% endblock nav-kanban %}
-
                 </ul>
             </div>
         </div>   

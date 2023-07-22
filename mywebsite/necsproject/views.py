@@ -4,8 +4,6 @@ from django.contrib.auth import authenticate, login
 from .models import *
 import json
 
-
-
 def login(request):
 
     if request.method == 'POST':
@@ -23,9 +21,9 @@ def login(request):
     return render(request, 'login.html')
 
 def jobalert(request):
-    if request.method == 'POST':
-        deleteID = request.POST['delete']
-        Job.objects.filter(id=deleteID).delete()
+    if 'person' in request.POST:
+        person = request.POST['person']
+        return render(request, 'jobalert.html' , context={'data' :  Job.objects.filter(owner=person).values()  ,'person' :person })
         
     jobData = Job.objects.all().values()
     return render(request, 'jobalert.html' , context={'data' : jobData })

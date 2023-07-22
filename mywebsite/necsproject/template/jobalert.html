@@ -7,172 +7,232 @@
 {% load static %}
 
 {% block content %}
-<div class="drawer drawer-end">
-  <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content">
-    <h1 class="text-3xl mb-10 ml-10 mt-10 font-bold">Job alert</h1>
-    <div class="flex space-x-20 mt-5 items-center mx-10">
-      <div class="flex space-x-3">
-        <div>
-          <input type="text" placeholder="Search" class="input input-bordered input-sm w-full max-w-xs" />
-        </div>
-        <div class="dropdown">
-          <label tabindex="0" class="btn btn-ghost btn-active btn-sm w-[120px]">
-            <div class="flex space-x-2 items-center">
-              <div class="text-sm font-semibold normal-case">Person</div>
-              <img class="w-4 h-4" src="{% static 'image/user.png' %}">
-            </div>
-          </label>
-          <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-            <li>
-              <div class="flex items-center">
-                <div class="text-md bg-blue-500 w-9 h-9 p-1 rounded-full text-white text-center">WN</div>
-                <div class="text-xl">wanee</div>
-              </div>
-            </li>
-            <li>
-              <div class="flex items-center">
-                <div class="text-md bg-red-500 w-9 h-9 p-1 rounded-full text-white text-center">PL</div>
-                <div class="text-xl">plaifah</div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    
-    <div class="overflow-x-auto mt-10 mx-10">
-      <table class="table table-zebra w-full">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Time</th>
-            <th>Search Name</th>
-            <th>Severity</th>
-            <th>Owner</th>
-            <th>Detail</th>
-          </tr>
-        </thead>
-        <tbody> 
-          {% for item in data  %}
-          <tr>
-            <th>{{forloop.counter}}</th>
-            <td>{{item.time | date:"d b Y H:m"}}</td>
-            <td>{{item.nameAlert}}</td>
-            <td>
-              {% if item.priority == 'Low' %}
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-green-700"></div>
-                <div>Low</div>
-              </div>
-              {% elif item.priority == 'Medium' %} 
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
-                <div>Medium</div>
-              </div>
-              {% elif item.priority == 'High' %} 
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-orange-500"></div>
-                <div>Medium</div>
-              </div>
-              {% elif item.priority == 'Critical' %} 
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-red-600"></div>
-                <div>Critical</div>
-              </div>
-              {% endif %} 
-            </td>
-            <td>{{item.owner}}</td>
-            <td>
-              <label for="my-drawer-4">
-                <div class="flex items-center space-x-2 cursor-pointer">
-                  <img class="w-5 h-5" src="{% static 'image/open.png' %}">
-                  <div class="text-xs">View Result</div>
+
+<form method="post">
+{% csrf_token %}
+  <div class="drawer drawer-end">
+    <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+      <h1 class="text-3xl mb-10 ml-10 mt-10 font-bold">Job alert</h1>
+      <div class="flex space-x-20 mt-5 items-center mx-10">
+        <div class="flex space-x-3">
+          <div>
+            <input type="text" placeholder="Search" class="input input-bordered input-sm w-full max-w-xs" />
+          </div>
+          <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost btn-active btn-sm  w-[120px]">
+              <div class="flex space-x-2 items-center">
+                {% if person == null %}
+                  <div class="text-sm font-semibold normal-case">Person</div>
+                  <img class="w-4 h-4" src="{% static 'image/user.png' %}">
+                {% endif %} 
+                {% if person %} 
+                  {% if person == 'Wanee' %}
+                  <div class="flex space-x-2 items-center">
+                    <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+                    <div class="text-sm font-semibold normal-case">{{person}}</div>
+                  </div>
+                  {% elif person == 'Plaifah' %} 
+                  <div class="flex space-x-2 items-center">
+                    <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PS</div>
+                    <div class="text-sm font-semibold normal-case">{{person}}</div> 
+                  </div>
+                  {% elif person == 'Unassigned' %}
+                  <div class="flex space-x-2 items-center">
+                    <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
+                  <div class="text-sm font-semibold normal-case">{{person}}</div>
                 </div>
-              </label>
-            </td>
-          </tr>
-        {% endfor %}
-        </tbody>  
-      </table>
-    </div>
-  </div> 
-  <div class="drawer-side">
-    <label for="my-drawer-4" class="drawer-overlay"></label>
-    <ul class="menu p-4 w-[700px] h-full bg-white text-base-content">
-      <!-- Sidebar content here -->
-      <!-- <li><a>Sidebar Item 1</a></li>
-      <li><a>Sidebar Item 2</a></li> -->
-      <div class="flex space-x-4 mb-5 ml-2 mt-5">
-        <div class="text-lg">Ticket ID</div>
-        <div class="text-lg">123456789</div>
-      </div>
-    <div class="box-content h-[120px] w-[630px] p-4 border-2 rounded-md ml-1">
-      
-        <div class="flex space-x-2">
-          <div class="mt-2 ml-5">
-            <div class="text-sm font-semibold">Assignee</div>
+                  {% endif %} 
+                {% endif %} 
+                
+              </div>
+            </label>
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <div class="flex items-center">
+                  <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+                  <button class="text-lg" type="submit" name="person" value="Wanee">wanee</button>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PL</div>
+                  <button class="text-lg" type="submit" name="person" value="Plaifah">plaifah</button>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
+                  <button class="text-lg" type="submit" name="person" value="Unassigned">Unassigned</button>
+                </div>
+              </li>
+            </ul>
           </div>
-          <div class="px-8">
-            <select class="select select-sm select-bordered w-60 " name="" id="">
-              <option value="name1">unassigned</option>
-              <option value="name1">plaifah</option>
-              <option value="name2">wanee</option>
-            </select>
+          <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost btn-active btn-sm w-[120px]">
+              <div class="flex space-x-2 items-center">
+                <div class="text-sm font-semibold normal-case">Filter</div>
+                <img class="w-4 h-4" src="{% static 'image/filter.png' %}">
+              </div>
+            </label>
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-green-700"></div>
+                  <div>Low</div>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
+                  <div>Medium</div>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+                  <div>Medium</div>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-red-600"></div>
+                  <div>Critical</div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="flex space-x-2 mt-3">
-          <div class="mt-2 ml-5">
-            <div class="text-sm font-semibold">Reporter</div>
-          </div>
-          <div class="px-8">
-            <select class="select select-sm select-bordered w-60 " name="" id="">
-              <option value="name1">unassigned</option>
-              <option value="name1">plaifah</option>
-              <option value="name2">wanee</option>
-            </select>
-          </div>
+      </div>
+      <div class="overflow-x-auto mt-10 mx-10">
+        <table class="table table-zebra w-full">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Time</th>
+              <th>Search Name</th>
+              <th>Severity</th>
+              <th>Owner</th>
+              <th>Detail</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% for item in data  %}
+            <tr>
+              <th>{{forloop.counter}}</th>
+              <td>{{item.time | date:"d b Y H:m"}}</td>
+              <td>{{item.nameAlert}}</td>
+              <td>
+                {% if item.priority == 'Low' %}
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-green-700"></div>
+                  <div>Low</div>
+                </div>
+                {% elif item.priority == 'Medium' %} 
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
+                  <div>Medium</div>
+                </div>
+                {% elif item.priority == 'High' %} 
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+                  <div>Medium</div>
+                </div>
+                {% elif item.priority == 'Critical' %} 
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-red-600"></div>
+                  <div>Critical</div>
+                </div>
+                {% endif %} 
+              </td>
+              <td>{{item.owner}}</td>
+              <td>
+                <label for="my-drawer-4">
+                  <div class="flex items-center space-x-2 cursor-pointer">
+                    <img class="w-5 h-5" src="{% static 'image/open.png' %}">
+                    <div class="text-xs">View Result</div>
+                  </div>
+                </label>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>  
+        </table>
+      </div>
+    </div> 
+    <div class="drawer-side">
+      <label for="my-drawer-4" class="drawer-overlay"></label>
+      <ul class="menu p-4 w-[700px] h-full bg-white text-base-content">
+        <div class="flex space-x-4 mb-5 ml-2 mt-5">
+          <div class="text-lg">Ticket ID</div>
+          <div class="text-lg">123456789</div>
         </div>
-        <div class="flex space-x-2 mt-3">
-          <div class="mt-2 ml-5">
-            <div class="text-sm font-semibold">App</div>
+      <div class="box-content h-[120px] w-[630px] p-4 border-2 rounded-md ml-1">
+        
+          <div class="flex space-x-2">
+            <div class="mt-2 ml-5">
+              <div class="text-sm font-semibold">Assignee</div>
+            </div>
+            <div class="px-8">
+              <select class="select select-sm select-bordered w-60 " name="" id="">
+                <option value="name1">unassigned</option>
+                <option value="name1">plaifah</option>
+                <option value="name2">wanee</option>
+              </select>
+            </div>
           </div>
-          <div class="px-[59px]">
-            <select class="select select-sm select-bordered w-60 " name="" id="">
-              <option value="name1">Splunk</option>
-              <option value="name1">Special case</option>
-            </select>
+          <div class="flex space-x-2 mt-3">
+            <div class="mt-2 ml-5">
+              <div class="text-sm font-semibold">Reporter</div>
+            </div>
+            <div class="px-8">
+              <select class="select select-sm select-bordered w-60 " name="" id="">
+                <option value="name1">unassigned</option>
+                <option value="name1">plaifah</option>
+                <option value="name2">wanee</option>
+              </select>
+            </div>
           </div>
+          <div class="flex space-x-2 mt-3">
+            <div class="mt-2 ml-5">
+              <div class="text-sm font-semibold">App</div>
+            </div>
+            <div class="px-[59px]">
+              <select class="select select-sm select-bordered w-60 " name="" id="">
+                <option value="name1">Splunk</option>
+                <option value="name1">Special case</option>
+              </select>
+            </div>
+          </div>
+      </div>
+      <div class="box-content h-[500px] w-[630px] p-4 border-2 rounded-md ml-1 mt-3">
+        <div class="font-semibold text-lg ">
+          Details
         </div>
+        <div class="px-5 flex">
+          <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Date</div>
+          <div class="w-3/4 py-4 mt-1 pl-3">27 Jul 2023 00:00</div>
+        </div>
+        <div class="px-5 flex">
+          <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Search name</div>
+          <div class="w-3/4 py-4 mt-1 pl-3">Test 1</div>
+        </div>
+        <div class="px-5 flex">
+          <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Results link</div>
+          <a class="w-3/4 py-4 mt-1 pl-3 text-blue-500 underline text-xs/[20px]" href="" target="_blank">http://Splunk.localdomain:8000/app/search/@go?sid=scheduler__admin__search__RMD5fbe704c4af42aeda_at_1689078660_43</a>
+        </div>
+        <div class="px-5 flex">
+          <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Severity</div>
+          <div class="w-3/4 py-4 mt-1 pl-3">High</div>
+        </div>
+        <div class="px-5 flex">
+          <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Result</div>
+          <div class="w-3/4 py-4 mt-1 pl-3">High</div>
+        </div>
+      </div>
+      </ul>
     </div>
-    <div class="box-content h-[500px] w-[630px] p-4 border-2 rounded-md ml-1 mt-3">
-      <div class="font-semibold text-lg ">
-        Details
-      </div>
-      <div class="px-5 flex">
-        <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Date</div>
-        <div class="w-3/4 py-4 mt-1 pl-3">27 Jul 2023 00:00</div>
-      </div>
-      <div class="px-5 flex">
-        <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Search name</div>
-        <div class="w-3/4 py-4 mt-1 pl-3">Test 1</div>
-      </div>
-      <div class="px-5 flex">
-        <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Results link</div>
-        <a class="w-3/4 py-4 mt-1 pl-3 text-blue-500 underline text-xs/[20px]" href="" target="_blank">http://Splunk.localdomain:8000/app/search/@go?sid=scheduler__admin__search__RMD5fbe704c4af42aeda_at_1689078660_43</a>
-      </div>
-      <div class="px-5 flex">
-        <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Severity</div>
-        <div class="w-3/4 py-4 mt-1 pl-3">High</div>
-      </div>
-      <div class="px-5 flex">
-        <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Result</div>
-        <div class="w-3/4 py-4 mt-1 pl-3">High</div>
-      </div>
-    </div>
-    </ul>
   </div>
-</div>
+</form>
 
 {% endblock content %}
