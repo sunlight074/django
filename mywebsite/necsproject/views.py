@@ -23,7 +23,12 @@ def login(request):
 def jobalert(request):
     if 'person' in request.POST:
         person = request.POST['person']
-        return render(request, 'jobalert.html' , context={'data' :  Job.objects.filter(owner=person).values()  ,'person' :person })
+        severity = request.GET.get('severity')
+        return render(request, 'jobalert.html' , context={'data' :  Job.objects.filter(owner=person).values()  ,'person' :person , 'severity' :severity})
+    elif 'severity' in request.POST:
+        severity = request.POST['severity']
+        print(severity)
+        return render(request, 'jobalert.html' , context={'data' : Job.objects.filter(priority=severity).values() ,'severity' :severity })
         
     jobData = Job.objects.all().values()
     return render(request, 'jobalert.html' , context={'data' : jobData })
