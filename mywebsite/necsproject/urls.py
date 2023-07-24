@@ -8,5 +8,4 @@ urlpatterns = [
     path('kanban/', kanban, name='kanban-page'),
     path('details/<int:id>', details, name='details-page'),
     path('dashboard/', dashboard, name='dashboard-page'),
-
 ]
