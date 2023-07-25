@@ -29,7 +29,10 @@ def jobalert(request):
         severity = request.POST['severity']
         print(severity)
         return render(request, 'jobalert.html' , context={'data' : Job.objects.filter(priority=severity).values() ,'severity' :severity })
-        
+    elif 'search' in request.POST:
+        search = request.POST['search']
+        return render(request, 'jobalert.html' , context={'data' : Job.objects.filter(nameAlert=search).values() ,'search' :search })
+
     jobData = Job.objects.all().values()
     return render(request, 'jobalert.html' , context={'data' : jobData })
 
