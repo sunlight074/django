@@ -1,6 +1,39 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class jobAlert(models.Model):
+    id = models.AutoField(primary_key=True)
+    date = models.DateTimeField()
+    search_name = models.CharField(max_length=200, null=True)
+    result_link = models.CharField(max_length=200, null=True)
+    results = models.TextField(null=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.id)
+
+class jobAlertDetail(models.Model):
+    id = models.AutoField(primary_key=True)
+    alert_detail_assign = models.ForeignKey(jobAlert, on_delete=models.CASCADE, related_name='alert_detail_assign')
+    assign = models.OneToOneField(User, null=True, on_delete=models.CASCADE , related_name='assign')
+    report = models.OneToOneField(User, null=True, on_delete=models.CASCADE , related_name='report')
+    app = models.CharField(max_length=200, null=True)
+    description = models.TextField(null=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.id)
+
+class comment(models.Model):
+    comment_id = models.AutoField(primary_key=True)
+    job_detail_id = models.ForeignKey('jobAlertDetail', on_delete=models.CASCADE, related_name='job_detail_id')
+    comment_person = models.OneToOneField(User, null=True, on_delete=models.CASCADE, related_name='comment_person')
+    comment_text = models.CharField(max_length=200, null=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.comment_id)
+
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     #type = (
@@ -50,8 +83,6 @@ class MANAGE_TICKET (models.Model):
 
     def __str__(self):
         return str(self.ticket_id)
-
-
 
 
 # python manage.py makemigrations
