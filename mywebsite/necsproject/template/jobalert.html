@@ -15,8 +15,7 @@
     <div class="drawer-content">
       <h1 class="text-3xl mb-10 ml-10 mt-10 font-bold">Job alert</h1>
       <div class="flex space-x-20 mt-5 items-center mx-10">
-        <div class="flex space-x-3">
-          
+        <div class="flex space-x-3"> 
             <div class="absolute ml-5 mt-2 ">
               <button type="submit" name="search">
                 <img width="20" height="20" src="{% static 'image/icons8-search-50.png' %} "alt=""/>
@@ -25,7 +24,7 @@
             <input type="text" name="search" value="{{search}}" placeholder="Search" class="pr-2 pl-8 font-medium placeholder-gray-500 text-black rounded-2xl border-none ring-1 ring-gray-500 focus:ring-2">
 
           <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost btn-sm  w-[120px]">
+            <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px]">
               <div class="flex space-x-2 items-center">
                 {% if person == null %}
                   <div class="text-sm font-semibold normal-case">Person</div>
@@ -74,7 +73,7 @@
             </ul>
           </div>
           <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost btn-sm w-[120px]">
+            <label tabindex="0" class="btn btn-ghost  btn-sm w-[120px]">
               {% if severity == null %}
               <div class="flex space-x-2 items-center">
                 <div class="text-sm font-semibold normal-case">Filter</div>
@@ -149,8 +148,8 @@
             {% for item in data  %}
             <tr>
               <th>{{forloop.counter}}</th>
-              <td>{{item.time | date:"d b Y H:m"}}</td>
-              <td>{{item.nameAlert}}</td>
+              <td>{{item.alert_detail_assign.date | date:"d b Y H:m"}}</td>
+              <td>{{item.alert_detail_assign.search_name}}</td>
               <td>
                 {% if item.priority == 'Low' %}
                 <div class="flex items-center space-x-2">
@@ -179,7 +178,7 @@
                 <label for="my-drawer-4">
                   <div class="flex items-center space-x-2 cursor-pointer">
                     <img class="w-5 h-5" src="{% static 'image/open.png' %}">
-                    <div class="text-xs">View Result</div>
+                    <div class="text-xs">View Result {{item.id}}</div>
                   </div>
                 </label>
               </td>
@@ -197,7 +196,6 @@
           <div class="text-lg">123456789</div>
         </div>
       <div class="box-content h-[120px] w-[630px] p-4 border-2 rounded-md ml-1">
-        
           <div class="flex space-x-2">
             <div class="mt-2 ml-5">
               <div class="text-sm font-semibold">Assignee</div>
@@ -264,6 +262,7 @@
       </div>
       </ul>
     </div>
+
   </div>
 </form>
 
