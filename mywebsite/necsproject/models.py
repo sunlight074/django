@@ -19,6 +19,12 @@ class jobAlertDetail(models.Model):
             ('Escalation','Escalation'), 
             ('In progress','In progress'), 
             ('Close','Close'))
+    severity_choices = (
+                ('Low','Low'), 
+                ('Medium','Medium'), 
+                ('High','High'), 
+                ('Critical','Critical'))
+    severity = models.CharField(max_length=200, choices=severity_choices)
     status = models.CharField(max_length=200, choices=status_choices)
     assign = models.ForeignKey(User, null=True, on_delete=models.CASCADE , related_name='assign')
     report = models.ForeignKey(User, null=True, on_delete=models.CASCADE , related_name='report')
@@ -33,12 +39,6 @@ class comment(models.Model):
     comment_id = models.AutoField(primary_key=True)
     job_detail_id = models.ForeignKey('jobAlertDetail', on_delete=models.CASCADE, related_name='job_detail_id')
     comment_person = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='comment_person')
-    severity_choices = (
-                ('Low','Low'), 
-                ('Medium','Medium'), 
-                ('High','High'), 
-                ('Critical','Critical'))
-    severity = models.CharField(max_length=200, choices=severity_choices)
     comment_text = models.CharField(max_length=200, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
 
