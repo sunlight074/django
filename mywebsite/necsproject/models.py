@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class jobAlert(models.Model):
     id = models.AutoField(primary_key=True)
+    ticket_id = models.CharField(max_length=200, null=True)
     date = models.DateTimeField()
     search_name = models.CharField(max_length=200, null=True)
     result_link = models.CharField(max_length=200, null=True)
