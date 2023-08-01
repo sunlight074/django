@@ -140,7 +140,7 @@
               <th>Time</th>
               <th>Search Name</th>
               <th>Severity</th>
-              <th>Owner</th>
+              <th>Assign</th>
               <th>Detail</th>
             </tr>
           </thead>
@@ -151,29 +151,29 @@
               <td>{{item.alert_detail_assign.date | date:"d b Y H:m"}}</td>
               <td>{{item.alert_detail_assign.search_name}}</td>
               <td>
-                {% if item.priority == 'Low' %}
+                {% if item.severity == 'Low' %}
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-green-700"></div>
                   <div>Low</div>
                 </div>
-                {% elif item.priority == 'Medium' %} 
+                {% elif item.severity == 'Medium' %} 
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
                   <div>Medium</div>
                 </div>
-                {% elif item.priority == 'High' %} 
+                {% elif item.severity == 'High' %} 
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-orange-500"></div>
                   <div>High</div>
                 </div>
-                {% elif item.priority == 'Critical' %} 
+                {% elif item.severity == 'Critical' %} 
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-red-600"></div>
                   <div>Critical</div>
                 </div>
                 {% endif %} 
               </td>
-              <td>{{item.owner}}</td>
+              <td>{{item.assign}}</td>
               <td>
                 <label for="my-drawer-4">
                   <div class="flex items-center space-x-2 cursor-pointer">

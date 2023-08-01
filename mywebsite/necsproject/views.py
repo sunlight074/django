@@ -40,9 +40,9 @@ def jobalert(request):
     #     return render(request, 'jobalert.html' , context={'data' : Job.objects.filter(nameAlert=search).values() ,'search' :search })
 
     # jobData = Job.objects.all().values()
-    #jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
+    jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
     #print(jobData)
-    return render(request, 'jobalert.html' , context={'data' : 'jobData' })
+    return render(request, 'jobalert.html' , context={'data' : jobData })
 
 def maintable(request):
     # if 'edit' in request.POST:
@@ -72,7 +72,8 @@ def maintable(request):
 
     # jobData = Job.objects.all().values()
     # ticket = MANAGE_TICKET.objects.all().values()
-    return render(request ,"table.html" , context={'data' : "" , 'ticket':""})
+    jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
+    return render(request ,"table.html" , context={'data' : jobData , 'ticket':""})
 
 def kanban(request):
     return render(request ,"kanban.html")
