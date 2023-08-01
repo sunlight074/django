@@ -110,8 +110,7 @@
           <tr>
             <th>ID</th>
             <th class="pl-16">Time</th>
-            <th>Category attack</th>
-            <th class="w-[50px]">Severity</th>
+            <th>task</th>
             <th class="flex justify-center">Status</th>
             <th>Owner</th>
             <th>Details</th>
@@ -119,55 +118,32 @@
         </thead>
         <tbody>
           <!-- row 1 -->
-          {% for item in ticket %}
+          {% for item in data %}
           <tr>
-            <td>{{item.ticket_id}}</td>
-            <td>{{item.create_date}}</td>
-            <td>{{item.category_attack}}</td>
-            <td>
-              {% if item.severity == 'Low' %}
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-green-700"></div>
-                <div>Low</div>
-              </div>
-              {% elif item.severity == 'Medium' %} 
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
-                <div>Medium</div>
-              </div>
-              {% elif item.severity == 'High' %} 
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-orange-500"></div>
-                <div>High</div>
-              </div>
-              {% elif item.severity == 'Critical' %} 
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-red-600"></div>
-                <div>Critical</div>
-              </div>
-              {% endif %} 
-            </td>
+            <td>{{item.id}}</td>
+            <td>{{item.alert_detail_assign.date}}</td>
+            <td>{{item.alert_detail_assign.search_name}}</td> 
             <td class="flex justify-center">
               <div class="w-32 ml-16">
-              {% if item.status == 1 %}
-              <label for="my_modal_{{item.ticket_id}}">
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-orange-400"></div>
-                <div>Working on</div>
-              </div>
-              </label>
-              {% elif item.status == 2 %}
+              {% if item.status == 'Escalation' %}
               <label for="my_modal_{{item.ticket_id}}">
               <div class="flex items-center space-x-2">
                 <div class="h-5 w-5 rounded-full bg-red-400"></div>
-                <div>Stuck</div>
+                <div>Escalation</div>
               </div>
               </label>
-              {% elif item.status == 3 %}
+              {% elif item.status == 'In progress' %}
+              <label for="my_modal_{{item.ticket_id}}">
+              <div class="flex items-center space-x-2">
+                <div class="h-5 w-5 rounded-full bg-orange-400"></div>
+                <div>In progress</div>
+              </div>
+              </label>
+              {% elif item.status == 'Close' %}
               <label for="my_modal_{{item.ticket_id}}">
               <div class="flex items-center space-x-2">
                 <div class="h-5 w-5 rounded-full bg-green-400"></div>
-                <div>Done</div>
+                <div>Close</div>
               </div>
               </label>
               {% endif %}
@@ -190,7 +166,7 @@
                 </div>
               </div>
             </td>
-            <td>{{item.assignee}}</td>
+            <td>{{item.assign}}</td>
             <td>
               <label for="my_modal_8_{{item.ticket_id}}" class="cursor-pointer">
                 <div class="flex items-center space-x-2">
