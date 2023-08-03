@@ -1,9 +1,36 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core import serializers
+from django.views.generic import View
 from django.contrib.auth import authenticate, login
 from .models import *
+from django.http import JsonResponse
 import json
 
+def getJobalertData(request):
+    data = jobAlertDetail.objects.select_related('alert_detail_assign')
+    # queryset_a = jobAlert.objects.get(id=id)
+    # queryset_b = jobAlertDetail.objects.all()
+
+    # common_elements = queryset_a.filter(id=queryset_b.values_list('alert_detail_assign', flat=True))
+    # common_elements = common_elements.union(queryset_b)
+
+    # # Step 2: Get elements exclusive to ModelA using difference
+    # elements_exclusive_to_a = queryset_a.difference(common_elements)
+
+    # # Step 3: Get elements exclusive to ModelB using difference
+    # elements_exclusive_to_b = queryset_b.difference(common_elements)
+
+    # # Combine the three results to get the full outer join
+    # full_outer_join_result = common_elements.union(elements_exclusive_to_a).union(elements_exclusive_to_b)
+
+    # test = serializers.serialize('json', full_outer_join_result)
+
+    # print(test)
+    
+    data_json = serializers.serialize('json', data)
+    return JsonResponse(data_json,safe=False)
+    
 def login(request):
 
     if request.method == 'POST':
@@ -40,9 +67,9 @@ def jobalert(request):
     #     return render(request, 'jobalert.html' , context={'data' : Job.objects.filter(nameAlert=search).values() ,'search' :search })
 
     # jobData = Job.objects.all().values()
-    jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
+    # jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
     #print(jobData)
-    return render(request, 'jobalert.html' , context={'data' : jobData })
+    return render(request, 'jobalert.html')
 
 def maintable(request):
     # if 'edit' in request.POST:

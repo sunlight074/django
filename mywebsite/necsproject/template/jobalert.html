@@ -144,47 +144,7 @@
               <th>Detail</th>
             </tr>
           </thead>
-          <tbody> 
-            {% for item in data  %}
-            <tr>
-              <th>{{forloop.counter}}</th>
-              <td>{{item.alert_detail_assign.date | date:"d b Y H:m"}}</td>
-              <td>{{item.alert_detail_assign.search_name}}</td>
-              <td>
-                {% if item.severity == 'Low' %}
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-green-700"></div>
-                  <div>Low</div>
-                </div>
-                {% elif item.severity == 'Medium' %} 
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
-                  <div>Medium</div>
-                </div>
-                {% elif item.severity == 'High' %} 
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-orange-500"></div>
-                  <div>High</div>
-                </div>
-                {% elif item.severity == 'Critical' %} 
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-red-600"></div>
-                  <div>Critical</div>
-                </div>
-                {% endif %} 
-              </td>
-              <td>{{item.assign}}</td>
-              <td>
-                <label for="my-drawer-4">
-                  <div class="flex items-center space-x-2 cursor-pointer">
-                    <img class="w-5 h-5" src="{% static 'image/open.png' %}">
-                    <div class="text-xs">View Result {{item.id}}</div>
-                  </div>
-                </label>
-              </td>
-            </tr>
-          {% endfor %}
-          </tbody>  
+          <tbody id="jobData"></tbody>  
         </table>
       </div>
     </div> 
@@ -262,8 +222,51 @@
       </div>
       </ul>
     </div>
-
   </div>
 </form>
-
 {% endblock content %}
+
+
+{% block javascript %}
+<script>
+  $( document ).ready(function() {
+     $.ajax({
+      url: '{% url "get-job-alert" %}',
+      type: 'GET',
+      success: function(data) {
+        for (var i = 0; i < data.length; i++) {
+          const items = JSON.parse(data)[i].fields
+          console.log('items => ',items)
+          $("#jobData").append(`
+            <tr>
+              <th>${items.alert_detail_assign}</th>
+              <td>${new Date(items.create_date)}</td>
+              <td>${items.alert_detail_assign.search_name}</td>
+              <td>
+                <div class="flex items-center space-x-2">
+                <div class="h-5 w-5 rounded-full bg-green-700"></div>
+                <div>Low</div>
+                </div>
+              </td>
+              <td>${items.assign}</td>
+              <td>
+                <label for="my-drawer-4">
+                  <div class="flex items-center space-x-2 cursor-pointer">
+                    <img class="w-5 h-5" src="{% static 'image/open.png' %}"/>
+                    <div class="text-xs">View Result</div>
+                  </div>
+                </label>
+              </td>
+            </tr>
+            `)
+        }
+      },
+      error: function(error) {
+          console.log('Error:', error);
+      }
+  });
+});
+</script>
+{% endblock javascript %}
+
+
