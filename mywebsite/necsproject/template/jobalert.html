@@ -299,43 +299,55 @@
     return result
   }
 
-  $( document ).ready( function() {
-     $.ajax({
-      url: '{% url "get-job-alert" %}',
-      type: 'GET',
-      success:async function(data) {
-        const result = JSON.parse(data)
-        let assignName = null
-        for (var i = 0; i < result.length; i++) {
-          const items = result[i].fields
-          await getUserInfo(items.assign).then((value) => {
-            assignName = value
-          })
+function table() {
+  $(document).ready( function() {
+      $.ajax({
+        url: '{% url "get-job-alert" %}',
+        type: 'GET',
+        success:async function(data) {
+          const result = JSON.parse(data)
+          let assignName = null
 
-          $("#jobData").append(`
-            <tr>
-              <th>${items.ticket_id}</th>
-              <td>${formatDate(items.date)}</td>
-              <td>${items.search_name}</td>
-              <td>${showSeverity(items.severity)}</td>
-              <td>${assignName}</td>
-              <td>
-                <label for="my-drawer-4">
-                  <div class="flex items-center space-x-2 cursor-pointer">
-                    <img class="w-5 h-5" src="{% static 'image/open.png' %}"/>
-                    <div class="text-xs">View Result</div>
-                  </div>
-                </label>
-              </td>
-            </tr>
-            `)
+          for (var i = 0; i < result.length; i++) {
+            const items = result[i].fields
+
+            await getUserInfo(items.assign).then((value) => {
+              assignName = value
+            })
+
+            $("#jobData").append(`
+              <tr>
+                <th>${items.ticket_id}</th>
+                <td>${formatDate(items.date)}</td>
+                <td>${items.search_name}</td>
+                <td>${showSeverity(items.severity)}</td>
+                <td>${assignName}</td>
+                <td>
+                  <label for="my-drawer-4">
+                    <div class="flex items-center space-x-2 cursor-pointer">
+                      <img class="w-5 h-5" src="{% static 'image/open.png' %}"/>
+                      <div class="text-xs">View Result</div>
+                    </div>
+                  </label>
+                </td>
+              </tr>
+              `)
+          }
+        },
+        error: function(error) {
+            console.log('Error:', error);
         }
-      },
-      error: function(error) {
-          console.log('Error:', error);
-      }
+    });
   });
-});
+}
+
+// การเขียนแบบนี้เรียกว่า IIFE คือ จะเป็น function ที่ถูกเรียกเมื่อ app มีการทำงาน
+(() =>{
+  table()
+})()
+    
+
+
 </script>
 {% endblock javascript %}
 
