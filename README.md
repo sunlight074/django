@@ -10,5 +10,7 @@ D:\Project2\WebSite>.\venv\Scripts\activate
 UI https://www.figma.com/file/O3VGhQKCcl5b7WIKTe5TrY/Untitled?type=design&node-id=0-1&mode=design&t=G8rgkfR3pcmwSsFy-0
 
 user: admin --> p@ssw0rd
+
 user: plaifah.sri --> Namfon170842
+
 user: wanee.pui --> wa6314120007
