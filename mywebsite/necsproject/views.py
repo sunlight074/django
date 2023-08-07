@@ -14,28 +14,42 @@ def getUserInfo(request):
     return JsonResponse(data_json,safe=False)
 
 def getJobalertData(request):
-    data = jobAlert.objects.all()
-    # queryset_a = jobAlert.objects.get(id=id)
-    # queryset_b = jobAlertDetail.objects.all()
+    severity = request.GET.get('severity', None) 
+    person = request.GET.get('person', None)
+    search = request.GET.get('search', None)
 
-    # common_elements = queryset_a.filter(id=queryset_b.values_list('alert_detail_assign', flat=True))
-    # common_elements = common_elements.union(queryset_b)
-
-    # # Step 2: Get elements exclusive to ModelA using difference
-    # elements_exclusive_to_a = queryset_a.difference(common_elements)
-
-    # # Step 3: Get elements exclusive to ModelB using difference
-    # elements_exclusive_to_b = queryset_b.difference(common_elements)
-
-    # # Combine the three results to get the full outer join
-    # full_outer_join_result = common_elements.union(elements_exclusive_to_a).union(elements_exclusive_to_b)
-
-    # test = serializers.serialize('json', full_outer_join_result)
-
-    # print(test)
-    
-    data_json = serializers.serialize('json', data)
-    return JsonResponse(data_json,safe=False)
+    if severity and person and search:
+        data = jobAlert.objects.filter(severity=severity ,assign=person ,search_name__icontains=search)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif severity and person :
+        data = jobAlert.objects.filter(severity=severity ,assign=person)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif severity and search :
+        data = jobAlert.objects.filter(severity=severity ,search_name__icontains=search)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif person and search :
+        data = jobAlert.objects.filter(assign=person ,search_name__icontains=search)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif severity:
+        data = jobAlert.objects.filter(severity=severity)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif person:
+        data = jobAlert.objects.filter(assign=person)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif search:
+        data = jobAlert.objects.filter(search_name__icontains=search)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    else:
+        data = jobAlert.objects.all()
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
     
 def login(request):
 

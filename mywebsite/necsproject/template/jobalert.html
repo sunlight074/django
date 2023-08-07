@@ -8,8 +8,6 @@
 
 {% block content %}
 
-<form method="post">
-{% csrf_token %}
   <div class="drawer drawer-end">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
@@ -21,8 +19,7 @@
                 <img width="20" height="20" src="{% static 'image/icons8-search-50.png' %} "alt=""/>
               </button>
             </div>
-            <input type="text" name="search" value="{{search}}" placeholder="Search" class="pr-2 pl-8 font-medium placeholder-gray-500 text-black rounded-2xl border-none ring-1 ring-gray-500 focus:ring-2">
-
+            <input id="search" onkeyup="filterSearch()" type="text" name="search" placeholder="Search" class="pr-2 pl-8 font-medium placeholder-gray-500 text-black rounded-2xl border-none ring-1 ring-gray-500 focus:ring-2">
           <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px]">
               <div class="flex space-x-2 items-center">
@@ -55,31 +52,31 @@
               <li>
                 <div class="flex items-center">
                   <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
-                  <button class="text-lg" type="submit" name="person" value="Wanee">wanee</button>
+                  <button class="text-lg" type="submit" name="person" value="Wanee" onclick="filterPerson(2)">wanee</button>
                 </div>
               </li>
               <li>
                 <div class="flex items-center">
                   <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PL</div>
-                  <button class="text-lg" type="submit" name="person" value="Plaifah">plaifah</button>
+                  <button class="text-lg" type="submit" name="person" value="Plaifah" onclick="filterPerson(3)">plaifah</button>
                 </div>
               </li>
               <li>
                 <div class="flex items-center">
                   <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
-                  <button class="text-lg" type="submit" name="person" value="Unassigned">Unassigned</button>
+                  <button class="text-lg" type="submit" name="person" value="Unassigned" onclick="filterPerson('Unassigned')">Unassigned</button>
                 </div>
               </li>
             </ul>
           </div>
           <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost  btn-sm w-[120px]">
-              {% if severity == null %}
+              <!-- {% if severity == null %} -->
               <div class="flex space-x-2 items-center">
                 <div class="text-sm font-semibold normal-case">Filter</div>
                 <img class="w-4 h-4" src="{% static 'image/filter.png' %}">
               </div>
-              {% else %}
+              <!-- {% else %}
                 {% if severity == 'Low' %}
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-green-700"></div>
@@ -101,31 +98,31 @@
                   <div>Critical</div>
                 </div>
                 {% endif %}
-              {% endif %}
+              {% endif %} -->
             </label>
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
               <li>
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-green-700"></div>
-                  <button type="submit" name="severity" value="Low">Low</button>
+                  <button type="submit" name="severity" value="Low" onclick="filterSeverity('Low')">Low</button>
                 </div>
               </li>
               <li>
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
-                  <button type="submit" name="severity" value="Medium">Medium</button>
+                  <button type="submit" name="severity" value="Medium" onclick="filterSeverity('Medium')">Medium</button>
                 </div>
               </li>
               <li>
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-orange-500"></div>
-                  <button type="submit" name="severity" value="High">High</button>
+                  <button type="submit" name="severity" value="High" onclick="filterSeverity('High')">High</button>
                 </div>
               </li>
               <li>
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-red-600"></div>
-                  <button type="submit" name="severity" value="Critical">Critical</button>
+                  <button type="submit" name="severity" value="Critical" onclick="filterSeverity('Critical')">Critical</button>
                 </div>
               </li>
             </ul>
@@ -223,12 +220,15 @@
       </ul>
     </div>
   </div>
-</form>
+
 {% endblock content %}
 
 
 {% block javascript %}
 <script>
+  let severity = null
+  let person = null
+
   function showSeverity(severity) {
     switch(severity){
       case 'Low' : return (`
@@ -299,55 +299,78 @@
     return result
   }
 
-function table() {
-  $(document).ready( function() {
-      $.ajax({
-        url: '{% url "get-job-alert" %}',
-        type: 'GET',
-        success:async function(data) {
-          const result = JSON.parse(data)
-          let assignName = null
+  function filterSeverity(data) {
+    severity = data
+    table()
+  }
 
-          for (var i = 0; i < result.length; i++) {
-            const items = result[i].fields
 
-            await getUserInfo(items.assign).then((value) => {
-              assignName = value
-            })
+  function filterPerson(data){
+    person = data
+    table()
+  }
 
-            $("#jobData").append(`
-              <tr>
-                <th>${items.ticket_id}</th>
-                <td>${formatDate(items.date)}</td>
-                <td>${items.search_name}</td>
-                <td>${showSeverity(items.severity)}</td>
-                <td>${assignName}</td>
-                <td>
-                  <label for="my-drawer-4">
-                    <div class="flex items-center space-x-2 cursor-pointer">
-                      <img class="w-5 h-5" src="{% static 'image/open.png' %}"/>
-                      <div class="text-xs">View Result</div>
-                    </div>
-                  </label>
-                </td>
-              </tr>
-              `)
+  function filterSearch(){
+    table()
+  }
+
+  function table() {
+    input = document.getElementById("search");
+    search = input?.value
+
+    $("#jobData").empty().append("");
+
+    $(document).ready( function() {
+        $.ajax({
+          url: '{% url "get-job-alert" %}',
+          data:{
+            severity,
+            person,
+            search
+          },
+          type: 'GET',
+          success:async function(data) {
+            const result = JSON.parse(data)
+            let assignName = null
+
+            for (var i = 0; i < result.length; i++) {
+              const items = result[i].fields
+
+              await getUserInfo(items.assign).then((value) => {
+                assignName = value
+              })
+              console.log('user =',items.assign)
+              $("#jobData").append(`
+                <tr>
+                  <th>${items.ticket_id}</th>
+                  <td>${formatDate(items.date)}</td>
+                  <td>${items.search_name}</td>
+                  <td>${showSeverity(items.severity)}</td>
+                  <td>${assignName}</td>
+                  <td>
+                    <label for="my-drawer-4">
+                      <div class="flex items-center space-x-2 cursor-pointer">
+                        <img class="w-5 h-5" src="{% static 'image/open.png' %}"/>
+                        <div class="text-xs">View Result</div>
+                      </div>
+                    </label>
+                  </td>
+                </tr>
+                `)
+            }
+          },
+          error: function(error) {
+              console.log('Error:', error);
           }
-        },
-        error: function(error) {
-            console.log('Error:', error);
-        }
+      });
     });
-  });
-}
+  }
 
 // การเขียนแบบนี้เรียกว่า IIFE คือ จะเป็น function ที่ถูกเรียกเมื่อ app มีการทำงาน
 (() =>{
   table()
 })()
     
-
-
 </script>
 {% endblock javascript %}
 
