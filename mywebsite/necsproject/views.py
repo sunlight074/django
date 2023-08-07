@@ -7,8 +7,14 @@ from .models import *
 from django.http import JsonResponse
 import json
 
+def getUserInfo(request):
+    id = request.GET.get('id', None)
+    userInfo = User.objects.filter(pk=id)
+    data_json = serializers.serialize('json', userInfo)
+    return JsonResponse(data_json,safe=False)
+
 def getJobalertData(request):
-    data = jobAlertDetail.objects.select_related('alert_detail_assign')
+    data = jobAlert.objects.all()
     # queryset_a = jobAlert.objects.get(id=id)
     # queryset_b = jobAlertDetail.objects.all()
 
@@ -69,6 +75,8 @@ def jobalert(request):
     # jobData = Job.objects.all().values()
     # jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
     #print(jobData)
+    a = User.objects.filter(pk=1)
+    print(a)
     return render(request, 'jobalert.html')
 
 def maintable(request):
@@ -99,8 +107,8 @@ def maintable(request):
 
     # jobData = Job.objects.all().values()
     # ticket = MANAGE_TICKET.objects.all().values()
-    jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
-    return render(request ,"table.html" , context={'data' : jobData , 'ticket':""})
+    # jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
+    return render(request ,"table.html" , context={'data' : 'jobData' , 'ticket':""})
 
 def kanban(request):
     return render(request ,"kanban.html")
