@@ -107,46 +107,46 @@
           <div class="text-lg">Ticket ID</div>
           <div class="text-lg" id="ticket_id"></div>
         </div>
-      <div class="box-content h-[120px] w-[630px] p-4 border-2 rounded-md ml-1">
-          <div class="flex space-x-2">
-            <div class="mt-2 ml-5">
-              <div class="text-sm font-semibold">Assignee</div>
-            </div>
-            <div class="px-8">
-              <select class="select select-sm select-bordered w-60 " name="" id="">
-                <option value="name1">unassigned</option>
-                <option value="name1">plaifah</option>
-                <option value="name2">wanee</option>
-              </select>
-            </div>
+          <div class="box-content h-[120px] w-[630px] p-4 border-2 rounded-md ml-1">
+              <div class="flex space-x-2">
+                <div class="mt-2 ml-5">
+                  <div class="text-sm font-semibold">Assignee</div>
+                </div>
+                <div class="px-8">
+                  <select class="select select-sm select-bordered w-60 " id="assign" name="assign">
+                    <option value="4" onclick="addAssigneeValue(4)">unassigned</option>
+                    <option value="3" onclick="addAssigneeValue(3)">plaifah</option>
+                    <option value="2" onclick="addAssigneeValue(2)">wanee</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex space-x-2 mt-3">
+                <div class="mt-2 ml-5">
+                  <div class="text-sm font-semibold">Reporter</div>
+                </div>
+                <div class="px-8">
+                  <select class="select select-sm select-bordered w-60 " name="Reporter"  id="Reporter">
+                    <option value="4">unassigned</option>
+                    <option value="3">plaifah</option>
+                    <option value="2">wanee</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex space-x-2 mt-3">
+                <div class="mt-2 ml-5">
+                  <div class="text-sm font-semibold">App</div>
+                </div>
+                <div class="px-[59px]">
+                  <select class="select select-sm select-bordered w-60 " id="app">
+                    <option value="Splunk">Splunk</option>
+                    <option value="Special case">Special case</option>
+                  </select>
+                </div>
+              </div>  
           </div>
-          <div class="flex space-x-2 mt-3">
-            <div class="mt-2 ml-5">
-              <div class="text-sm font-semibold">Reporter</div>
-            </div>
-            <div class="px-8">
-              <select class="select select-sm select-bordered w-60 " name="" id="">
-                <option value="name1">unassigned</option>
-                <option value="name1">plaifah</option>
-                <option value="name2">wanee</option>
-              </select>
-            </div>
+          <div class="text-right mt-3 mr-2 ">
+            <button class="bg-[#3B82F6] px-2 py-2 rounded-md text-white font-semibold" onclick="onSubmit()">save</button>
           </div>
-          <div class="flex space-x-2 mt-3">
-            <div class="mt-2 ml-5">
-              <div class="text-sm font-semibold">App</div>
-            </div>
-            <div class="px-[59px]">
-              <select class="select select-sm select-bordered w-60 " name="" id="">
-                <option value="name1">Splunk</option>
-                <option value="name1">Special case</option>
-              </select>
-            </div>
-          </div>  
-      </div>
-      <div class="text-right mt-3 mr-2 ">
-        <button class="bg-[#3B82F6] px-2 py-2 rounded-md text-white font-semibold">save</button>
-      </div>
       <div class="box-content w-[630px] p-4 border-2 rounded-md ml-1 mt-3">
         <div class="font-semibold text-lg ">
           Details
@@ -161,15 +161,15 @@
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Results link</div>
-          <a class="w-3/4 py-4 mt-1 pl-3 text-blue-500 underline text-xs/[20px]" href="" target="_blank" id="link">http://Splunk.localdomain:8000/app/search/@go?sid=scheduler__admin__search__RMD5fbe704c4af42aeda_at_1689078660_43</a>
+          <a class="w-3/4 py-4 mt-1 pl-3 text-blue-500 underline text-xs/[20px]" href="" target="_blank" id="link"></a>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Severity</div>
-          <div class="w-3/4 py-4 mt-1 pl-3" id="severity">High</div>
+          <div class="w-3/4 py-4 mt-1 pl-3" id="severity"></div>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Result</div>
-          <div class="w-3/4 py-4 mt-1 pl-3" id="result">High</div>
+          <div class="w-3/4 py-4 mt-1 pl-3" id="result"></div>
         </div>
       </div>
       </ul>
@@ -183,6 +183,9 @@
 <script>
   let severity = null
   let person = null
+  let assignee_value = null
+  let reporter_value = null
+  let app_value = null
 
   function showSeverity(severity) {
     switch(severity){
@@ -325,8 +328,106 @@
     }
   }
 
+  function addAssigneeValue(item){
+    console.log('addAssigneeValue=',item)
+    assignee_value = item
+  }
+
+  function addReporterValue(item){
+    console.log('addReporterValue=',item)
+    reporter_value = item
+  }
+
+  function addAppValue(item){
+    console.log('addAppValue=',item)
+    app_value = item
+  }
+
+
+  function onSubmit(){
+    console.log(assignee_value)
+    console.log(reporter_value)
+    var template = document.querySelector('#template');
+
+  }
+
   function filterSearch(){
     table()
+  }
+
+
+  function Assignee(item){
+    assignee_value = item
+    $("#assign").empty().append("");
+    if(item === 4){
+      $("#assign").append(`
+      <option value="4" selected="selected" onclick="addAssigneeValue(4)">unassigned</option>
+      <option value="3" onclick="addAssigneeValue(3)">plaifah</option>
+      <option value="2" onclick="addAssigneeValue(2)">wanee</option>
+      `)
+    }
+    if(item === 3){
+      $("#assign").append(`
+      <option value="4" id="addAssigneeValue">unassigned</option>
+      <option value="3" selected="selected" id="addAssigneeValue">plaifah</option>
+      <option value="2" id="addAssigneeValue">wanee</option>
+      `)  
+    }
+    if(item === 2){
+      $("#assign").append(`
+      <option value="4">unassigned</option>
+      <option value="3">plaifah</option>
+      <option value="2" selected="selected">wanee</option>
+      `)  
+    }
+  }
+
+  function Reporter(item){
+    reporter_value = item
+    $("#Reporter").empty().append("");
+
+    if(item === 4){
+      $("#Reporter").append(`
+      <option value="4" selected="selected">unassigned</option>
+      <option value="3">plaifah</option>
+      <option value="2">wanee</option>
+      `)
+    }
+    if(item === 3){
+      $("#Reporter").append(`
+      <option value="4">unassigned</option>
+      <option value="3" selected="selected">plaifah</option>
+      <option value="2">wanee</option>
+      `)  
+    }
+    if(item === 2){
+      $("#Reporter").append(`
+      <option value="4">unassigned</option>
+      <option value="3">plaifah</option>
+      <option value="2" selected="selected">wanee</option>
+      `)  
+    }
+  }
+
+  function App(item){
+    app_value = item
+    console.log(item)
+    $("#app").empty().append("");
+
+    if(item === 'Splunk'){
+      $("#app").append(`
+        <option value="Splunk" selected="selected">Splunk</option>
+        <option value="Special case" >Special case</option>
+      `)
+    }
+
+    if(item === 'Special case'){
+      $("#app").append(`
+        <option value="Splunk">Splunk</option>
+        <option value="Special case" selected="selected">Special case</option>
+      `)
+    }
+
   }
 
   function getJobById(ticket_id){
@@ -345,20 +446,21 @@
       type: 'GET',
       success:async function(data) {
         const result = JSON.parse(data)[0].fields
+        App(result.app)
+        Assignee(result.assign)
+        Reporter(result.report)
         $("#ticket_id").append(`<div class="text-lg font-semibold">${result.ticket_id}</div>`)
         $("#date").append(`<div>${formatDate(result.date)}</div>`)
         $("#search").append(`<div>${result.search_name}</div>`)
         $("#link").append(`<div>${result.result_link}</div>`)
         $("#severity").append(`<div>${showSeverity(result.severity)}</div>`)
         for (const [key, value] of Object.entries(JSON.parse(result.results))) {
-          console.log(`${key}: ${value}`);
           $("#result").append(
             `<div class="flex space-x-3">
                 <div class="font-semibold">${key}: </div>
                 <div>${value}</div>
             </div>`)
         }
-
       }})
   }
 
