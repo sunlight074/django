@@ -22,29 +22,9 @@
             <input id="search" onkeyup="filterSearch()" type="text" name="search" placeholder="Search" class="pr-2 pl-8 font-medium placeholder-gray-500 text-black rounded-2xl border-none ring-1 ring-gray-500 focus:ring-2">
           <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px]">
-              <div class="flex space-x-2 items-center">
-                {% if person == null %}
-                  <div class="text-sm font-semibold normal-case">Person</div>
-                  <img class="w-4 h-4" src="{% static 'image/user.png' %}">
-                {% endif %} 
-                {% if person %} 
-                  {% if person == 'Wanee' %}
-                  <div class="flex space-x-2 items-center">
-                    <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
-                    <div class="text-sm font-semibold normal-case">{{person}}</div>
-                  </div>
-                  {% elif person == 'Plaifah' %} 
-                  <div class="flex space-x-2 items-center">
-                    <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PS</div>
-                    <div class="text-sm font-semibold normal-case">{{person}}</div> 
-                  </div>
-                  {% elif person == 'Unassigned' %}
-                  <div class="flex space-x-2 items-center">
-                    <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
-                  <div class="text-sm font-semibold normal-case">{{person}}</div>
-                </div>
-                  {% endif %} 
-                {% endif %}       
+              <div class="flex space-x-2 items-center" id="filterPerson">
+                <div class="text-sm font-semibold normal-case">Person</div>
+                <img class="w-4 h-4" src="{% static 'image/user.png' %}">
               </div>
             </label>
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
@@ -70,34 +50,10 @@
           </div>
           <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost  btn-sm w-[120px]">
-              <!-- {% if severity == null %} -->
-              <div class="flex space-x-2 items-center">
+              <div class="flex space-x-2 items-center" id="filterSeverity">
                 <div class="text-sm font-semibold normal-case">Filter</div>
                 <img class="w-4 h-4" src="{% static 'image/filter.png' %}">
               </div>
-              <!-- {% else %}
-                {% if severity == 'Low' %}
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-green-700"></div>
-                  <div>Low</div>
-                </div>
-                {% elif severity == 'Medium' %}
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
-                  <div>Medium</div>
-                </div>
-                {% elif severity == 'High' %}
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-orange-500"></div>
-                  <div>High</div>
-                </div>
-                {% elif severity == 'Critical' %}
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-red-600"></div>
-                  <div>Critical</div>
-                </div>
-                {% endif %}
-              {% endif %} -->
             </label>
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
               <li>
@@ -146,10 +102,10 @@
     </div> 
     <div class="drawer-side">
       <label for="my-drawer-4" class="drawer-overlay"></label>
-      <ul class="menu p-4 w-[700px] h-full bg-white text-base-content">
+      <ul class="menu p-4 w-[700px] h-full bg-white text-base-content mb-10">
         <div class="flex space-x-4 mb-5 ml-2 mt-5">
           <div class="text-lg">Ticket ID</div>
-          <div class="text-lg">123456789</div>
+          <div class="text-lg" id="ticket_id"></div>
         </div>
       <div class="box-content h-[120px] w-[630px] p-4 border-2 rounded-md ml-1">
           <div class="flex space-x-2">
@@ -191,29 +147,29 @@
       <div class="text-right mt-3 mr-2 ">
         <button class="bg-[#3B82F6] px-2 py-2 rounded-md text-white font-semibold">save</button>
       </div>
-      <div class="box-content h-[500px] w-[630px] p-4 border-2 rounded-md ml-1 mt-3">
+      <div class="box-content w-[630px] p-4 border-2 rounded-md ml-1 mt-3">
         <div class="font-semibold text-lg ">
           Details
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Date</div>
-          <div class="w-3/4 py-4 mt-1 pl-3">27 Jul 2023 00:00</div>
+          <div class="w-3/4 py-4 mt-1 pl-3"id="date">27 Jul 2023 00:00</div>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Search name</div>
-          <div class="w-3/4 py-4 mt-1 pl-3">Test 1</div>
+          <div class="w-3/4 py-4 mt-1 pl-3"id="search">Test 1</div>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Results link</div>
-          <a class="w-3/4 py-4 mt-1 pl-3 text-blue-500 underline text-xs/[20px]" href="" target="_blank">http://Splunk.localdomain:8000/app/search/@go?sid=scheduler__admin__search__RMD5fbe704c4af42aeda_at_1689078660_43</a>
+          <a class="w-3/4 py-4 mt-1 pl-3 text-blue-500 underline text-xs/[20px]" href="" target="_blank" id="link">http://Splunk.localdomain:8000/app/search/@go?sid=scheduler__admin__search__RMD5fbe704c4af42aeda_at_1689078660_43</a>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Severity</div>
-          <div class="w-3/4 py-4 mt-1 pl-3">High</div>
+          <div class="w-3/4 py-4 mt-1 pl-3" id="severity">High</div>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Result</div>
-          <div class="w-3/4 py-4 mt-1 pl-3">High</div>
+          <div class="w-3/4 py-4 mt-1 pl-3" id="result">High</div>
         </div>
       </div>
       </ul>
@@ -301,16 +257,109 @@
   function filterSeverity(data) {
     severity = data
     table()
-  }
 
+    $("#filterSeverity").empty().append("");
+
+    if(data ===  'Low'){
+      $("#filterSeverity").append(`
+      <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-green-700"></div>
+        <div class="text-sm font-semibold normal-case">Low</div>
+      </div>
+      `)
+    }
+    if(data ===  'Medium'){
+      $("#filterSeverity").append(`
+      <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
+        <div class="text-sm font-semibold normal-case">Medium</div>
+      </div>
+      `)
+    }
+    if(data ===  'High'){
+      $("#filterSeverity").append(`
+      <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+        <div class="text-sm font-semibold normal-case">High</div>
+      </div>
+      `)
+    }
+    if(data ===  'Critical'){
+      $("#filterSeverity").append(`
+      <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-red-600"></div>
+        <div class="text-sm font-semibold normal-case">Critical</div>
+      </div>
+      `)
+    }
+  }
 
   function filterPerson(data){
     person = data
     table()
+    $("#filterPerson").empty().append("");
+
+    if(data ===  2){
+      $("#filterPerson").append(`
+      <div class="flex space-x-2 items-center">
+        <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+        <div class="text-sm font-semibold normal-case">wanee</div>
+      </div>
+      `)
+    }
+    if(data ===  3){
+      $("#filterPerson").append(`
+      <div class="flex space-x-2 items-center">
+        <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PS</div>
+        <div class="text-sm font-semibold normal-case">plaifah</div>
+      </div>
+      `)
+    }
+    if(data ===  4){
+      $("#filterPerson").append(`
+      <div class="flex space-x-2 items-center">
+        <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
+        <div class="text-sm font-semibold normal-case">unassigned</div>
+      </div>
+      `)
+    }
   }
 
   function filterSearch(){
     table()
+  }
+
+  function getJobById(ticket_id){
+    $("#ticket_id").empty().append("");
+    $("#date").empty().append("");
+    $("#search").empty().append("");
+    $("#link").empty().append("");
+    $("#severity").empty().append("");
+    $("#result").empty().append("");
+
+    $.ajax({
+      url: '{% url "get-job-alert-id" %}',
+      data: {
+        ticket_id
+      },
+      type: 'GET',
+      success:async function(data) {
+        const result = JSON.parse(data)[0].fields
+        $("#ticket_id").append(`<div class="text-lg font-semibold">${result.ticket_id}</div>`)
+        $("#date").append(`<div>${formatDate(result.date)}</div>`)
+        $("#search").append(`<div>${result.search_name}</div>`)
+        $("#link").append(`<div>${result.result_link}</div>`)
+        $("#severity").append(`<div>${showSeverity(result.severity)}</div>`)
+        for (const [key, value] of Object.entries(JSON.parse(result.results))) {
+          console.log(`${key}: ${value}`);
+          $("#result").append(
+            `<div class="flex space-x-3">
+                <div class="font-semibold">${key}: </div>
+                <div>${value}</div>
+            </div>`)
+        }
+
+      }})
   }
 
   function table() {
@@ -319,7 +368,7 @@
 
     $("#jobData").empty().append("");
 
-    $(document).ready( function() {
+    $(document).ready(function() {
         $.ajax({
           url: '{% url "get-job-alert" %}',
           data:{
@@ -338,7 +387,7 @@
               await getUserInfo(items.assign).then((value) => {
                 assignName = value
               })
-              console.log('user =',items.assign)
+   
               $("#jobData").append(`
                 <tr>
                   <th>${items.ticket_id}</th>
@@ -350,7 +399,7 @@
                     <label for="my-drawer-4">
                       <div class="flex items-center space-x-2 cursor-pointer">
                         <img class="w-5 h-5" src="{% static 'image/open.png' %}"/>
-                        <div class="text-xs">View Result</div>
+                        <div class="text-xs" onclick="getJobById(${items.ticket_id})">View Result</div>
                       </div>
                     </label>
                   </td>
