@@ -11,4 +11,5 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard-page'),
     path('ajax/getJobAlert/',  getJobalertData, name='get-job-alert'),
     path('ajax/getUserInfo/',  getUserInfo, name='get-user-info'),
+    path('ajax/getJobalertById/', getJobalertById, name='get-job-alert-id'),
 ]

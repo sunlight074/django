@@ -7,6 +7,13 @@ from .models import *
 from django.http import JsonResponse
 import json
 
+def getJobalertById(request):
+    ticket_id = request.GET.get('ticket_id', None) 
+    data = jobAlert.objects.filter(ticket_id__icontains=ticket_id)
+    data_json = serializers.serialize('json', data)
+    
+    return JsonResponse(data_json,safe=False)
+
 def getUserInfo(request):
     id = request.GET.get('id', None)
     userInfo = User.objects.filter(pk=id)
