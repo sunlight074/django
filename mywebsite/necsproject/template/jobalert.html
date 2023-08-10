@@ -8,8 +8,6 @@
 
 {% block content %}
 
-<form method="post">
-{% csrf_token %}
   <div class="drawer drawer-end">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
@@ -21,111 +19,65 @@
                 <img width="20" height="20" src="{% static 'image/icons8-search-50.png' %} "alt=""/>
               </button>
             </div>
-            <input type="text" name="search" value="{{search}}" placeholder="Search" class="pr-2 pl-8 font-medium placeholder-gray-500 text-black rounded-2xl border-none ring-1 ring-gray-500 focus:ring-2">
-
+            <input id="search" onkeyup="filterSearch()" type="text" name="search" placeholder="Search" class="pr-2 pl-8 font-medium placeholder-gray-500 text-black rounded-2xl border-none ring-1 ring-gray-500 focus:ring-2">
           <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px]">
-              <div class="flex space-x-2 items-center">
-                {% if person == null %}
-                  <div class="text-sm font-semibold normal-case">Person</div>
-                  <img class="w-4 h-4" src="{% static 'image/user.png' %}">
-                {% endif %} 
-                {% if person %} 
-                  {% if person == 'Wanee' %}
-                  <div class="flex space-x-2 items-center">
-                    <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
-                    <div class="text-sm font-semibold normal-case">{{person}}</div>
-                  </div>
-                  {% elif person == 'Plaifah' %} 
-                  <div class="flex space-x-2 items-center">
-                    <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PS</div>
-                    <div class="text-sm font-semibold normal-case">{{person}}</div> 
-                  </div>
-                  {% elif person == 'Unassigned' %}
-                  <div class="flex space-x-2 items-center">
-                    <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
-                  <div class="text-sm font-semibold normal-case">{{person}}</div>
-                </div>
-                  {% endif %} 
-                {% endif %} 
-                
+              <div class="flex space-x-2 items-center" id="filterPerson">
+                <div class="text-sm font-semibold normal-case">Person</div>
+                <img class="w-4 h-4" src="{% static 'image/user.png' %}">
               </div>
             </label>
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
               <li>
                 <div class="flex items-center">
                   <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
-                  <button class="text-lg" type="submit" name="person" value="Wanee">wanee</button>
+                  <button class="text-lg" type="submit" name="person" value="Wanee" onclick="filterPerson(2)">wanee</button>
                 </div>
               </li>
               <li>
                 <div class="flex items-center">
                   <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PL</div>
-                  <button class="text-lg" type="submit" name="person" value="Plaifah">plaifah</button>
+                  <button class="text-lg" type="submit" name="person" value="Plaifah" onclick="filterPerson(3)">plaifah</button>
                 </div>
               </li>
               <li>
                 <div class="flex items-center">
                   <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
-                  <button class="text-lg" type="submit" name="person" value="Unassigned">Unassigned</button>
+                  <button class="text-lg" type="submit" name="person" value="Unassigned" onclick="filterPerson(4)">Unassigned</button>
                 </div>
               </li>
             </ul>
           </div>
           <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost  btn-sm w-[120px]">
-              {% if severity == null %}
-              <div class="flex space-x-2 items-center">
+              <div class="flex space-x-2 items-center" id="filterSeverity">
                 <div class="text-sm font-semibold normal-case">Filter</div>
                 <img class="w-4 h-4" src="{% static 'image/filter.png' %}">
               </div>
-              {% else %}
-                {% if severity == 'Low' %}
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-green-700"></div>
-                  <div>Low</div>
-                </div>
-                {% elif severity == 'Medium' %}
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
-                  <div>Medium</div>
-                </div>
-                {% elif severity == 'High' %}
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-orange-500"></div>
-                  <div>High</div>
-                </div>
-                {% elif severity == 'Critical' %}
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-red-600"></div>
-                  <div>Critical</div>
-                </div>
-                {% endif %}
-              {% endif %}
             </label>
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
               <li>
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-green-700"></div>
-                  <button type="submit" name="severity" value="Low">Low</button>
+                  <button type="submit" name="severity" value="Low" onclick="filterSeverity('Low')">Low</button>
                 </div>
               </li>
               <li>
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
-                  <button type="submit" name="severity" value="Medium">Medium</button>
+                  <button type="submit" name="severity" value="Medium" onclick="filterSeverity('Medium')">Medium</button>
                 </div>
               </li>
               <li>
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-orange-500"></div>
-                  <button type="submit" name="severity" value="High">High</button>
+                  <button type="submit" name="severity" value="High" onclick="filterSeverity('High')">High</button>
                 </div>
               </li>
               <li>
                 <div class="flex items-center space-x-2">
                   <div class="h-5 w-5 rounded-full bg-red-600"></div>
-                  <button type="submit" name="severity" value="Critical">Critical</button>
+                  <button type="submit" name="severity" value="Critical" onclick="filterSeverity('Critical')">Critical</button>
                 </div>
               </li>
             </ul>
@@ -144,126 +96,432 @@
               <th>Detail</th>
             </tr>
           </thead>
-          <tbody> 
-            {% for item in data  %}
-            <tr>
-              <th>{{forloop.counter}}</th>
-              <td>{{item.alert_detail_assign.date | date:"d b Y H:m"}}</td>
-              <td>{{item.alert_detail_assign.search_name}}</td>
-              <td>
-                {% if item.severity == 'Low' %}
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-green-700"></div>
-                  <div>Low</div>
-                </div>
-                {% elif item.severity == 'Medium' %} 
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
-                  <div>Medium</div>
-                </div>
-                {% elif item.severity == 'High' %} 
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-orange-500"></div>
-                  <div>High</div>
-                </div>
-                {% elif item.severity == 'Critical' %} 
-                <div class="flex items-center space-x-2">
-                  <div class="h-5 w-5 rounded-full bg-red-600"></div>
-                  <div>Critical</div>
-                </div>
-                {% endif %} 
-              </td>
-              <td>{{item.assign}}</td>
-              <td>
-                <label for="my-drawer-4">
-                  <div class="flex items-center space-x-2 cursor-pointer">
-                    <img class="w-5 h-5" src="{% static 'image/open.png' %}">
-                    <div class="text-xs">View Result {{item.id}}</div>
-                  </div>
-                </label>
-              </td>
-            </tr>
-          {% endfor %}
-          </tbody>  
+          <tbody id="jobData"></tbody>  
         </table>
       </div>
     </div> 
     <div class="drawer-side">
       <label for="my-drawer-4" class="drawer-overlay"></label>
-      <ul class="menu p-4 w-[700px] h-full bg-white text-base-content">
+      <ul class="menu p-4 w-[700px] h-full bg-white text-base-content mb-10">
         <div class="flex space-x-4 mb-5 ml-2 mt-5">
           <div class="text-lg">Ticket ID</div>
-          <div class="text-lg">123456789</div>
+          <div class="text-lg" id="ticket_id"></div>
         </div>
-      <div class="box-content h-[120px] w-[630px] p-4 border-2 rounded-md ml-1">
-          <div class="flex space-x-2">
-            <div class="mt-2 ml-5">
-              <div class="text-sm font-semibold">Assignee</div>
-            </div>
-            <div class="px-8">
-              <select class="select select-sm select-bordered w-60 " name="" id="">
-                <option value="name1">unassigned</option>
-                <option value="name1">plaifah</option>
-                <option value="name2">wanee</option>
-              </select>
-            </div>
+          <div class="box-content h-[120px] w-[630px] p-4 border-2 rounded-md ml-1">
+              <div class="flex space-x-2">
+                <div class="mt-2 ml-5">
+                  <div class="text-sm font-semibold">Assignee</div>
+                </div>
+                <div class="px-8">
+                  <select class="select select-sm select-bordered w-60 " id="assign" name="assign">
+                    <option value="4" onclick="addAssigneeValue(4)">unassigned</option>
+                    <option value="3" onclick="addAssigneeValue(3)">plaifah</option>
+                    <option value="2" onclick="addAssigneeValue(2)">wanee</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex space-x-2 mt-3">
+                <div class="mt-2 ml-5">
+                  <div class="text-sm font-semibold">Reporter</div>
+                </div>
+                <div class="px-8">
+                  <select class="select select-sm select-bordered w-60 " name="Reporter"  id="Reporter">
+                    <option value="4">unassigned</option>
+                    <option value="3">plaifah</option>
+                    <option value="2">wanee</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex space-x-2 mt-3">
+                <div class="mt-2 ml-5">
+                  <div class="text-sm font-semibold">App</div>
+                </div>
+                <div class="px-[59px]">
+                  <select class="select select-sm select-bordered w-60 " id="app">
+                    <option value="Splunk">Splunk</option>
+                    <option value="Special case">Special case</option>
+                  </select>
+                </div>
+              </div>  
           </div>
-          <div class="flex space-x-2 mt-3">
-            <div class="mt-2 ml-5">
-              <div class="text-sm font-semibold">Reporter</div>
-            </div>
-            <div class="px-8">
-              <select class="select select-sm select-bordered w-60 " name="" id="">
-                <option value="name1">unassigned</option>
-                <option value="name1">plaifah</option>
-                <option value="name2">wanee</option>
-              </select>
-            </div>
+          <div class="text-right mt-3 mr-2 ">
+            <button class="bg-[#3B82F6] px-2 py-2 rounded-md text-white font-semibold" onclick="onSubmit()">save</button>
           </div>
-          <div class="flex space-x-2 mt-3">
-            <div class="mt-2 ml-5">
-              <div class="text-sm font-semibold">App</div>
-            </div>
-            <div class="px-[59px]">
-              <select class="select select-sm select-bordered w-60 " name="" id="">
-                <option value="name1">Splunk</option>
-                <option value="name1">Special case</option>
-              </select>
-            </div>
-          </div>  
-      </div>
-      <div class="text-right mt-3 mr-2 ">
-        <button class="bg-[#3B82F6] px-2 py-2 rounded-md text-white font-semibold">save</button>
-      </div>
-      <div class="box-content h-[500px] w-[630px] p-4 border-2 rounded-md ml-1 mt-3">
+      <div class="box-content w-[630px] p-4 border-2 rounded-md ml-1 mt-3">
         <div class="font-semibold text-lg ">
           Details
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Date</div>
-          <div class="w-3/4 py-4 mt-1 pl-3">27 Jul 2023 00:00</div>
+          <div class="w-3/4 py-4 mt-1 pl-3"id="date">27 Jul 2023 00:00</div>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Search name</div>
-          <div class="w-3/4 py-4 mt-1 pl-3">Test 1</div>
+          <div class="w-3/4 py-4 mt-1 pl-3"id="search">Test 1</div>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Results link</div>
-          <a class="w-3/4 py-4 mt-1 pl-3 text-blue-500 underline text-xs/[20px]" href="" target="_blank">http://Splunk.localdomain:8000/app/search/@go?sid=scheduler__admin__search__RMD5fbe704c4af42aeda_at_1689078660_43</a>
+          <a class="w-3/4 py-4 mt-1 pl-3 text-blue-500 underline text-xs/[20px]" href="" target="_blank" id="link"></a>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Severity</div>
-          <div class="w-3/4 py-4 mt-1 pl-3">High</div>
+          <div class="w-3/4 py-4 mt-1 pl-3" id="severity"></div>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Result</div>
-          <div class="w-3/4 py-4 mt-1 pl-3">High</div>
+          <div class="w-3/4 py-4 mt-1 pl-3" id="result"></div>
         </div>
       </div>
       </ul>
     </div>
-
   </div>
-</form>
 
 {% endblock content %}
+
+
+{% block javascript %}
+<script>
+  let severity = null
+  let person = null
+  let assignee_value = null
+  let reporter_value = null
+  let app_value = null
+
+  function showSeverity(severity) {
+    switch(severity){
+      case 'Low' : return (`
+      <div>
+        <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-green-700"></div>
+        <div>Low</div>
+        </div>
+      </div>
+      `);
+      case 'Medium' : return (`
+      <div>
+       <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
+          <div>Medium</div>
+        </div>
+      </div>
+      `);
+      case 'High' : return (`
+      <div>
+        <div class="flex items-center space-x-2">
+          <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+          <div>High</div>
+          </div>
+      </div>
+      `);
+      case 'Critical' : return (`
+       <div>
+        <div class="flex items-center space-x-2">
+          <div class="h-5 w-5 rounded-full bg-red-600"></div>
+          <div>Critical</div>
+          </div>
+      </div>
+      `);
+    }
+  }
+
+  function formatDate(date) {
+      var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+      if (month.length < 2) 
+          month = '0' + month;
+      if (day.length < 2) 
+          day = '0' + day;
+      return [day,month,year].join('-');
+  }
+
+  function getData(id) { 
+    return $.ajax({
+      url: '{% url "get-user-info" %}',
+      type: 'GET',
+      data: {
+          'id': id,
+        }
+    })
+  };
+
+  async function getUserInfo(id) {
+    let result = null
+    try {
+      const res = await getData(id)
+      result = JSON.parse(res)[0].fields.username
+    } catch(err) {
+      console.log(err);
+    }
+    return result
+  }
+
+  function filterSeverity(data) {
+    severity = data
+    table()
+
+    $("#filterSeverity").empty().append("");
+
+    if(data ===  'Low'){
+      $("#filterSeverity").append(`
+      <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-green-700"></div>
+        <div class="text-sm font-semibold normal-case">Low</div>
+      </div>
+      `)
+    }
+    if(data ===  'Medium'){
+      $("#filterSeverity").append(`
+      <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
+        <div class="text-sm font-semibold normal-case">Medium</div>
+      </div>
+      `)
+    }
+    if(data ===  'High'){
+      $("#filterSeverity").append(`
+      <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+        <div class="text-sm font-semibold normal-case">High</div>
+      </div>
+      `)
+    }
+    if(data ===  'Critical'){
+      $("#filterSeverity").append(`
+      <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-red-600"></div>
+        <div class="text-sm font-semibold normal-case">Critical</div>
+      </div>
+      `)
+    }
+  }
+
+  function filterPerson(data){
+    person = data
+    table()
+    $("#filterPerson").empty().append("");
+
+    if(data ===  2){
+      $("#filterPerson").append(`
+      <div class="flex space-x-2 items-center">
+        <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+        <div class="text-sm font-semibold normal-case">wanee</div>
+      </div>
+      `)
+    }
+    if(data ===  3){
+      $("#filterPerson").append(`
+      <div class="flex space-x-2 items-center">
+        <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PS</div>
+        <div class="text-sm font-semibold normal-case">plaifah</div>
+      </div>
+      `)
+    }
+    if(data ===  4){
+      $("#filterPerson").append(`
+      <div class="flex space-x-2 items-center">
+        <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
+        <div class="text-sm font-semibold normal-case">unassigned</div>
+      </div>
+      `)
+    }
+  }
+
+  function addAssigneeValue(item){
+    console.log('addAssigneeValue=',item)
+    assignee_value = item
+  }
+
+  function addReporterValue(item){
+    console.log('addReporterValue=',item)
+    reporter_value = item
+  }
+
+  function addAppValue(item){
+    console.log('addAppValue=',item)
+    app_value = item
+  }
+
+
+  function onSubmit(){
+    console.log(assignee_value)
+    console.log(reporter_value)
+    var template = document.querySelector('#template');
+
+  }
+
+  function filterSearch(){
+    table()
+  }
+
+
+  function Assignee(item){
+    assignee_value = item
+    $("#assign").empty().append("");
+    if(item === 4){
+      $("#assign").append(`
+      <option value="4" selected="selected" onclick="addAssigneeValue(4)">unassigned</option>
+      <option value="3" onclick="addAssigneeValue(3)">plaifah</option>
+      <option value="2" onclick="addAssigneeValue(2)">wanee</option>
+      `)
+    }
+    if(item === 3){
+      $("#assign").append(`
+      <option value="4" id="addAssigneeValue">unassigned</option>
+      <option value="3" selected="selected" id="addAssigneeValue">plaifah</option>
+      <option value="2" id="addAssigneeValue">wanee</option>
+      `)  
+    }
+    if(item === 2){
+      $("#assign").append(`
+      <option value="4">unassigned</option>
+      <option value="3">plaifah</option>
+      <option value="2" selected="selected">wanee</option>
+      `)  
+    }
+  }
+
+  function Reporter(item){
+    reporter_value = item
+    $("#Reporter").empty().append("");
+
+    if(item === 4){
+      $("#Reporter").append(`
+      <option value="4" selected="selected">unassigned</option>
+      <option value="3">plaifah</option>
+      <option value="2">wanee</option>
+      `)
+    }
+    if(item === 3){
+      $("#Reporter").append(`
+      <option value="4">unassigned</option>
+      <option value="3" selected="selected">plaifah</option>
+      <option value="2">wanee</option>
+      `)  
+    }
+    if(item === 2){
+      $("#Reporter").append(`
+      <option value="4">unassigned</option>
+      <option value="3">plaifah</option>
+      <option value="2" selected="selected">wanee</option>
+      `)  
+    }
+  }
+
+  function App(item){
+    app_value = item
+    console.log(item)
+    $("#app").empty().append("");
+
+    if(item === 'Splunk'){
+      $("#app").append(`
+        <option value="Splunk" selected="selected">Splunk</option>
+        <option value="Special case" >Special case</option>
+      `)
+    }
+
+    if(item === 'Special case'){
+      $("#app").append(`
+        <option value="Splunk">Splunk</option>
+        <option value="Special case" selected="selected">Special case</option>
+      `)
+    }
+
+  }
+
+  function getJobById(ticket_id){
+    $("#ticket_id").empty().append("");
+    $("#date").empty().append("");
+    $("#search").empty().append("");
+    $("#link").empty().append("");
+    $("#severity").empty().append("");
+    $("#result").empty().append("");
+
+    $.ajax({
+      url: '{% url "get-job-alert-id" %}',
+      data: {
+        ticket_id
+      },
+      type: 'GET',
+      success:async function(data) {
+        const result = JSON.parse(data)[0].fields
+        App(result.app)
+        Assignee(result.assign)
+        Reporter(result.report)
+        $("#ticket_id").append(`<div class="text-lg font-semibold">${result.ticket_id}</div>`)
+        $("#date").append(`<div>${formatDate(result.date)}</div>`)
+        $("#search").append(`<div>${result.search_name}</div>`)
+        $("#link").append(`<div>${result.result_link}</div>`)
+        $("#severity").append(`<div>${showSeverity(result.severity)}</div>`)
+        for (const [key, value] of Object.entries(JSON.parse(result.results))) {
+          $("#result").append(
+            `<div class="flex space-x-3">
+                <div class="font-semibold">${key}: </div>
+                <div>${value}</div>
+            </div>`)
+        }
+      }})
+  }
+
+  function table() {
+    input = document.getElementById("search");
+    search = input?.value
+
+    $("#jobData").empty().append("");
+
+    $(document).ready(function() {
+        $.ajax({
+          url: '{% url "get-job-alert" %}',
+          data:{
+            severity,
+            person,
+            search
+          },
+          type: 'GET',
+          success:async function(data) {
+            const result = JSON.parse(data)
+            let assignName = null
+
+            for (var i = 0; i < result.length; i++) {
+              const items = result[i].fields
+
+              await getUserInfo(items.assign).then((value) => {
+                assignName = value
+              })
+   
+              $("#jobData").append(`
+                <tr>
+                  <th>${items.ticket_id}</th>
+                  <td>${formatDate(items.date)}</td>
+                  <td>${items.search_name}</td>
+                  <td>${showSeverity(items.severity)}</td>
+                  <td>${assignName}</td>
+                  <td>
+                    <label for="my-drawer-4">
+                      <div class="flex items-center space-x-2 cursor-pointer">
+                        <img class="w-5 h-5" src="{% static 'image/open.png' %}"/>
+                        <div class="text-xs" onclick="getJobById(${items.ticket_id})">View Result</div>
+                      </div>
+                    </label>
+                  </td>
+                </tr>
+                `)
+            }
+          },
+          error: function(error) {
+              console.log('Error:', error);
+          }
+      });
+    });
+  }
+
+// การเขียนแบบนี้เรียกว่า IIFE คือ จะเป็น function ที่ถูกเรียกเมื่อ app มีการทำงาน
+(() =>{
+  table()
+})()
+    
+</script>
+{% endblock javascript %}
+
+

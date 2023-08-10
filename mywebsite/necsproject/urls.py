@@ -9,4 +9,7 @@ urlpatterns = [
     path('details/<int:id>', details, name='details-page'),
     path('job-details/<int:id>', jobDetails, name='job-details-page'),
     path('dashboard/', dashboard, name='dashboard-page'),
+    path('ajax/getJobAlert/',  getJobalertData, name='get-job-alert'),
+    path('ajax/getUserInfo/',  getUserInfo, name='get-user-info'),
+    path('ajax/getJobalertById/', getJobalertById, name='get-job-alert-id'),
 ]
