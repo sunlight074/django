@@ -7,29 +7,56 @@ from .models import *
 from django.http import JsonResponse
 import json
 
-def getJobalertData(request):
-    data = jobAlertDetail.objects.select_related('alert_detail_assign')
-    # queryset_a = jobAlert.objects.get(id=id)
-    # queryset_b = jobAlertDetail.objects.all()
-
-    # common_elements = queryset_a.filter(id=queryset_b.values_list('alert_detail_assign', flat=True))
-    # common_elements = common_elements.union(queryset_b)
-
-    # # Step 2: Get elements exclusive to ModelA using difference
-    # elements_exclusive_to_a = queryset_a.difference(common_elements)
-
-    # # Step 3: Get elements exclusive to ModelB using difference
-    # elements_exclusive_to_b = queryset_b.difference(common_elements)
-
-    # # Combine the three results to get the full outer join
-    # full_outer_join_result = common_elements.union(elements_exclusive_to_a).union(elements_exclusive_to_b)
-
-    # test = serializers.serialize('json', full_outer_join_result)
-
-    # print(test)
-    
+def getJobalertById(request):
+    ticket_id = request.GET.get('ticket_id', None) 
+    data = jobAlert.objects.filter(ticket_id__icontains=ticket_id)
     data_json = serializers.serialize('json', data)
+    
     return JsonResponse(data_json,safe=False)
+
+def getUserInfo(request):
+    id = request.GET.get('id', None)
+    userInfo = User.objects.filter(pk=id)
+    data_json = serializers.serialize('json', userInfo)
+    return JsonResponse(data_json,safe=False)
+
+def getJobalertData(request):
+    severity = request.GET.get('severity', None) 
+    person = request.GET.get('person', None)
+    search = request.GET.get('search', None)
+
+    if severity and person and search:
+        data = jobAlert.objects.filter(severity=severity ,assign=person ,search_name__icontains=search)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif severity and person :
+        data = jobAlert.objects.filter(severity=severity ,assign=person)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif severity and search :
+        data = jobAlert.objects.filter(severity=severity ,search_name__icontains=search)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif person and search :
+        data = jobAlert.objects.filter(assign=person ,search_name__icontains=search)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif severity:
+        data = jobAlert.objects.filter(severity=severity)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif person:
+        data = jobAlert.objects.filter(assign=person)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif search:
+        data = jobAlert.objects.filter(search_name__icontains=search)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    else:
+        data = jobAlert.objects.all()
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
     
 def login(request):
 
@@ -69,6 +96,8 @@ def jobalert(request):
     # jobData = Job.objects.all().values()
     # jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
     #print(jobData)
+    a = User.objects.filter(pk=1)
+    print(a)
     return render(request, 'jobalert.html')
 
 def maintable(request):
@@ -99,8 +128,8 @@ def maintable(request):
 
     # jobData = Job.objects.all().values()
     # ticket = MANAGE_TICKET.objects.all().values()
-    jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
-    return render(request ,"table.html" , context={'data' : jobData , 'ticket':""})
+    # jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
+    return render(request ,"table.html" , context={'data' : 'jobData' , 'ticket':""})
 
 def kanban(request):
     return render(request ,"kanban.html")
