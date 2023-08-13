@@ -106,20 +106,42 @@
         <div class="flex space-x-4 mb-5 ml-2 mt-5">
           <div class="text-lg">Ticket ID</div>
           <div class="text-lg" id="ticket_id"></div>
-        </div>
-        <form method="post">
-          {% csrf_token %}
-          <div class="box-content h-[120px] w-[630px] p-4 border-2 rounded-md ml-1">
+        </div>   
+          <div class="box-content w-[630px] p-4 border-2 rounded-md ml-1">
             <div class="flex space-x-2">
               <div class="mt-2 ml-5">
                 <div class="text-sm font-semibold">Assignee</div>
               </div>
               <div class="px-8">
-                <select class="select select-sm select-bordered w-60" id="assign" name="assignee">
-                  <option value="4">unassigned</option>
-                  <option value="3">plaifah</option>
-                  <option value="2">wanee</option>
-                </select>
+                <div class="dropdown">
+                  <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px]">
+                    <div class="flex space-x-2 items-center" id="assign">
+                      <div class="text-sm font-semibold normal-case">Person</div>
+                      <img class="w-4 h-4" src="{% static 'image/user.png' %}">
+                    </div>
+                  </label>
+                  <div class="text-blue-500 text-sm pl-[26px] underline cursor-pointer">assign to me</div>
+                  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li>
+                      <div class="flex items-center">
+                        <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+                        <button class="text-lg" name="person" value="Wanee" onclick="Assignee(2)">wanee</button>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="flex items-center">
+                        <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PL</div>
+                        <button class="text-lg" name="person" value="Plaifah" onclick="Assignee(3)">plaifah</button>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="flex items-center">
+                        <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
+                        <button class="text-lg" name="person" value="Unassigned" onclick="Assignee(4)">Unassigned</button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div class="flex space-x-2 mt-3">
@@ -127,11 +149,34 @@
                 <div class="text-sm font-semibold">Reporter</div>
               </div>
               <div class="px-8">
-                <select class="select select-sm select-bordered w-60 " name="reporter"  id="Reporter">
-                  <option value="4">unassigned</option>
-                  <option value="3">plaifah</option>
-                  <option value="2">wanee</option>
-                </select>
+                <div class="dropdown">
+                  <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px]">
+                    <div class="flex space-x-2 items-center" id="Reporter">
+                      <div class="text-sm font-semibold normal-case">Person</div>
+                      <img class="w-4 h-4" src="{% static 'image/user.png' %}">
+                    </div>
+                  </label>
+                  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li>
+                      <div class="flex items-center">
+                        <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+                        <button class="text-lg" name="person" value="Wanee" onclick="Reporter(2)">wanee</button>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="flex items-center">
+                        <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PL</div>
+                        <button class="text-lg" name="person" value="Plaifah" onclick="Reporter(3)">plaifah</button>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="flex items-center">
+                        <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
+                        <button class="text-lg" name="person" value="Unassigned" onclick="Reporter(4)">Unassigned</button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div class="flex space-x-2 mt-3">
@@ -139,17 +184,32 @@
                 <div class="text-sm font-semibold">App</div>
               </div>
               <div class="px-[59px]">
-                <select class="select select-sm select-bordered w-60 " id="app" name="app">
-                  <option value="Splunk">Splunk</option>
-                  <option value="Special case">Special case</option>
-                </select>
+                <div class="dropdown">
+                  <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px]">
+                    <div class="flex space-x-2 items-center" id="app">
+                      <div class="text-sm font-semibold normal-case">Person</div>
+                      <img class="w-4 h-4" src="{% static 'image/user.png' %}">
+                    </div>
+                  </label>
+                  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li>
+                      <div class="flex items-center">
+                        <button class="text-md" name="Splunk" value="Splunk" onclick="App('Splunk')">Splunk</button>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="flex items-center">
+                        <button class="text-md" name="Special case" value="Special case" onclick="App('Special case')">Special case</button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>  
           </div>
           <div class="text-right mt-3 mr-2 " id="save">
             <button class="bg-[#3B82F6] px-2 py-2 rounded-md text-white font-semibold" type="submit" id="ticketId" name="ticketId" value="test">save</button>
           </div>
-        </form>
       <div class="box-content w-[630px] p-4 border-2 rounded-md ml-1 mt-3">
         <div class="font-semibold text-lg ">
           Details
@@ -349,26 +409,29 @@
 
   function Assignee(item){
     assignee_value = item
-    $("#assign").empty().append("");
+    $("#assign").empty().append(""); //unassigned
     if(item === 4){
-      $("#assign").append(`
-      <option value="4" selected="selected">unassigned</option>
-      <option value="3">plaifah</option>
-      <option value="2">wanee</option>
+      $("#assign").append(` 
+      <div class="flex items-center space-x-2">
+        <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">UN</div>
+        <button class="text-md" name="person" value="Unassigned">unassigned</button>
+      </div>
       `)
     }
     if(item === 3){
       $("#assign").append(`
-      <option value="4" id="addAssigneeValue">unassigned</option>
-      <option value="3" selected="selected" id="addAssigneeValue">plaifah</option>
-      <option value="2" id="addAssigneeValue">wanee</option>
+      <div class="flex items-center space-x-2">
+        <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PL</div>
+        <button class="text-md" name="person" value="Plaifah">plaifah</button>
+      </div>
       `)  
     }
     if(item === 2){
       $("#assign").append(`
-      <option value="4">unassigned</option>
-      <option value="3">plaifah</option>
-      <option value="2" selected="selected">wanee</option>
+      <div class="flex items-center space-x-2">
+        <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+        <button class="text-md" name="person" value="Wanee">wanee</button>
+      </div>
       `)  
     }
   }
@@ -379,43 +442,43 @@
 
     if(item === 4){
       $("#Reporter").append(`
-      <option value="4" selected="selected">unassigned</option>
-      <option value="3">plaifah</option>
-      <option value="2">wanee</option>
+      <div class="flex items-center space-x-2">
+        <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">UN</div>
+        <button class="text-md" name="person" value="Unassigned">unassigned</button>
+      </div>
       `)
     }
     if(item === 3){
       $("#Reporter").append(`
-      <option value="4">unassigned</option>
-      <option value="3" selected="selected">plaifah</option>
-      <option value="2">wanee</option>
+      <div class="flex items-center space-x-2">
+        <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PL</div>
+        <button class="text-md" name="person" value="Plaifah">plaifah</button>
+      </div>
       `)  
     }
     if(item === 2){
       $("#Reporter").append(`
-      <option value="4">unassigned</option>
-      <option value="3">plaifah</option>
-      <option value="2" selected="selected">wanee</option>
+      <div class="flex items-center space-x-2">
+        <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+        <button class="text-md" name="person" value="Wanee">wanee</button>
+      </div>
       `)  
     }
   }
 
   function App(item){
     app_value = item
-    console.log(item)
     $("#app").empty().append("");
 
     if(item === 'Splunk'){
       $("#app").append(`
-        <option value="Splunk" selected="selected">Splunk</option>
-        <option value="Special case" >Special case</option>
+        <div>Splunk</div>
       `)
     }
 
     if(item === 'Special case'){
       $("#app").append(`
-        <option value="Splunk">Splunk</option>
-        <option value="Special case" selected="selected">Special case</option>
+        <div>Special case</div>
       `)
     }
 
