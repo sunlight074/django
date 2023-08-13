@@ -5,13 +5,11 @@ from django.views.generic import View
 from django.contrib.auth import authenticate, login
 from .models import *
 from django.http import JsonResponse
-import json
 
 def getJobalertById(request):
     ticket_id = request.GET.get('ticket_id', None) 
     data = jobAlert.objects.filter(ticket_id__icontains=ticket_id)
     data_json = serializers.serialize('json', data)
-    
     return JsonResponse(data_json,safe=False)
 
 def getUserInfo(request):
@@ -59,7 +57,6 @@ def getJobalertData(request):
         return JsonResponse(data_json,safe=False)
     
 def login(request):
-
     if request.method == 'POST':
         return render(request ,"dashboard.html")
         # data = request.POST.copy()
@@ -74,30 +71,23 @@ def login(request):
         
     return render(request, 'login.html')
 
-def jobalert(request):
-    # global person
-    # global severity
-    # global search
-    # if 'person' in request.POST:
-    #     person = request.POST['person']
-    #     if severity :
-    #         return render(request, 'jobalert.html' , context={'data' :  Job.objects.filter(owner=person,priority=severity).values()  ,'person' :person , 'severity' :severity})
-    #     elif search :
-    #         return render(request, 'jobalert.html' , context={'data' :  Job.objects.filter(owner=person,nameAlert=search).values()  ,'person' :person ,'search' :search })
-    #     else :
-    #         return render(request, 'jobalert.html' , context={'data' :  Job.objects.filter(owner=person,priority=severity,nameAlert=search).values()  ,'person' :person , 'severity' :severity ,'search' :search })
-    # elif 'severity' in request.POST:
-    #     severity = request.POST['severity']
-    #     return render(request, 'jobalert.html' , context={'data' : Job.objects.filter(priority=severity).values() ,'severity' :severity})
-    # elif 'search' in request.POST:
-    #     search = request.POST['search']
-    #     return render(request, 'jobalert.html' , context={'data' : Job.objects.filter(nameAlert=search).values() ,'search' :search })
+def jobalert(request): 
+    if request.POST.get('ticketId',False):
+        print('assignee = ',request.POST.get('assignee',False))
+        print('reporter = ',request.POST.get('reporter',False))
+        print('app = ',request.POST.get('app',False))
+        print('ticketId = ',request.POST.get('ticketId',False))
+        
 
-    # jobData = Job.objects.all().values()
-    # jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
-    #print(jobData)
-    a = User.objects.filter(pk=1)
-    print(a)
+        ticket = jobAlert.objects.get(id=request.POST.get('ticketId',False))
+        ticket_object = ticket[0] if isinstance(ticket, tuple) else ticket
+
+        ticket_object.assign = User.objects.get(id=request.POST.get('assignee',False))
+        ticket_object.report = User.objects.get(id=request.POST.get('reporter',False)) 
+        ticket_object.app = request.POST.get('app',False)
+
+        ticket_object.save()
+
     return render(request, 'jobalert.html')
 
 def maintable(request):
