@@ -6,6 +6,17 @@ from django.contrib.auth import authenticate, login
 from .models import *
 from django.http import JsonResponse
 
+def updateJobalertById(request):
+    ticket = jobAlert.objects.get(id=request.GET.get('jobPk',None))
+    ticket_object = ticket[0] if isinstance(ticket, tuple) else ticket
+    ticket_object.assign = User.objects.get(id=request.GET.get('assignee_value',None))
+    ticket_object.report = User.objects.get(id=request.GET.get('reporter_value',None)) 
+    ticket_object.app = request.GET.get('app_value',None)
+
+    ticket_object.save()
+
+    return JsonResponse(data="success",safe=False)
+
 def getJobalertById(request):
     ticket_id = request.GET.get('ticket_id', None) 
     data = jobAlert.objects.filter(ticket_id__icontains=ticket_id)
