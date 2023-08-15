@@ -105,7 +105,7 @@
       </div>
     </div>
     <div class="overflow-x-auto mt-10 mx-10">
-      <table class="table table-zebra w-full">
+      <!-- <table class="table table-zebra w-full">
         <thead>
           <tr>
             <th>ID</th>
@@ -117,8 +117,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- row 1 -->
-          {% for item in data %}
           <tr>
             <td>{{item.id}}</td>
             <td>{{item.alert_detail_assign.date}}</td>
@@ -246,9 +244,132 @@
                     </div>
             </td>
           </tr>
-          {% endfor %}
         </tbody>
+      </table> -->
+      <table class="table table-zebra w-full">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Time</th>
+            <th>Search Name</th>
+            <th>Severity</th>
+            <th>Assign</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody id="jobData"></tbody>  
       </table>
     </div>
 </form>  
 {% endblock content %}
+
+{% block javascript %}
+<script>
+   function showSeverity(severity) {
+    switch(severity){
+      case 'Low' : return (`
+      <div>
+        <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-green-700"></div>
+        <div>Low</div>
+        </div>
+      </div>
+      `);
+      case 'Medium' : return (`
+      <div>
+       <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
+          <div>Medium</div>
+        </div>
+      </div>
+      `);
+      case 'High' : return (`
+      <div>
+        <div class="flex items-center space-x-2">
+          <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+          <div>High</div>
+          </div>
+      </div>
+      `);
+      case 'Critical' : return (`
+       <div>
+        <div class="flex items-center space-x-2">
+          <div class="h-5 w-5 rounded-full bg-red-600"></div>
+          <div>Critical</div>
+          </div>
+      </div>
+      `);
+    }
+  }
+  
+  function formatDate(date) {
+      var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+      if (month.length < 2) 
+          month = '0' + month;
+      if (day.length < 2) 
+          day = '0' + day;
+      return [day,month,year].join('-');
+  }
+
+  function getData(id) { 
+    return $.ajax({
+      url: '{% url "get-user-info" %}',
+      type: 'GET',
+      data: {
+          'id': id,
+        }
+    })
+  };
+
+  async function getUserInfo(id) {
+    let result = null
+    try {
+      const res =  await getData(id) // 2 วิ
+      result = JSON.parse(res)[0].fields.username
+    } catch(err) {
+      console.log(err);
+    }
+    return result
+  }
+
+  function getMainTableResult(){
+    $.ajax({
+      url : '{% url "get-main-table-data" %}',
+      type: 'GET',
+      success: async function (data) {
+        const result = JSON.parse(data)
+        for (var i = 0; i < result.length; i++) {
+              const items = result[i].fields
+              const jobPk = result[i].pk
+
+              await getUserInfo(items.assign).then((value) => {
+                assignName = value
+              })
+   
+              $("#jobData").append(`
+                <tr>
+                  <th>${items.ticket_id}</th>
+                  <td>${formatDate(items.date)}</td>
+                  <td>${items.search_name}</td>
+                  <td>${showSeverity(items.severity)}</td>
+                  <td>${assignName}</td>
+                  <td>
+                    <label for="my-drawer-4">
+                      <div class="flex items-center space-x-2 cursor-pointer">
+                        <img class="w-5 h-5" src="{% static 'image/open.png' %}"/>
+                        <div class="text-xs" onclick="getJobById(${items.ticket_id},${jobPk})">View Result</div>
+                      </div>
+                    </label>
+                  </td>
+                </tr>
+                `)
+              }
+      }
+    })
+  }
+  getMainTableResult()
+</script>
+{% endblock javascript %}
