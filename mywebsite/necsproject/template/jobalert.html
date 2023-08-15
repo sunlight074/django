@@ -220,7 +220,7 @@
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Search name</div>
-          <div class="w-3/4 py-4 mt-1 pl-3"id="search">Test 1</div>
+          <div class="w-3/4 py-4 mt-1 pl-3"id="searchName">Test 1</div>
         </div>
         <div class="px-5 flex">
           <div class="w-1/4 py-4 mt-1 mr-1 font-semibold pl-3">Results link</div>
@@ -537,7 +537,7 @@
     ticketId = ticket_id
     $("#ticket_id").empty().append("");
     $("#date").empty().append("");
-    $("#search").empty().append("");
+    $("#searchName").empty().append("");
     $("#link").empty().append("");
     $("#severity").empty().append("");
     $("#result").empty().append("");
@@ -559,7 +559,7 @@
         Reporter(result.report)
         $("#ticket_id").append(`<div class="text-lg font-semibold">${result.ticket_id}</div>`)
         $("#date").append(`<div>${formatDate(result.date)}</div>`)
-        $("#search").append(`<div>${result.search_name}</div>`)
+        $("#searchName").append(`<div>${result.search_name}</div>`)
         $("#link").append(`<div>${result.result_link}</div>`)
         $("#severity").append(`<div>${showSeverity(result.severity)}</div>`)
         $("#ticketId").append(`<button class="bg-[#3B82F6] px-2 py-2 rounded-md text-white font-semibold" type="submit" id="ticketId" name="ticketId" value=${JSON.parse(data)[0].pk}>save</button>`)

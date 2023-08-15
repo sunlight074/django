@@ -6,6 +6,13 @@ from django.contrib.auth import authenticate, login
 from .models import *
 from django.http import JsonResponse
 
+def getMainTableData(request):
+    jobData = jobAlert.objects.all() #เป็นฟังก์ชันสำหรับการดึงข้อมูล
+    data_json = serializers.serialize('json', jobData) #แปลงข้อมูลให้เป็น json
+    return JsonResponse(data_json,safe=False) #return คือการส่งข้อมูลกลับ
+
+
+
 def updateJobalertById(request):
     ticket = jobAlert.objects.get(id=request.GET.get('jobPk',None))
     ticket_object = ticket[0] if isinstance(ticket, tuple) else ticket
