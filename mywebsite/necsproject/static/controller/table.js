@@ -112,7 +112,7 @@ function showStatus(status) {
    
               $("#jobData").append(`
                 <tr>
-                  <th>${items.ticket_id}</th>
+                  <td>${items.ticket_id}</td>
                   <td>${formatDate(items.date)}</td>
                   <td>${items.search_name}</td>
                   <td>${showSeverity(items.severity)}</td>
@@ -121,7 +121,7 @@ function showStatus(status) {
                   <td>
                     <label for="my_modal_8" class="cursor-pointer">
                       <div class="flex items-center space-x-2">
-                        <img class="w-5 h-5" src="https://cdn.discordapp.com/attachments/1095727305453752402/1141391343386644531/image.png">
+                        <img class="w-5 h-5" src="../static/image/open.png">
                         <div class="text-xs">View Result</div>
                       </div>
                     </label>
