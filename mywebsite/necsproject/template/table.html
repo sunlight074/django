@@ -4,12 +4,9 @@
 
 {% block nav-main %} <li><a href="{% url 'maintable-page' %}" class="bg-[#acc9e9]  text-white font-semibold">Main table</a></li>{% endblock nav-main %}
 
-
 {% load static %}
 
 {% block content %}
-<form method="post">
-  {% csrf_token %}
     <input type="checkbox" id="my_modal_6" class="modal-toggle" />
     <div class="modal">
       <div class="modal-box max-w-4xl px-16">
@@ -70,7 +67,6 @@
             </div>
           </div>
           <div class="font-semibold mt-7">Description</div>
-          <!-- <div id="example" class="mt-3"></div> -->
           <textarea id="description" placeholder="description" name="description" class="w-full mt-3 textarea textarea-bordered textarea-md"></textarea>
           <div class="modal-action">
               <label for="my_modal_6">
@@ -84,7 +80,7 @@
     <div class="flex space-x-20 mt-5 items-center mx-10">
       <div class="grid grid-cols-3 gap-3">
         <div>
-                <label class="btn btn-sm" for="my_modal_6">Create
+        <label class="btn btn-sm" for="my_modal_6">Create
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 ml-2 stroke-current"> 
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path> 
         </svg>
@@ -105,147 +101,6 @@
       </div>
     </div>
     <div class="overflow-x-auto mt-10 mx-10">
-      <!-- <table class="table table-zebra w-full">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th class="pl-16">Time</th>
-            <th>task</th>
-            <th class="flex justify-center">Status</th>
-            <th>Owner</th>
-            <th>Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{item.id}}</td>
-            <td>{{item.alert_detail_assign.date}}</td>
-            <td>{{item.alert_detail_assign.search_name}}</td> 
-            <td class="flex justify-center">
-              <div class="w-32 ml-16">
-              {% if item.status == 'Escalation' %}
-              <label for="my_modal_{{item.ticket_id}}">
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-red-400"></div>
-                <div>Escalation</div>
-              </div>
-              </label>
-              {% elif item.status == 'In progress' %}
-              <label for="my_modal_{{item.ticket_id}}">
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-orange-400"></div>
-                <div>In progress</div>
-              </div>
-              </label>
-              {% elif item.status == 'Close' %}
-              <label for="my_modal_{{item.ticket_id}}">
-              <div class="flex items-center space-x-2">
-                <div class="h-5 w-5 rounded-full bg-green-400"></div>
-                <div>Close</div>
-              </div>
-              </label>
-              {% endif %}
-              </div>
-              <input type="checkbox" id="my_modal_{{item.ticket_id}}" class="modal-toggle" />
-              <div class="modal">
-                <div class="modal-box">
-                  <h3 class="font-bold text-lg">Are you sure!</h3>
-                  <p class="pt-5 pb-3">status</p>
-                  <select class="select select-sm select-bordered w-full max-w-xs" name="edit_status">
-                    <option disabled selected>please select status</option>
-                    <option value=1>Working on</option>
-                    <option value=2>Stuck</option>
-                    <option value=3>Done</option>
-                  </select>
-                  <div class="modal-action">
-                    <button for="my_modal_{{item.ticket_id}}" class="btn btn-info" type="submit" name="edit" value="{{item.ticket_id}}">Edit</button>
-                    <label for="my_modal_{{item.ticket_id}}" class="btn">Close!</label>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td>{{item.assign}}</td>
-            <td>
-              <label for="my_modal_8_{{item.ticket_id}}" class="cursor-pointer">
-                <div class="flex items-center space-x-2">
-                  <img class="w-5 h-5" src="{% static 'image/open.png' %}">
-                  <div class="text-xs">View Result</div>
-                </div>
-              </label>
-              <input type="checkbox" id="my_modal_8_{{item.ticket_id}}" class="modal-toggle z-50" />
-                    <div class="modal pl-[200px]">
-                      <div class="modal-box max-w-6xl px-2 rounded">
-                        <label for="my_modal_8_{{item.ticket_id}}" class="flex justify-end pr-3 font-bold text-lg cursor-pointer">X</label>
-                        <div class="flex space-x-5">
-                          <div class="w-2/5">
-                            <div class="ml-16 mb-5 text-xl font-semibold">Test Alert 1</div>
-                            <div class="ml-4 inline bg-orange-400 p-1 px-6 text-white rounded-md">in progress</div>
-                            <div class="ml-4 mt-6 h-[100px] border p-3 rounded-md">
-                              <div class="mb-5 flex">
-                                <div class="w-1/2">assignee</div>
-                                <div class="flex w-1/2 space-x-2">
-                                  <div class="h-7 w-7 rounded-full bg-blue-300 text-center text-white">WP</div>
-                                  <div>wanee</div>
-                                </div>
-                              </div>
-                              <div class="mb-5 flex">
-                                <div class="w-1/2">report</div>
-                                <div class="flex w-1/2 space-x-2">
-                                  <div class="h-7 w-7 rounded-full bg-red-300 text-center text-white">PS</div>
-                                  <div>plaifah</div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="ml-4 mt-6 h-[300px] border  rounded-md">
-                              <div class="text-md font-semibold pb-2 p-2">Details</div>
-                              <hr>
-                              <div class="p-2">
-                                <div class="flex space-x-2 mt-5">
-                                  <div class="w-1/2 font-semibold">Date :</div>
-                                  <div class="w-1/2">02</div>
-                                </div>
-                                <div class="flex space-x-2 mt-5">
-                                  <div class="w-1/2 font-semibold">Search name :</div>
-                                  <div class="w-1/2">02</div>
-                                </div>
-                                <div class="flex space-x-2 mt-5">
-                                  <div class="w-1/2 font-semibold">Result link :</div>
-                                  <div class="w-1/2">02</div>
-                                </div>
-                                <div class="flex space-x-2 mt-5">
-                                  <div class="w-1/2 font-semibold">Severity :</div>
-                                  <div class="w-1/2">02</div>
-                                </div>
-                                <div class="flex space-x-2 mt-5">
-                                  <div class="w-1/2 font-semibold">Result :</div>
-                                  <div class="w-1/2">02</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="w-3/5 pl-7">
-                            <div class="mt-20 mr-3">
-                              <textarea class="textarea textarea-bordered w-full h-40" placeholder="description"></textarea>
-                              <div class="flex space-x-2">
-                                <button class="btn btn-sm btn-success w-[100px] text-white">บันทึก</button>
-                                <button class="btn btn-sm btn-error w-[100px] text-white">ยกเลิก</button>
-                              </div>
-                            </div>
-                            <div class="mt-10">
-                              <textarea class="textarea textarea-bordered w-full" placeholder="comment"></textarea>
-                              <div class="flex space-x-2">
-                                <button class="btn btn-sm btn-success w-[100px] text-white">บันทึก</button>
-                                <button class="btn btn-sm btn-error w-[100px] text-white">ยกเลิก</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
       <table class="table table-zebra w-full">
         <thead>
           <tr>
@@ -253,6 +108,7 @@
             <th>Time</th>
             <th>Search Name</th>
             <th>Severity</th>
+            <th>status</th>
             <th>Assign</th>
             <th>Detail</th>
           </tr>
@@ -260,14 +116,136 @@
         <tbody id="jobData"></tbody>  
       </table>
     </div>
-</form>  
+    <input type="checkbox" id="my_modal_8" class="modal-toggle z-50" />
+          <div class="modal pl-[200px]">
+            <div class="modal-box max-w-6xl px-2 rounded">
+              <label for="my_modal_8" class="flex justify-end pr-3 font-bold text-lg cursor-pointer">X</label>
+              <div class="flex space-x-5">
+                <div class="w-2/5">
+                  <div class="ml-16 mb-5 text-xl font-semibold">Test Alert 1</div>
+                  <div class="dropdown">
+                    <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px] bg-blue-500"  id="status">
+                      <div class="flex space-x-2 items-center">
+                        <div class="text-sm font-semibold normal-case text-white">status</div>
+                      </div>
+                    </label>
+                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 w-32">
+                      <li class="bg-red-500 inline-block">
+                        <div class="flex items-center">
+                          <button class="text-sm text-white" name="Escalation" value="Escalation" onclick="filterPerson(2)">Escalation</button>
+                        </div>
+                      </li>
+                      <li class="bg-orange-500 inline-block">
+                        <div class="flex items-center">    
+                          <button class="text-sm text-white" type="submit" name="In progress" value="In progress" onclick="filterPerson(3)">In progress</button>
+                        </div>
+                      </li>
+                      <li class="bg-green-500 inline-block">
+                        <div class="flex items-center">
+                          <button class="text-sm text-white" type="submit" name="Close" value="Close" onclick="filterPerson(4)">Close</button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="ml-4 mt-6 h-[100px] border p-3 rounded-md">
+                    <div class="mb-5 flex">
+                      <div class="w-1/2">assignee</div>
+                      <div class="flex w-1/2 space-x-2">
+                        <div class="h-7 w-7 rounded-full bg-blue-300 text-center text-white">WP</div>
+                        <div>wanee</div>
+                      </div>
+                    </div>
+                    <div class="mb-5 flex">
+                      <div class="w-1/2">report</div>
+                      <div class="flex w-1/2 space-x-2">
+                        <div class="h-7 w-7 rounded-full bg-red-300 text-center text-white">PS</div>
+                        <div>plaifah</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ml-4 mt-6 h-[300px] border  rounded-md">
+                    <div class="text-md font-semibold pb-2 p-2">Details</div>
+                    <hr>
+                    <div class="p-2">
+                      <div class="flex space-x-2 mt-5">
+                        <div class="w-1/2 font-semibold">Date :</div>
+                        <div class="w-1/2">02</div>
+                      </div>
+                      <div class="flex space-x-2 mt-5">
+                        <div class="w-1/2 font-semibold">Search name :</div>
+                        <div class="w-1/2">02</div>
+                      </div>
+                      <div class="flex space-x-2 mt-5">
+                        <div class="w-1/2 font-semibold">Result link :</div>
+                        <div class="w-1/2">02</div>
+                      </div>
+                      <div class="flex space-x-2 mt-5">
+                        <div class="w-1/2 font-semibold">Severity :</div>
+                        <div class="w-1/2">02</div>
+                      </div>
+                      <div class="flex space-x-2 mt-5">
+                        <div class="w-1/2 font-semibold">Result :</div>
+                        <div class="w-1/2">02</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-3/5 pl-7">
+                  <div class="mt-20 mr-3">
+                    <textarea class="textarea textarea-bordered w-full h-40" placeholder="description"></textarea>
+                    <div class="flex space-x-2">
+                      <button class="btn btn-sm btn-success w-[100px] text-white">บันทึก</button>
+                      <button class="btn btn-sm btn-error w-[100px] text-white">ยกเลิก</button>
+                    </div>
+                  </div>
+                  <div class="mt-10">
+                    <textarea class="textarea textarea-bordered w-full" placeholder="comment"></textarea>
+                    <div class="flex space-x-2">
+                      <button class="btn btn-sm btn-success w-[100px] text-white">บันทึก</button>
+                      <button class="btn btn-sm btn-error w-[100px] text-white">ยกเลิก</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
 {% endblock content %}
 
 {% block javascript %}
+<!-- <script src="{% static 'controller/table.js' %}"></script> -->
 <script>
-   function showSeverity(severity) {
-    switch(severity){
-      case 'Low' : return (`
+  function showStatus(status) {
+    switch (status) {
+        case 'Escalation': return (`
+      <div>
+        <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-red-700"></div>
+        <div>Escalation</div>
+        </div>
+      </div>
+      `);
+        case 'In progress': return (`
+      <div>
+       <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+          <div>In progress</div>
+        </div>
+      </div>
+      `);
+        case 'Close': return (`
+      <div>
+        <div class="flex items-center space-x-2">
+          <div class="h-5 w-5 rounded-full bg-green-500"></div>
+          <div>Close</div>
+          </div>
+      </div>
+      `);
+    }
+}
+
+function showSeverity(severity) {
+    switch (severity) {
+        case 'Low': return (`
       <div>
         <div class="flex items-center space-x-2">
         <div class="h-5 w-5 rounded-full bg-green-700"></div>
@@ -275,7 +253,7 @@
         </div>
       </div>
       `);
-      case 'Medium' : return (`
+        case 'Medium': return (`
       <div>
        <div class="flex items-center space-x-2">
         <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
@@ -283,7 +261,7 @@
         </div>
       </div>
       `);
-      case 'High' : return (`
+        case 'High': return (`
       <div>
         <div class="flex items-center space-x-2">
           <div class="h-5 w-5 rounded-full bg-orange-500"></div>
@@ -291,7 +269,7 @@
           </div>
       </div>
       `);
-      case 'Critical' : return (`
+        case 'Critical': return (`
        <div>
         <div class="flex items-center space-x-2">
           <div class="h-5 w-5 rounded-full bg-red-600"></div>
@@ -300,76 +278,91 @@
       </div>
       `);
     }
-  }
-  
-  function formatDate(date) {
-      var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-      if (month.length < 2) 
-          month = '0' + month;
-      if (day.length < 2) 
-          day = '0' + day;
-      return [day,month,year].join('-');
-  }
+}
 
-  function getData(id) { 
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+    return [day, month, year].join('-');
+}
+
+function getData(id) {
     return $.ajax({
-      url: '{% url "get-user-info" %}',
-      type: 'GET',
-      data: {
-          'id': id,
+        url: '/ajax/getUserInfo/',
+        type: 'GET', 
+        data: {
+            'id': id,
         }
     })
-  };
+};
 
-  async function getUserInfo(id) {
+async function getUserInfo(id) {
     let result = null
     try {
-      const res =  await getData(id) // 2 วิ
-      result = JSON.parse(res)[0].fields.username
-    } catch(err) {
-      console.log(err);
+        const res = await getData(id)
+        result = JSON.parse(res)[0].fields.username
+    } catch (err) {
+        console.log(err);
     }
     return result
-  }
+}
 
-  function getMainTableResult(){
-    $.ajax({
-      url : '{% url "get-main-table-data" %}',
+function getMainTableById(ticketId){  
+  $.ajax({
+      url: '{% url "get-job-alert-id" %}',
+      data: {
+        ticket_id:ticketId
+      },
       type: 'GET',
-      success: async function (data) {
-        const result = JSON.parse(data)
-        for (var i = 0; i < result.length; i++) {
-              const items = result[i].fields
-              const jobPk = result[i].pk
+      success:async function(data) {
+        const result = JSON.parse(data)[0].fields
+        console.log('data = ',result)
+      }})
+}
 
-              await getUserInfo(items.assign).then((value) => {
-                assignName = value
-              })
-   
-              $("#jobData").append(`
+function getMainTableResult() {
+    $.ajax({
+        url: '/ajax/getMaintable/',
+        type: 'GET',
+        success: async function (data) {
+            const result = JSON.parse(data)
+            for (var i = 0; i < result.length; i++) {
+                const items = result[i].fields
+                const jobPk = result[i].pk
+
+                await getUserInfo(items.assign).then((value) => {
+                    assignName = value
+                })
+
+                $("#jobData").append(`
                 <tr>
                   <th>${items.ticket_id}</th>
                   <td>${formatDate(items.date)}</td>
                   <td>${items.search_name}</td>
                   <td>${showSeverity(items.severity)}</td>
+                  <td>${showStatus(items.status)}</td>
                   <td>${assignName}</td>
                   <td>
-                    <label for="my-drawer-4">
-                      <div class="flex items-center space-x-2 cursor-pointer">
-                        <img class="w-5 h-5" src="{% static 'image/open.png' %}"/>
-                        <div class="text-xs" onclick="getJobById(${items.ticket_id},${jobPk})">View Result</div>
+                    <label for="my_modal_8" class="cursor-pointer">
+                      <div class="flex items-center space-x-2">
+                        <img class="w-5 h-5" src="https://cdn.discordapp.com/attachments/1095727305453752402/1141391343386644531/image.png">
+                        <div class="text-xs" onclick="getMainTableById(${items.ticket_id})">View Result</div>
                       </div>
-                    </label>
+                    </label> 
                   </td>
                 </tr>
                 `)
-              }
-      }
+           }
+        }
     })
-  }
-  getMainTableResult()
+}
+
+getMainTableResult()
 </script>
 {% endblock javascript %}
