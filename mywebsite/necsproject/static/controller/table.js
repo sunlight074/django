@@ -1,34 +1,35 @@
 function showStatus(status) {
-    switch(status){
-      case 'Escalation' : return (`
+    switch (status) {
+        case 'Escalation': return (`
       <div>
         <div class="flex items-center space-x-2">
-        <div class="h-5 w-5 rounded-full bg-red-600"></div>
+        <div class="h-5 w-5 rounded-full bg-red-700"></div>
         <div>Escalation</div>
         </div>
       </div>
       `);
-      case 'In progress' : return (`
+        case 'In progress': return (`
       <div>
-        <div class="flex items-center space-x-2">
+       <div class="flex items-center space-x-2">
         <div class="h-5 w-5 rounded-full bg-orange-500"></div>
-        <div>In progress</div>
+          <div>In progress</div>
         </div>
       </div>
       `);
-      case 'Close' : return (`
+        case 'Close': return (`
       <div>
         <div class="flex items-center space-x-2">
-        <div class="h-5 w-5 rounded-full bg-green-700"></div>
-        <div>Close</div>
-        </div>
+          <div class="h-5 w-5 rounded-full bg-green-500"></div>
+          <div>Close</div>
+          </div>
       </div>
       `);
     }
-  }
-   function showSeverity(severity) {
-    switch(severity){
-      case 'Low' : return (`
+}
+
+function showSeverity(severity) {
+    switch (severity) {
+        case 'Low': return (`
       <div>
         <div class="flex items-center space-x-2">
         <div class="h-5 w-5 rounded-full bg-green-700"></div>
@@ -36,7 +37,7 @@ function showStatus(status) {
         </div>
       </div>
       `);
-      case 'Medium' : return (`
+        case 'Medium': return (`
       <div>
        <div class="flex items-center space-x-2">
         <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
@@ -44,7 +45,7 @@ function showStatus(status) {
         </div>
       </div>
       `);
-      case 'High' : return (`
+        case 'High': return (`
       <div>
         <div class="flex items-center space-x-2">
           <div class="h-5 w-5 rounded-full bg-orange-500"></div>
@@ -52,7 +53,7 @@ function showStatus(status) {
           </div>
       </div>
       `);
-      case 'Critical' : return (`
+        case 'Critical': return (`
        <div>
         <div class="flex items-center space-x-2">
           <div class="h-5 w-5 rounded-full bg-red-600"></div>
@@ -61,56 +62,60 @@ function showStatus(status) {
       </div>
       `);
     }
-  }
-  
-  function formatDate(date) {
-      var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-      if (month.length < 2) 
-          month = '0' + month;
-      if (day.length < 2) 
-          day = '0' + day;
-      return [day,month,year].join('-');
-  }
+}
 
-  function getData(id) { 
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+    return [day, month, year].join('-');
+}
+
+function getData(id) {
     return $.ajax({
-      url: '/ajax/getUserInfo/',
-      type: 'GET',
-      data: {
-          'id': id,
+        url: '/ajax/getUserInfo/',
+        type: 'GET', 
+        data: {
+            'id': id,
         }
     })
-  };
+};
 
-  async function getUserInfo(id) {
+async function getUserInfo(id) {
     let result = null
     try {
-      const res =  await getData(id) // 2 วิ
-      result = JSON.parse(res)[0].fields.username
-    } catch(err) {
-      console.log(err);
+        const res = await getData(id)
+        result = JSON.parse(res)[0].fields.username
+    } catch (err) {
+        console.log(err);
     }
     return result
-  }
+}
 
-  function getMainTableResult(){
+function getMainTableById(id){
+  console.log('id = ',id)
+}
+
+function getMainTableResult() {
     $.ajax({
-      url : '/ajax/getMaintable/',
-      type: 'GET',
-      success: async function (data) {
-        const result = JSON.parse(data)
-        for (var i = 0; i < result.length; i++) {
-              const items = result[i].fields
-              const jobPk = result[i].pk
+        url: '/ajax/getMaintable/',
+        type: 'GET',
+        success: async function (data) {
+            const result = JSON.parse(data)
+            for (var i = 0; i < result.length; i++) {
+                const items = result[i].fields
+                const jobPk = result[i].pk
 
-              await getUserInfo(items.assign).then((value) => {
-                assignName = value
-              })
-   
-              $("#jobData").append(`
+                await getUserInfo(items.assign).then((value) => {
+                    assignName = value
+                })
+
+                $("#jobData").append(`
                 <tr>
                   <td>${items.ticket_id}</td>
                   <td>${formatDate(items.date)}</td>
@@ -124,12 +129,13 @@ function showStatus(status) {
                         <img class="w-5 h-5" src="../static/image/open.png">
                         <div class="text-xs">View Result</div>
                       </div>
-                    </label>
+                    </label> 
                   </td>
                 </tr>
                 `)
-              }
-      }
+           }
+        }
     })
-  }
-  getMainTableResult()
+}
+
+getMainTableResult()
