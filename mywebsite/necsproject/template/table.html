@@ -120,78 +120,76 @@
           <div class="modal pl-[200px]">
             <div class="modal-box max-w-6xl px-2 rounded">
               <label for="my_modal_8" class="flex justify-end pr-3 font-bold text-lg cursor-pointer">X</label>
-              <div class="flex space-x-5">
-                <div class="w-2/5">
-                  <div class="ml-16 mb-5 text-xl font-semibold">Test Alert 1</div>
+              <div class="mx-10">
+                <div class="w-full">
+                  <div id="title" class="mb-5 text-xl font-semibold">Test Alert 1</div>
                   <div class="dropdown">
-                    <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px] bg-blue-500"  id="status">
+                    <label tabindex="0" class="btn btn-ghost btn-sm w-[120px] " id="status">
                       <div class="flex space-x-2 items-center">
-                        <div class="text-sm font-semibold normal-case text-white">status</div>
+                        <div  class="text-sm font-semibold normal-case text-white">status</div>
                       </div>
                     </label>
                     <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 w-32">
                       <li class="bg-red-500 inline-block">
                         <div class="flex items-center">
-                          <button class="text-sm text-white" name="Escalation" value="Escalation" onclick="filterPerson(2)">Escalation</button>
+                          <button class="text-sm text-white" name="Escalation" value="Escalation" onclick="editStatus('Escalation')">Escalation</button>
                         </div>
                       </li>
                       <li class="bg-orange-500 inline-block">
                         <div class="flex items-center">    
-                          <button class="text-sm text-white" type="submit" name="In progress" value="In progress" onclick="filterPerson(3)">In progress</button>
+                          <button class="text-sm text-white" type="submit" name="In progress" value="In progress" onclick="editStatus('In progress')">In progress</button>
                         </div>
                       </li>
                       <li class="bg-green-500 inline-block">
                         <div class="flex items-center">
-                          <button class="text-sm text-white" type="submit" name="Close" value="Close" onclick="filterPerson(4)">Close</button>
+                          <button class="text-sm text-white" type="submit" name="Close" value="Close" onclick="editStatus('Close')">Close</button>
                         </div>
                       </li>
                     </ul>
                   </div>
-                  <div class="ml-4 mt-6 h-[100px] border p-3 rounded-md">
+                  <div class=" mt-6 border p-3 rounded-md  border-gray-400 ">
                     <div class="mb-5 flex">
-                      <div class="w-1/2">assignee</div>
+                      <div class="w-1/2 font-semibold">assignee</div>
                       <div class="flex w-1/2 space-x-2">
-                        <div class="h-7 w-7 rounded-full bg-blue-300 text-center text-white">WP</div>
-                        <div>wanee</div>
+                          <div id="assignee">name</div>
                       </div>
                     </div>
                     <div class="mb-5 flex">
-                      <div class="w-1/2">report</div>
+                      <div class="w-1/2 font-semibold">report</div>
                       <div class="flex w-1/2 space-x-2">
-                        <div class="h-7 w-7 rounded-full bg-red-300 text-center text-white">PS</div>
-                        <div>plaifah</div>
+                        <div id="report">name</div>
                       </div>
                     </div>
                   </div>
-                  <div class="ml-4 mt-6 h-[300px] border  rounded-md">
+                  <div class="mt-6 border border-gray-400 rounded-md w-full">
                     <div class="text-md font-semibold pb-2 p-2">Details</div>
-                    <hr>
+                    <hr style="background-color:#56595d">
                     <div class="p-2">
                       <div class="flex space-x-2 mt-5">
                         <div class="w-1/2 font-semibold">Date :</div>
-                        <div class="w-1/2">02</div>
+                        <div id="date" class="w-1/2">02</div>
                       </div>
                       <div class="flex space-x-2 mt-5">
                         <div class="w-1/2 font-semibold">Search name :</div>
-                        <div class="w-1/2">02</div>
+                        <div id="search" class="w-1/2">02</div>
                       </div>
                       <div class="flex space-x-2 mt-5">
                         <div class="w-1/2 font-semibold">Result link :</div>
-                        <div class="w-1/2">02</div>
+                        <div id="link" class="w-1/2">02</div>
                       </div>
                       <div class="flex space-x-2 mt-5">
                         <div class="w-1/2 font-semibold">Severity :</div>
-                        <div class="w-1/2">02</div>
+                        <div id="severity" class="w-1/2">02</div>
                       </div>
                       <div class="flex space-x-2 mt-5">
                         <div class="w-1/2 font-semibold">Result :</div>
-                        <div class="w-1/2">02</div>
+                        <div id="result" class="w-1/2">02</div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="w-3/5 pl-7">
-                  <div class="mt-20 mr-3">
+                <div class="w-full">
+                  <div class="mt-10 mr-3">
                     <textarea class="textarea textarea-bordered w-full h-40" placeholder="description"></textarea>
                     <div class="flex space-x-2">
                       <button class="btn btn-sm btn-success w-[100px] text-white">บันทึก</button>
@@ -214,6 +212,7 @@
 {% block javascript %}
 <!-- <script src="{% static 'controller/table.js' %}"></script> -->
 <script>
+  let jobId = null
   function showStatus(status) {
     switch (status) {
         case 'Escalation': return (`
@@ -302,6 +301,20 @@ function getData(id) {
     })
 };
 
+function formatDate(date) {
+    var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+    return [day,month,year].join('-');
+}
+
+
+
 async function getUserInfo(id) {
     let result = null
     try {
@@ -313,8 +326,144 @@ async function getUserInfo(id) {
     return result
 }
 
-function getMainTableById(ticketId){  
+function showSeverity(severity) {
+  switch(severity){
+    case 'Low' : return (`
+    <div>
+      <div class="flex items-center space-x-2">
+      <div class="h-5 w-5 rounded-full bg-green-700"></div>
+      <div>Low</div>
+      </div>
+    </div>
+    `);
+    case 'Medium' : return (`
+    <div>
+     <div class="flex items-center space-x-2">
+      <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
+        <div>Medium</div>
+      </div>
+    </div>
+    `);
+    case 'High' : return (`
+    <div>
+      <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+        <div>High</div>
+        </div>
+    </div>
+    `);
+    case 'Critical' : return (`
+     <div>
+      <div class="flex items-center space-x-2">
+        <div class="h-5 w-5 rounded-full bg-red-600"></div>
+        <div>Critical</div>
+        </div>
+    </div>
+    `);
+  }
+}
+
+function stage(item){
+  if(item === 'Escalation'){
+    return (`
+      <label tabindex="0" class="btn btn-ghost btn-sm w-[120px] bg-red-500" id="status">
+        <div class="flex space-x-2 items-center">
+          <div  class="text-sm font-semibold normal-case text-white">Escalation</div>
+        </div>
+      </label>`)
+  }
+  if(item === 'Close'){
+    return (`
+      <label tabindex="0" class="btn btn-ghost btn-sm w-[120px] bg-green-500" id="status">
+        <div class="flex space-x-2 items-center">
+          <div  class="text-sm font-semibold normal-case text-white">Close</div>
+        </div>
+      </label>`)
+  }
+  if(item === 'In progress'){
+    return (`
+      <label tabindex="0" class="btn btn-ghost btn-sm w-[120px] bg-orange-500" id="status">
+        <div class="flex space-x-2 items-center">
+          <div  class="text-sm font-semibold normal-case text-white">In progress</div>
+        </div>
+      </label>`)
+  }
+}
+
+function editStatus(id) {
   $.ajax({
+      url: '{% url "update-status" %}',
+      data: {
+        jobPk:jobId,
+        status:id
+      },
+      type: 'GET',
+      success:async function(data) {
+        console.log('data => ',data)
+        $("#status").empty().append("");
+        $("#status").append(`${stage(id)}`)
+        getMainTableResult()
+      }
+    })
+}
+
+function showUserProfile (item) {
+  console.log('asdasdasdasdasdasd => ',item)
+    if(item === 'wanee') {
+      return (`
+      <div class="flex space-x-2 items-center">
+        <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+        <div class="text-sm font-semibold normal-case">wanee</div>
+      </div>
+      `)
+    }
+
+    if(item === 'plaifah') {
+      return (`
+      <div class="flex space-x-2 items-center">
+        <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PS</div>
+        <div class="text-sm font-semibold normal-case">plaifah</div>
+      </div>
+      `)
+    }
+
+    if(item === 'unassigned') {
+      return (`
+      <div class="flex space-x-2 items-center">
+        <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
+        <div class="text-sm font-semibold normal-case">unassigned</div>
+      </div>
+      `)
+    }
+  
+}
+
+function getData(id) { 
+  return $.ajax({
+    url: '/ajax/getUserInfo/',
+    type: 'GET',
+    data: {
+        'id': id,
+      }
+  })
+};
+
+async function getUserInfo(id) {
+  let result = null
+  try {
+    const res = await getData(id)
+    result = JSON.parse(res)[0].fields.username
+  } catch(err) {
+    console.log(err);
+  }
+  return result
+}
+
+async function getMainTableById(ticketId , pk){  
+  jobId = pk
+  let assignName = null
+  let reporter = null
+  await $.ajax({
       url: '{% url "get-job-alert-id" %}',
       data: {
         ticket_id:ticketId
@@ -323,10 +472,49 @@ function getMainTableById(ticketId){
       success:async function(data) {
         const result = JSON.parse(data)[0].fields
         console.log('data = ',result)
+
+        await getUserInfo(result.assign).then((value) => {
+              assignName = value
+            })
+
+        await getUserInfo(result.report).then((value) => {
+          reporter = value
+            })
+
+        $("#title").empty().append("");
+        $("#date").empty().append("");
+        $("#search").empty().append("");
+        $("#link").empty().append("");
+        $("#severity").empty().append("");
+        $("#result").empty().append("");
+        $("#status").empty().append("");
+        $("#assignee").empty().append("");
+        $("#report").empty().append("");
+
+        $("#assignee").append(`${showUserProfile(assignName)}`)
+        $("#report").append(`${showUserProfile(reporter)}`)
+
+        $("#title").append(`<div class="mb-5 text-2xl font-semibold">${result.search_name}</div>`)
+        $("#date").append(`<div id="date" class="w-1/2">${formatDate(result.date)}</div>`)
+        $("#search").append(`<div id="search" class="w-1/2">${result.search_name}</div>`)
+        $("#link").append(`<div id="link" class="w-1/2">${result.result_link}</div>`)
+        $("#severity").append(`<div id="severity" class="w-1/2">${showSeverity(result.severity)}</div>`)
+          for (const [key, value] of Object.entries(JSON.parse(result.results))) {
+          $("#result").append(
+            `<div class="w-1/2">
+              <div class="flex space-x-3">
+                <div class="font-semibold">${key}: </div>
+                <div>${value}</div>
+             </div>
+            </div>`)
+        }
+        $("#status").append(`${stage(result.status)}`)
+   
       }})
 }
 
 function getMainTableResult() {
+  $("#jobData").empty().append("");
     $.ajax({
         url: '/ajax/getMaintable/',
         type: 'GET',
@@ -352,7 +540,7 @@ function getMainTableResult() {
                     <label for="my_modal_8" class="cursor-pointer">
                       <div class="flex items-center space-x-2">
                         <img class="w-5 h-5" src="https://cdn.discordapp.com/attachments/1095727305453752402/1141391343386644531/image.png">
-                        <div class="text-xs" onclick="getMainTableById(${items.ticket_id})">View Result</div>
+                        <div class="text-xs" onclick="getMainTableById(${items.ticket_id} , ${jobPk})">View Result</div>
                       </div>
                     </label> 
                   </td>
