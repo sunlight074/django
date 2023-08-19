@@ -190,17 +190,19 @@
                 </div>
                 <div class="w-full">
                   <div class="mt-10 mr-3">
-                    <textarea class="textarea textarea-bordered w-full h-40" placeholder="description"></textarea>
-                    <div class="flex space-x-2">
-                      <button class="btn btn-sm btn-success w-[100px] text-white">บันทึก</button>
-                      <button class="btn btn-sm btn-error w-[100px] text-white">ยกเลิก</button>
+                    <div class="text-md font-semibold mb-2">Description</div>
+                    <div id="description-value">
+                      <textarea id="description-data"  class="textarea textarea-bordered w-full h-40" placeholder="description"></textarea>
+                    </div>   
+                    <div class="flex space-x-2 mt-2">
+                      <button class="btn btn-sm btn-success w-[100px] text-white" onclick="updateDescription()">save</button>
                     </div>
                   </div>
                   <div class="mt-10">
+                    <div class="text-md font-semibold mb-2">comment</div>
                     <textarea class="textarea textarea-bordered w-full" placeholder="comment"></textarea>
-                    <div class="flex space-x-2">
-                      <button class="btn btn-sm btn-success w-[100px] text-white">บันทึก</button>
-                      <button class="btn btn-sm btn-error w-[100px] text-white">ยกเลิก</button>
+                    <div class="flex space-x-2 mt-2">
+                      <button class="btn btn-sm btn-success w-[100px] text-white">save</button>
                     </div>
                   </div>
                 </div>
@@ -403,9 +405,26 @@ function editStatus(id) {
         $("#status").empty().append("");
         $("#status").append(`${stage(id)}`)
         getMainTableResult()
+        alert('update success')
       }
     })
 }
+
+function updateDescription (){
+  let value = $("#description-data").val();
+  $.ajax({
+      url: '{% url "update-description" %}',
+      data: {
+        jobPk:jobId,
+        description:value
+      },
+      type: 'GET',
+      success:async function(data) {
+        alert('update success')
+      }
+    })
+}
+
 
 function showUserProfile (item) {
   console.log('asdasdasdasdasdasd => ',item)
@@ -490,10 +509,12 @@ async function getMainTableById(ticketId , pk){
         $("#status").empty().append("");
         $("#assignee").empty().append("");
         $("#report").empty().append("");
+        $("#description-value").empty().append("");
 
         $("#assignee").append(`${showUserProfile(assignName)}`)
         $("#report").append(`${showUserProfile(reporter)}`)
-
+        
+        $("#description-value").append(`<textarea id="description-data" placeholder="description" name="description" class="w-full mt-3 textarea textarea-bordered textarea-md">${result.description}</textarea>`)
         $("#title").append(`<div class="mb-5 text-2xl font-semibold">${result.search_name}</div>`)
         $("#date").append(`<div id="date" class="w-1/2">${formatDate(result.date)}</div>`)
         $("#search").append(`<div id="search" class="w-1/2">${result.search_name}</div>`)
@@ -512,6 +533,7 @@ async function getMainTableById(ticketId , pk){
    
       }})
 }
+
 
 function getMainTableResult() {
   $("#jobData").empty().append("");

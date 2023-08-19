@@ -14,5 +14,6 @@ urlpatterns = [
     path('ajax/getJobalertById/', getJobalertById, name='get-job-alert-id'),
     path('ajax/updateJobalertById/', updateJobalertById, name='update-job-alert-id'),
     path('ajax/updateStatus/', updateStatus, name='update-status'),
+    path('ajax/updateDescription/', updateDescription, name='update-description'),
     path('ajax/getMaintable/', getMainTableData, name='get-main-table-data'),
 ]

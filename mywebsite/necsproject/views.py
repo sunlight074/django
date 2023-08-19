@@ -6,6 +6,14 @@ from django.contrib.auth import authenticate, login
 from .models import *
 from django.http import JsonResponse
 
+def updateDescription(request):
+    ticket = jobAlert.objects.get(id=request.GET.get('jobPk',None))
+    ticket_object = ticket[0] if isinstance(ticket, tuple) else ticket
+    ticket_object.description = request.GET.get('description',None)
+    ticket_object.save()
+    
+    return JsonResponse(data="success",safe=False) 
+
 def updateStatus(request):
     ticket = jobAlert.objects.get(id=request.GET.get('jobPk',None))
     ticket_object = ticket[0] if isinstance(ticket, tuple) else ticket
