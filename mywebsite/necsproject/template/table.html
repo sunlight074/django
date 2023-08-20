@@ -7,33 +7,34 @@
 {% load static %}
 
 {% block content %}
-    <!-- <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+    <input type="checkbox" id="my_modal_6" class="modal-toggle" />
     <div class="modal">
       <div class="modal-box max-w-4xl px-16">
-        <h3 class="font-bold text-lg">Create New Ticket</h3>
+        <h3 class="font-bold text-lg">New Create</h3>
           <div class="flex mt-7 space-x-3">
             <div class="w-1/5  font-semibold">Job alert ID:</div>
             <div class="w-4/5">
-              <select class="select select-sm select-bordered w-full max-w-xs" name="job">
-                <option disabled selected>please select Job alert ID</option>
-                {% for item in data  %}
-                <option value="{{item.id}}">{{item.id}}</option>
-                {% endfor %}
-              </select>
+              <input type="text" autocomplete="off" placeholder="please input job alert id" class="input input-bordered w-full max-w-xs input-sm" />
             </div>
           </div>
           <div class="flex mt-7 space-x-3">
-            <div class="w-1/5 font-semibold">Category Attack:</div>
+            <div class="w-1/5 font-semibold">Date:</div>
             <div class="w-4/5">
-              <select class="select select-sm select-bordered w-full max-w-xs" name="category">
-                <option disabled selected>please select attack</option>
-                <option value="test1">test1</option>
-                <option value="test2">test2</option> 
-                <option value="test3">test3</option>
-                <option value="test4">test4</option>
-              </select>
+              <input type="datetime-local" autocomplete="off" placeholder="please input job alert id" class="input input-bordered w-full max-w-xs input-sm" />
             </div>
           </div> 
+          <div class="flex mt-7 space-x-3">
+            <div class="w-1/5  font-semibold">Search name:</div>
+            <div class="w-4/5">
+              <input type="text" autocomplete="off" placeholder="please input search name" class="input input-bordered w-full max-w-xs input-sm" />
+            </div>
+          </div>
+          <div class="flex mt-7 space-x-3">
+            <div class="w-1/5  font-semibold">Results:</div>
+            <div class="w-4/5">
+              <textarea id="description" placeholder="description" name="description" class="w-full mt-3 textarea textarea-bordered textarea-md"></textarea>
+            </div>
+          </div>
           <div class="flex mt-7 space-x-3">
             <div class="w-1/5  font-semibold">Severity:</div>
             <div class="w-4/5">
@@ -75,17 +76,18 @@
               <label for="my_modal_6" class="btn">Close</label>
           </div>   
       </div>
-    </div> -->
-    <!-- <div>
-      <label class="btn btn-sm" for="my_modal_6">Create
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 ml-2 stroke-current"> 
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path> 
-        </svg>
-      </label>
-    </div> -->
-    <h1 class="text-3xl mb-10 ml-10 mt-10 font-bold">Main Table</h1>
+    </div>
+    <h1 class="text-3xl mb-10 ml-10 mt-10 font-bold">Main Table</h1> 
     <div class="flex space-x-20 mt-5 items-center mx-10">
-      <div class="grid grid-cols-2 gap-3"> 
+      <div class="grid grid-cols-3 gap-3"> 
+        <label class="btn btn-ghost btn-sm w-[120px]" for="my_modal_6">
+          <div class="flex space-x-2 items-center">
+            <div class="text-sm font-semibold normal-case">Create</div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 ml-2 stroke-current"> 
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path> 
+            </svg>
+          </div>
+        </label>
         <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px]">
               <div class="flex space-x-2 items-center" id="filterPerson">
