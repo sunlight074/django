@@ -23,9 +23,25 @@ def updateStatus(request):
     return JsonResponse(data="success",safe=False)
 
 def getMainTableData(request):
-    jobData = jobAlert.objects.all() #เป็นฟังก์ชันสำหรับการดึงข้อมูล
-    data_json = serializers.serialize('json', jobData) #แปลงข้อมูลให้เป็น json
-    return JsonResponse(data_json,safe=False) #return คือการส่งข้อมูลกลับ
+    severity = request.GET.get('severity', None) 
+    person = request.GET.get('person', None)
+
+    if severity and person:
+        data = jobAlert.objects.filter(severity=severity ,assign=person)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif severity:
+        data = jobAlert.objects.filter(severity=severity)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    elif person:
+        data = jobAlert.objects.filter(assign=person)
+        data_json = serializers.serialize('json', data)
+        return JsonResponse(data_json,safe=False)
+    else:  
+        jobData = jobAlert.objects.all() #เป็นฟังก์ชันสำหรับการดึงข้อมูล
+        data_json = serializers.serialize('json', jobData) #แปลงข้อมูลให้เป็น json
+        return JsonResponse(data_json,safe=False) #return คือการส่งข้อมูลกลับ
 
 def updateJobalertById(request):
     ticket = jobAlert.objects.get(id=request.GET.get('jobPk',None))

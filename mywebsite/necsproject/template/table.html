@@ -7,7 +7,7 @@
 {% load static %}
 
 {% block content %}
-    <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+    <!-- <input type="checkbox" id="my_modal_6" class="modal-toggle" />
     <div class="modal">
       <div class="modal-box max-w-4xl px-16">
         <h3 class="font-bold text-lg">Create New Ticket</h3>
@@ -75,29 +75,73 @@
               <label for="my_modal_6" class="btn">Close</label>
           </div>   
       </div>
-    </div>
-    <h1 class="text-3xl mb-10 ml-10 mt-10 font-bold">Main Table</h1>
-    <div class="flex space-x-20 mt-5 items-center mx-10">
-      <div class="grid grid-cols-3 gap-3">
-        <div>
-        <label class="btn btn-sm" for="my_modal_6">Create
+    </div> -->
+    <!-- <div>
+      <label class="btn btn-sm" for="my_modal_6">Create
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 ml-2 stroke-current"> 
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path> 
         </svg>
       </label>
-        </div>
-        <div>
-          <button class="btn btn-ghost btn-sm">
-            <div class="font-semibold">Person</div>
-            <img class="w-5 h-5" src="{% static 'image/user.png' %}">
-          </button>
-        </div>
-        <div>
-          <button class="btn btn-ghost btn-sm">
-            <div class="font-semibold">Filter</div>
-            <img class="w-5 h-5" src="{% static 'image/filter.png' %}">
-          </button>
-        </div>
+    </div> -->
+    <h1 class="text-3xl mb-10 ml-10 mt-10 font-bold">Main Table</h1>
+    <div class="flex space-x-20 mt-5 items-center mx-10">
+      <div class="grid grid-cols-2 gap-3"> 
+        <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px]">
+              <div class="flex space-x-2 items-center" id="filterPerson">
+                <div class="text-sm font-semibold normal-case">Person</div>
+                <img class="w-4 h-4" src="{% static 'image/user.png' %}">
+              </div>
+            </label>
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <div class="flex items-center">
+                  <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+                  <button class="text-lg" type="submit" name="person" value="Wanee" onclick="filterPerson(2)">wanee</button>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PL</div>
+                  <button class="text-lg" type="submit" name="person" value="Plaifah" onclick="filterPerson(3)">plaifah</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost  btn-sm w-[120px]">
+              <div class="flex space-x-2 items-center" id="filterSeverity">
+                <div class="text-sm font-semibold normal-case">Filter</div>
+                <img class="w-4 h-4" src="{% static 'image/filter.png' %}">
+              </div>
+            </label>
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-green-700"></div>
+                  <button type="submit" name="severity" value="Low" onclick="filterSeverity('Low')">Low</button>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
+                  <button type="submit" name="severity" value="Medium" onclick="filterSeverity('Medium')">Medium</button>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+                  <button type="submit" name="severity" value="High" onclick="filterSeverity('High')">High</button>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center space-x-2">
+                  <div class="h-5 w-5 rounded-full bg-red-600"></div>
+                  <button type="submit" name="severity" value="Critical" onclick="filterSeverity('Critical')">Critical</button>
+                </div>
+              </li>
+            </ul>
+          </div>
       </div>
     </div>
     <div class="overflow-x-auto mt-10 mx-10">
@@ -215,6 +259,9 @@
 <!-- <script src="{% static 'controller/table.js' %}"></script> -->
 <script>
   let jobId = null
+  let person = null
+  let severity = null
+
   function showStatus(status) {
     switch (status) {
         case 'Escalation': return (`
@@ -478,6 +525,78 @@ async function getUserInfo(id) {
   return result
 }
 
+function filterPerson(data){
+  person = data
+  getMainTableResult()
+
+  $("#filterPerson").empty().append("");
+
+  if(data ===  2){
+    $("#filterPerson").append(`
+    <div class="flex space-x-2 items-center">
+      <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
+      <div class="text-sm font-semibold normal-case">wanee</div>
+    </div>
+    `)
+  }
+  if(data ===  3){
+    $("#filterPerson").append(`
+    <div class="flex space-x-2 items-center">
+      <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PS</div>
+      <div class="text-sm font-semibold normal-case">plaifah</div>
+    </div>
+    `)
+  }
+  if(data ===  4){
+    $("#filterPerson").append(`
+    <div class="flex space-x-2 items-center">
+      <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
+      <div class="text-sm font-semibold normal-case">unassigned</div>
+    </div>
+    `)
+  }
+}
+
+function filterSeverity(data) {
+  severity = data
+  getMainTableResult()
+
+  $("#filterSeverity").empty().append("");
+
+  if(data ===  'Low'){
+    $("#filterSeverity").append(`
+    <div class="flex items-center space-x-2">
+      <div class="h-5 w-5 rounded-full bg-green-700"></div>
+      <div class="text-sm font-semibold normal-case">Low</div>
+    </div>
+    `)
+  }
+  if(data ===  'Medium'){
+    $("#filterSeverity").append(`
+    <div class="flex items-center space-x-2">
+      <div class="h-5 w-5 rounded-full bg-yellow-500"></div>
+      <div class="text-sm font-semibold normal-case">Medium</div>
+    </div>
+    `)
+  }
+  if(data ===  'High'){
+    $("#filterSeverity").append(`
+    <div class="flex items-center space-x-2">
+      <div class="h-5 w-5 rounded-full bg-orange-500"></div>
+      <div class="text-sm font-semibold normal-case">High</div>
+    </div>
+    `)
+  }
+  if(data ===  'Critical'){
+    $("#filterSeverity").append(`
+    <div class="flex items-center space-x-2">
+      <div class="h-5 w-5 rounded-full bg-red-600"></div>
+      <div class="text-sm font-semibold normal-case">Critical</div>
+    </div>
+    `)
+  }
+}
+
 async function getMainTableById(ticketId , pk){  
   jobId = pk
   let assignName = null
@@ -537,9 +656,15 @@ async function getMainTableById(ticketId , pk){
 
 function getMainTableResult() {
   $("#jobData").empty().append("");
+    console.log('person',person)
+    console.log('severity',severity)
     $.ajax({
         url: '/ajax/getMaintable/',
         type: 'GET',
+        data:{
+          person,
+          severity
+        },
         success: async function (data) {
             const result = JSON.parse(data)
             for (var i = 0; i < result.length; i++) {
