@@ -10,33 +10,36 @@
     <input type="checkbox" id="my_modal_6" class="modal-toggle" />
     <div class="modal">
       <div class="modal-box max-w-4xl px-16">
-        <h3 class="font-bold text-lg">New Create</h3>
+       <form method="post">
+          {% csrf_token %}
+          <h3 class="font-bold text-lg">New Create</h3>
           <div class="flex mt-7 space-x-3">
             <div class="w-1/5  font-semibold">Job alert ID:</div>
             <div class="w-4/5">
-              <input type="text" autocomplete="off" placeholder="please input job alert id" class="input input-bordered w-full max-w-xs input-sm" />
+              <input type="text" name="job-id" id="job-id" autocomplete="off" placeholder="please input job alert id" class="input input-bordered w-full max-w-xs input-sm" />
             </div>
           </div>
           <div class="flex mt-7 space-x-3">
             <div class="w-1/5 font-semibold">Date:</div>
             <div class="w-4/5">
-              <input type="datetime-local" autocomplete="off" placeholder="please input job alert id" class="input input-bordered w-full max-w-xs input-sm" />
+              <input type="datetime-local" name="date" autocomplete="off" placeholder="please input job alert id" class="input input-bordered w-full max-w-xs input-sm" />
             </div>
           </div> 
           <div class="flex mt-7 space-x-3">
             <div class="w-1/5  font-semibold">Search name:</div>
             <div class="w-4/5">
-              <input type="text" autocomplete="off" placeholder="please input search name" class="input input-bordered w-full max-w-xs input-sm" />
+              <input type="text" name="search-name" autocomplete="off" placeholder="please input search name" class="input input-bordered w-full max-w-xs input-sm" />
             </div>
           </div>
           <div class="flex mt-7 space-x-3">
             <div class="w-1/5  font-semibold">Results:</div>
             <div class="w-4/5">
-              <textarea id="description" placeholder="description" name="description" class="w-full mt-3 textarea textarea-bordered textarea-md"></textarea>
+              <textarea id="Results" placeholder="Results" name="result" class="w-full mt-3 textarea textarea-bordered textarea-md"></textarea>
             </div>
           </div>
           <div class="flex mt-7 space-x-3">
             <div class="w-1/5  font-semibold">Severity:</div>
+            
             <div class="w-4/5">
               <select class="select select-sm select-bordered w-full max-w-xs" name="severity">
                 <option disabled selected>please select severity</option>
@@ -48,33 +51,38 @@
             </div>
           </div>
           <div class="flex mt-7 space-x-3">
-            <div class="w-1/5  font-semibold">Assignee</div>
+            <div class="w-1/5  font-semibold">Assignee:</div>
             <div class="w-4/5">
               <select class="select select-sm select-bordered w-full max-w-xs" name="assignee">
                 <option disabled selected>please select Assignee</option>
-                <option value="wanee">wanee</option>
-                <option value="plaifah">plaifah</option>
+                <option value="2">wanee</option>
+                <option value="3">plaifah</option>
               </select>
             </div>
           </div>
           <div class="flex mt-7 space-x-3">
-            <div class="w-1/5  font-semibold">Reporter</div>
+            <div class="w-1/5  font-semibold">Reporter:</div>
             <div class="w-4/5">
               <select class="select select-sm select-bordered w-full max-w-xs" name="reporter">
                 <option disabled selected>please select Reporter</option>
-                <option value="wanee">wanee</option>
-                <option value="plaifah">plaifah</option>
+                <option value="2">wanee</option>
+                <option value="3">plaifah</option>
               </select>
             </div>
           </div>
-          <div class="font-semibold mt-7">Description</div>
-          <textarea id="description" placeholder="description" name="description" class="w-full mt-3 textarea textarea-bordered textarea-md"></textarea>
+          <div class="flex mt-7 space-x-3">
+            <div class="w-1/5  font-semibold">Description:</div>
+            <div class="w-4/5">
+              <textarea id="description" placeholder="description" name="description" class="w-full mt-3 textarea textarea-bordered textarea-md"></textarea>
+            </div>
+          </div>     
           <div class="modal-action">
               <label for="my_modal_6">
                 <button class="btn btn-success" type="submit" name="create">Create</button>
               </label>
               <label for="my_modal_6" class="btn">Close</label>
-          </div>   
+          </div>  
+       </form> 
       </div>
     </div>
     <h1 class="text-3xl mb-10 ml-10 mt-10 font-bold">Main Table</h1> 
@@ -600,6 +608,8 @@ function filterSeverity(data) {
 }
 
 async function getMainTableById(ticketId , pk){  
+  console.log(ticketId)
+  console.log(pk)
   jobId = pk
   let assignName = null
   let reporter = null
@@ -610,6 +620,7 @@ async function getMainTableById(ticketId , pk){
       },
       type: 'GET',
       success:async function(data) {
+        console.log('data',data)
         const result = JSON.parse(data)[0].fields
         console.log('data = ',result)
 
@@ -620,6 +631,8 @@ async function getMainTableById(ticketId , pk){
         await getUserInfo(result.report).then((value) => {
           reporter = value
             })
+        
+        const normalResultlink = result.result_link ?  result.result_link : '-'
 
         $("#title").empty().append("");
         $("#date").empty().append("");
@@ -639,7 +652,7 @@ async function getMainTableById(ticketId , pk){
         $("#title").append(`<div class="mb-5 text-2xl font-semibold">${result.search_name}</div>`)
         $("#date").append(`<div id="date" class="w-1/2">${formatDate(result.date)}</div>`)
         $("#search").append(`<div id="search" class="w-1/2">${result.search_name}</div>`)
-        $("#link").append(`<div id="link" class="w-1/2">${result.result_link}</div>`)
+        $("#link").append(`<div id="link" class="w-1/2">${normalResultlink}</div>`)
         $("#severity").append(`<div id="severity" class="w-1/2">${showSeverity(result.severity)}</div>`)
           for (const [key, value] of Object.entries(JSON.parse(result.results))) {
           $("#result").append(
@@ -658,8 +671,6 @@ async function getMainTableById(ticketId , pk){
 
 function getMainTableResult() {
   $("#jobData").empty().append("");
-    console.log('person',person)
-    console.log('severity',severity)
     $.ajax({
         url: '/ajax/getMaintable/',
         type: 'GET',

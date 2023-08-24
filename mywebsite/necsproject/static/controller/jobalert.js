@@ -115,6 +115,12 @@ function filterSeverity(data) {
   }
 }
 
+function downloadPdf(){
+  $("#filterPerson").empty().append("");
+
+  console.log('test')
+}
+
 function filterPerson(data){
   person = data
   table()
@@ -145,6 +151,8 @@ function filterPerson(data){
     `)
   }
 }
+
+
 
 function addAssigneeValue(item){
   assignee_value = item

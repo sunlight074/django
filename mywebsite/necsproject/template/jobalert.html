@@ -82,6 +82,7 @@
               </li>
             </ul>
           </div>
+          <button type="submit" class="btn btn-ghost btn-sm w-[150px]">dowload PDF</button>
         </div>
       </div>
       <div class="overflow-x-auto mt-10 mx-10">
@@ -243,7 +244,13 @@
 
 
 {% block javascript %}
-<script src="{% static 'controller/jobalert.js' %}"></script>
+<script src="{% static 'controller/jobalert.js' %}">+
+
+  function downloadPdf(){
+    console.log('test')
+  }
+
+</script>
 {% endblock javascript %}
 
 

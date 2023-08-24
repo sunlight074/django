@@ -139,35 +139,30 @@ def jobalert(request):
     return render(request, 'jobalert.html')
 
 def maintable(request):
-    # if 'edit' in request.POST:
-    #     ticket = MANAGE_TICKET.objects.get(ticket_id=request.POST['edit'])
-    #     ticket_object = ticket[0] if isinstance(ticket, tuple) else ticket
-    #     ticket_object.status = request.POST['edit_status']
-    #     ticket_object.save()
-    # elif 'create' in request.POST:
-    #     job = request.POST['job']
-    #     category = request.POST['category']
-    #     severity = request.POST['severity']
-    #     assignee = request.POST['assignee']
-    #     #type = request.POST['type']
-    #     reporter = request.POST['reporter']
-    #     description = request.POST.get('description',False)
-        
-    #     obj = MANAGE_TICKET(
-    #         job_id=Job.objects.get(id= job),
-    #         category_attack=category,
-    #         severity=severity,
-    #         assignee=assignee,
-    #         #type=type,
-    #         reporter=reporter,
-    #         description=description)
-        
-    #     obj.save()
+    if request.method == 'POST':
+        jobId = request.POST.get('job-id',False)
+        date = request.POST['date']
+        searchName = request.POST['search-name']
+        result = request.POST['result']
+        severity = request.POST['severity']
+        assignee = request.POST.get('assignee',False)
+        reporter = request.POST.get('reporter',False)
+        description = request.POST.get('description',False)
 
-    # jobData = Job.objects.all().values()
-    # ticket = MANAGE_TICKET.objects.all().values()
-    # jobData = jobAlertDetail.objects.select_related('alert_detail_assign')
-    return render(request ,"table.html" , context={'data' : 'jobData' , 'ticket':""})
+        obj = jobAlert(
+        ticket_id=jobId,
+        date=date,
+        search_name=searchName,
+        severity=severity,
+        status='In progress',
+        results = result,
+        assign= User.objects.get(id=assignee),
+        report= User.objects.get(id=reporter),
+        description=description)
+        
+        obj.save()
+
+    return render(request ,"table.html")
 
 def kanban(request):
     return render(request ,"kanban.html")
