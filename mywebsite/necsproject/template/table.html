@@ -620,9 +620,7 @@ async function getMainTableById(ticketId , pk){
       },
       type: 'GET',
       success:async function(data) {
-        console.log('data',data)
         const result = JSON.parse(data)[0].fields
-        console.log('data = ',result)
 
         await getUserInfo(result.assign).then((value) => {
               assignName = value

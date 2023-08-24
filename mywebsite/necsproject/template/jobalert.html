@@ -22,31 +22,10 @@
             <input id="search" onkeyup="filterSearch()" type="text" name="search" autocomplete="off" placeholder="Search" class="pr-2 pl-8 font-medium placeholder-gray-500 text-black rounded-2xl border-none ring-1 ring-gray-500 focus:ring-2">
           <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost  btn-sm  w-[120px]">
-              <div class="flex space-x-2 items-center" id="filterPerson">
-                <div class="text-sm font-semibold normal-case">Person</div>
-                <img class="w-4 h-4" src="{% static 'image/user.png' %}">
+              <div class="flex space-x-2 items-center">
+                <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">UN</div>
+                <div class="text-sm font-semibold normal-case">unassigned</div>
               </div>
-            </label>
-            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-              <li>
-                <div class="flex items-center">
-                  <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
-                  <button class="text-lg" type="submit" name="person" value="Wanee" onclick="filterPerson(2)">wanee</button>
-                </div>
-              </li>
-              <li>
-                <div class="flex items-center">
-                  <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PL</div>
-                  <button class="text-lg" type="submit" name="person" value="Plaifah" onclick="filterPerson(3)">plaifah</button>
-                </div>
-              </li>
-              <li>
-                <div class="flex items-center">
-                  <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
-                  <button class="text-lg" type="submit" name="person" value="Unassigned" onclick="filterPerson(4)">Unassigned</button>
-                </div>
-              </li>
-            </ul>
           </div>
           <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost  btn-sm w-[120px]">
