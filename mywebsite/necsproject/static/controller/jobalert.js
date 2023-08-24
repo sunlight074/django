@@ -1,5 +1,5 @@
 let severity = null
-let person = null
+let person = 4
 let assignee_value = null
 let reporter_value = null
 let app_value = null
@@ -120,38 +120,6 @@ function downloadPdf(){
 
   console.log('test')
 }
-
-function filterPerson(data){
-  person = data
-  table()
-  $("#filterPerson").empty().append("");
-
-  if(data ===  2){
-    $("#filterPerson").append(`
-    <div class="flex space-x-2 items-center">
-      <div class="text-[10px] bg-blue-500 w-6 h-6 p-1 rounded-full text-white text-center">WN</div>
-      <div class="text-sm font-semibold normal-case">wanee</div>
-    </div>
-    `)
-  }
-  if(data ===  3){
-    $("#filterPerson").append(`
-    <div class="flex space-x-2 items-center">
-      <div class="text-[10px] bg-red-500 w-6 h-6 p-1 rounded-full text-white text-center">PS</div>
-      <div class="text-sm font-semibold normal-case">plaifah</div>
-    </div>
-    `)
-  }
-  if(data ===  4){
-    $("#filterPerson").append(`
-    <div class="flex space-x-2 items-center">
-      <div class="text-[10px] bg-gray-500 w-6 h-6 p-1 rounded-full text-white text-center">US</div>
-      <div class="text-sm font-semibold normal-case">unassigned</div>
-    </div>
-    `)
-  }
-}
-
 
 
 function addAssigneeValue(item){

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 from django.http import HttpResponse
 from django.core import serializers
 from django.views.generic import View
@@ -39,7 +40,7 @@ def getMainTableData(request):
         data_json = serializers.serialize('json', data)
         return JsonResponse(data_json,safe=False)
     else:  
-        jobData = jobAlert.objects.all() #เป็นฟังก์ชันสำหรับการดึงข้อมูล
+        jobData = jobAlert.objects.filter(~Q(assign=4)) # เป็นฟังก์ชันสำหรับการดึงข้อมูล
         data_json = serializers.serialize('json', jobData) #แปลงข้อมูลให้เป็น json
         return JsonResponse(data_json,safe=False) #return คือการส่งข้อมูลกลับ
 
@@ -68,11 +69,11 @@ def getUserInfo(request):
 
 def getJobalertData(request):
     severity = request.GET.get('severity', None) 
-    person = request.GET.get('person', None)
+    person = 4 #unassigned
     search = request.GET.get('search', None)
 
     if severity and person and search:
-        data = jobAlert.objects.filter(severity=severity ,assign=person ,search_name__icontains=search)
+        data = jobAlert.objects.filter(Q(severity=severity) & Q(assign=person) & (Q(search_name__icontains=search) | Q(ticket_id__icontains=search)))
         data_json = serializers.serialize('json', data)
         return JsonResponse(data_json,safe=False)
     elif severity and person :
@@ -80,11 +81,11 @@ def getJobalertData(request):
         data_json = serializers.serialize('json', data)
         return JsonResponse(data_json,safe=False)
     elif severity and search :
-        data = jobAlert.objects.filter(severity=severity ,search_name__icontains=search)
+        data = jobAlert.objects.filter(Q(severity=severity) &(Q(search_name__icontains=search) | Q(ticket_id__icontains=search)))
         data_json = serializers.serialize('json', data)
         return JsonResponse(data_json,safe=False)
     elif person and search :
-        data = jobAlert.objects.filter(assign=person ,search_name__icontains=search)
+        data = jobAlert.objects.filter(Q(assign=person) & (Q(search_name__icontains=search) | Q(ticket_id__icontains=search)))
         data_json = serializers.serialize('json', data)
         return JsonResponse(data_json,safe=False)
     elif severity:
@@ -96,7 +97,7 @@ def getJobalertData(request):
         data_json = serializers.serialize('json', data)
         return JsonResponse(data_json,safe=False)
     elif search:
-        data = jobAlert.objects.filter(search_name__icontains=search)
+        data = jobAlert.objects.filter(Q(search_name__icontains=search) | Q(ticket_id__icontains=search))
         data_json = serializers.serialize('json', data)
         return JsonResponse(data_json,safe=False)
     else:
